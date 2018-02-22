@@ -1,0 +1,25 @@
+Random Seed = 5
+v2
+
+1.  05:10:32 | iteration=10000, pop_size=50, R1=0.5, R2=-0.5, V1=0.8, V2=-0.8
+1.  05:00:22 | iteration=10000, pop_size=50, R1=0.5, R2=-0.5, V1=1, V2=-1
+1.  05:00:22 | iteration=25000, pop_size=50, R1=0.55, R2=-0.55, V1=0.85, V2=-0.85
+1.  05:02:23 | iteration=25000, pop_size=50, R1=0.55, R2=-0.55, V1=1, V2=-1
+
+2947
+77
+Airport :  b'Hong Kong International Airport' | ChIJncZGzPPiAzQRnjaSGIKQ9fk
+Hotel :  b'InterContinental Hong Kong' | ChIJAAAAAOwABDQRP_PjmMCBYQo
+[7 5 4 6 9 8 1 0 3 2]
+[3 6 4 0 7 8 9 1 2 5]
+1 .  b'Avenue of Stars' | ChIJsyIrnPEABDQRzjValbVWEJo | 530
+2 .  b'Former Kowloon-Canton Railway Clock Tower' | ChIJ42dQa_MABDQRKKppWIjPPZA | 1229
+3 .  b'The Hong Kong Observation Wheel' | ChIJc06QK2IABDQRW2LpLccKBW0 | 648
+4 .  b'Central-Mid-Levels Escalators' | ChIJk1YpX3sABDQRcEUrangY1CY | 595
+5 .  b'Man Mo Temple' | ChIJkR_N-HsABDQR49-CU5m1ShU | 432
+6 .  b'Soho, Hong Kong' | ChIJLw9f3HoABDQRaFmq9tKvYdk | 402
+7 .  b'Lan Kwai Fong' | ChIJsQIjhnwABDQRCTVTm-GVzn8 | 2506
+8 .  b'Peak Tower' | ChIJR1J4iXMABDQRqBwOAYY2gAo | 1892
+9 .  b'Hong Kong Park' | ChIJiUQ842UABDQRLMc_re3N3-U | 3127
+10 .  b'Stanley Plaza' | ChIJFeOFHWyqBjQRkqeTNWDCsog |
+3758

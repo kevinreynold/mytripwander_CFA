@@ -1,0 +1,52 @@
+# mytripwander_CFA
+
+pip install numpy
+pip install pymysql
+
+urutan algoritma:
+1. input interest
+2. input jumlah orang
+3. input budget
+4. input start / end activities hours
+5. input tanggal berangkat
+6. input keberapa negara(starting city, pernegaranya berapa hari)
+7. lansung cari tiketnya yg paling murah
+8. untuk hotelnya dari algoritma dulu baru terakhir dicari harganya (algoritma hanya cari bintang 3 (low budget) & bintang 5 (high budget))
+9. sampai di airport estimasi urus2 60 menit
+9. dari airport langsung ke hotel dan sebaliknya
+10. kalau sampai di aiport lebih dari jam 6 malam, maka aktivitas lanjut besok
+
+11. algoritma hanya berjalan untuk 1 hari sementara
+12. dicek sampai berapa tempat sesuai dengan end activies hours-nya
+13. diberi kelonggaran 30 menit sampai jam berakhir
+14. kalau kurang maka diberi penalty setiap detiknya * 20
+
+
+Untuk algoritmanya :
+1. jadwal dibuat sampai penerbangan selanjutnya.
+2. setelah dari airport pasti langsung menuju hotel dan sebaliknya
+3. untuk hotelnya nanti diambil sesuai dengan rute yang diambil (paling dekat dengan rute yang diambil)
+4. catat dulu mau pergi ke tiap negara berapa hari terus beli tiketnya dulu
+   untuk hotelnya tinggal cek bintang 3 atau 5
+5. setiap algoritma dimulai penerbangan (kalo pindah negara buat baru lagi terus digabung)
+6. diakhiri ke airport selanjutnya
+7. cek kalo pindah kota harus cari hotel baru
+
+
+cek jam buka tutup
+semakin banyak tempat wisata perharinya maka semakin baik
+
+
+
+food
+average hours
+budget
+star activities hour
+jam buka tutup
+rundown
+interest
+
+currency
+ubah timezone
+flight api
+hotel api
