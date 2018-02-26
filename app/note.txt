@@ -27,11 +27,13 @@ FIX :
 Untuk algoritmanya :
 #. jadwal dibuat sampai penerbangan selanjutnya.
 #. setelah dari airport pasti langsung menuju hotel dan sebaliknya
+
 #. setelah sampai hotel kalau waktunya jam makan langsung pergi ke tempat makan
 #. untuk hotelnya nanti diambil sesuai dengan rute yang diambil (paling dekat dengan rute yang diambil)
 #. pergi makan malam sesuai dengan jam malam (bisa langsung pulang tanpa makan dan juga setelah makan juga bisa langsung pulang)
 #. bisa makan ditempat wisata yang terdapat tempat makan apabila sesuai dengan jam makan
 #. tiap harinya selalu diakhiri hotel
+
 #. simpan seluruh data tiket sesuai dengan tanggal pergi lalu disesuaikan dengan jadwal
 #. untuk hotelnya tinggal cek bintang 3 atau 5
 #. setiap algoritma dimulai penerbangan (kalo pindah negara buat baru lagi terus digabung)

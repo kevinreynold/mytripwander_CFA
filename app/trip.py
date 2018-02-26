@@ -38,6 +38,8 @@ class trip():
         self.airport_stay_dur = airport_stay_dur
 
         self.penalty_opening_hours = 60 * 60 * 10 #(10 jam dalam detik)
+        self.penalty_eat_late = 500 #dalam detik)
+        self.penalty_go_home_late = 20 #dalam detik)
         self.lunch_time_lower = time(12,00)
         self.lunch_time_upper = time(14,00)
         self.dinner_time_lower = time(18,00)
@@ -101,7 +103,7 @@ class trip():
     # ada start - end activities hour
     # end activities nya itu hanya berlaku di tempat wisata saja.
     # UNTUK 1 HARI SAJA
-    # BLM BISA CEK KALO DATENGNYA TERLALU SORE
+    # sudah BISA CEK KALO DATENGNYA TERLALU SORE
     # cek jam buka-tutup juga
     # maksimalkan tempat wisata sampai jam habis
 
@@ -120,7 +122,7 @@ class trip():
 
     # JENIS PENALTY:
     # 1. SEMAKIN TELAT PULANG ADA PENALTY (SELISIH WAKTU * 20 DETIK)
-    # 2. SEMAKIN TELAT MAKAN ADA PENALTY (SELISIH WAKTU * 20 DETIK)
+    # 2. SEMAKIN TELAT MAKAN ADA PENALTY (SELISIH WAKTU * 500 DETIK)
     # 3. KALAU ADA TEMPAT WISATA YANG LAGI TUTUP TAPI DIKUNJUNGI (WAKTU + 10 JAM)
 
     # JENIS BENEFIT:
@@ -172,9 +174,11 @@ class trip():
         return result
 
     def isPlaceHasFood(self, input):
-        types = input.split(';')
-        check = [type for type in types if type == 'food']
-        return True if len(check) > 0 else False
+        if input['category_id'] != 4:
+            types = input['types'].split(';')
+            check = [type for type in types if type == 'food' or type == 'amusement_park']
+            return True if len(check) > 0 else False
+        return False
 
     def getDimension(self):
         return len(self.place) + len(self.hotel) + len(self.food)
@@ -259,7 +263,7 @@ class trip():
                 # antara sampai di hotel sudah ganti hari
                 # atau sampai di negara itu subuh2
                 current_time = current_time.replace(hour=hours, minute=minutes, second=0, microsecond=0)
-                if current_time.day - start_time.day > 0: # jika sampai di hotel sudah ganti hari
+                if (current_time.date() - start_time.date()).days > 0: # jika sampai di hotel sudah ganti hari
                     start_time += timedelta(days=1)
                     lower_treshold += timedelta(days=1)
                     upper_treshold += timedelta(days=1)
@@ -285,12 +289,12 @@ class trip():
                 if current_time.time() > self.dinner_time_lower:
                     dinner_upper = current_time.replace(hour=self.dinner_time_upper.hour, minute=self.dinner_time_upper.minute, second=0, microsecond=0) + timedelta(minutes=30)
                     if current_time > dinner_upper: #dinner
-                        penalty = int((current_time - dinner_upper).total_seconds()) * 20
+                        penalty = int((current_time - dinner_upper).total_seconds()) * self.penalty_eat_late
                         travel_time_total += penalty
                 else:
                     lunch_upper = current_time.replace(hour=self.lunch_time_upper.hour, minute=self.lunch_time_upper.minute, second=0, microsecond=0) + timedelta(minutes=30)
                     if current_time > lunch_upper: #dinner
-                        penalty = int((current_time - lunch_upper).total_seconds()) * 20
+                        penalty = int((current_time - lunch_upper).total_seconds()) * self.penalty_eat_late
                         travel_time_total += penalty
 
                 # cek jam buka tempat makan
@@ -334,56 +338,58 @@ class trip():
             # CEK MAKAN
             # cek habis makan bisa langsung pulang atau tidak
             # cek habis makan kalau waktunya ke airport langsung ke hotel
-            if (self.lunch_time_lower < current_time.time() < self.lunch_time_upper) or (self.dinner_time_lower < current_time.time() < self.dinner_time_upper):
-                if self.isPlaceHasFood(self.place[idx_place[i]]['types']) == True: # cek apakah ditempat saat ini ada makanan atau tidak
-                    if already_lunch == False or already_dinner == False: #makan dulu
+            if current_time.time() > self.lunch_time_lower:
+                if self.isPlaceHasFood(self.place[idx_place[i]]) == True: # cek apakah ditempat saat ini ada makanan atau tidak
+                    if (self.lunch_time_lower < current_time.time() < self.lunch_time_upper) or (self.dinner_time_lower < current_time.time() < self.dinner_time_upper):
+                        if already_lunch == False or already_dinner == False: #makan dulu
+                            already_dinner = True if already_lunch == True else False
+                            already_lunch = True
+                elif already_lunch == False or already_dinner == False: #makan dulu
+                    if (already_lunch == False and current_time.time() > self.lunch_time_lower) or (already_dinner == False and current_time.time() > self.dinner_time_lower):
+                        try:
+                            # kalau kelewat batas jam (toleransi 30 menit) -> distop (kasih tau stopnya dimana)
+                            # hitung jarak dari place ke tempat makan
+
+                            place_id = self.place[idx_place[i]]['place_id']
+                            food_id = self.food[idx_food[food_offset]]['place_id']
+                            travel_duration = self.distance[place_id][food_id]
+                            next_dest_stay_duration = self.food[idx_food[food_offset]]['avg_dur'] * 60
+                            predict_next_dest_time = current_time + timedelta(seconds=(travel_duration + next_dest_stay_duration))
+                            if predict_next_dest_time >= upper_treshold:
+                                stop_sign = i
+                                if current_time < lower_treshold:
+                                    penalty = int((lower_treshold - current_time).total_seconds()) * self.penalty_go_home_late
+                                    travel_time_total += penalty
+                                break
+                        except KeyError:
+                            result['fitness'] = -1
+                            return result
+
+                        travel_time_total += travel_duration + next_dest_stay_duration
+                        current_time += timedelta(seconds=(travel_duration + next_dest_stay_duration))
+
+                        # kasih penalty kalau makannya lewat batas
+                        if current_time.time() > self.dinner_time_lower:
+                            dinner_upper = current_time.replace(hour=self.dinner_time_upper.hour, minute=self.dinner_time_upper.minute, second=0, microsecond=0) + timedelta(minutes=30)
+                            if current_time > dinner_upper: #dinner
+                                penalty = int((current_time - dinner_upper).total_seconds()) * self.penalty_eat_late
+                                travel_time_total += penalty
+                        else:
+                            lunch_upper = current_time.replace(hour=self.lunch_time_upper.hour, minute=self.lunch_time_upper.minute, second=0, microsecond=0) + timedelta(minutes=30)
+                            if current_time > lunch_upper: #dinner
+                                penalty = int((current_time - lunch_upper).total_seconds()) * self.penalty_eat_late
+                                travel_time_total += penalty
+
+                        # cek jam buka tempat makan
+                        if self.isPlaceOpenRightNow(current_time, self.food[idx_food[food_offset]], start_time) == False:
+                            travel_time_total += self.penalty_opening_hours
+
+                        route.append(self.addRoute("food", idx_food[food_offset], False))
+                        just_eat = True
+                        eat_idx = food_offset
+                        food_offset += 1
                         already_dinner = True if already_lunch == True else False
                         already_lunch = True
-                elif already_lunch == False or already_dinner == False: #makan dulu
-                    try:
-                        # kalau kelewat batas jam (toleransi 30 menit) -> distop (kasih tau stopnya dimana)
-                        # hitung jarak dari place ke tempat makan
-
-                        place_id = self.place[idx_place[i]]['place_id']
-                        food_id = self.food[idx_food[food_offset]]['place_id']
-                        travel_duration = self.distance[place_id][food_id]
-                        next_dest_stay_duration = self.food[idx_food[food_offset]]['avg_dur'] * 60
-                        predict_next_dest_time = current_time + timedelta(seconds=(travel_duration + next_dest_stay_duration))
-                        if predict_next_dest_time >= upper_treshold:
-                            stop_sign = i
-                            if current_time < lower_treshold:
-                                penalty = int((lower_treshold - current_time).total_seconds()) * 20
-                                travel_time_total += penalty
-                            break
-                    except KeyError:
-                        result['fitness'] = -1
-                        return result
-
-                    travel_time_total += travel_duration + next_dest_stay_duration
-                    current_time += timedelta(seconds=(travel_duration + next_dest_stay_duration))
-
-                    # kasih penalty kalau makannya lewat batas
-                    if current_time.time() > self.dinner_time_lower:
-                        dinner_upper = current_time.replace(hour=self.dinner_time_upper.hour, minute=self.dinner_time_upper.minute, second=0, microsecond=0) + timedelta(minutes=30)
-                        if current_time > dinner_upper: #dinner
-                            penalty = int((current_time - dinner_upper).total_seconds()) * 20
-                            travel_time_total += penalty
-                    else:
-                        lunch_upper = current_time.replace(hour=self.lunch_time_upper.hour, minute=self.lunch_time_upper.minute, second=0, microsecond=0) + timedelta(minutes=30)
-                        if current_time > lunch_upper: #dinner
-                            penalty = int((current_time - lunch_upper).total_seconds()) * 20
-                            travel_time_total += penalty
-
-                    # cek jam buka tempat makan
-                    if self.isPlaceOpenRightNow(current_time, self.food[idx_food[food_offset]], start_time) == False:
-                        travel_time_total += self.penalty_opening_hours
-
-                    route.append(self.addRoute("food", idx_food[food_offset], False))
-                    just_eat = True
-                    eat_idx = food_offset
-                    food_offset += 1
-                    already_dinner = True if already_lunch == True else False
-                    already_lunch = True
 
             # cek kalau masih dalam batas end activities hour
             if i < place_count - 1: #hitung antar tempat wisata
@@ -402,7 +408,7 @@ class trip():
                                 stop_sign = i
                                 # kasih penalty -> setiap detiknya kekurangannya x 20
                                 if current_time < lower_treshold:
-                                    penalty = int((lower_treshold - current_time).total_seconds()) * 20
+                                    penalty = int((lower_treshold - current_time).total_seconds()) * self.penalty_go_home_late
                                     travel_time_total += penalty
                                 break
                         except KeyError:
@@ -423,7 +429,7 @@ class trip():
                             if predict_next_dest_time >= upper_treshold:
                                 stop_sign = i
                                 if current_time < lower_treshold:
-                                    penalty = int((lower_treshold - current_time).total_seconds()) * 20
+                                    penalty = int((lower_treshold - current_time).total_seconds()) * self.penalty_go_home_late
                                     travel_time_total += penalty
                                 break
                         except KeyError:

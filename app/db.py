@@ -5,7 +5,7 @@ class db():
         charSet = "utf8"
         cusrorType = pymysql.cursors.DictCursor
         self.conn = pymysql.connect(host=db_host, user=db_user, password=db_password, db=db_name, charset=charSet, cursorclass=cusrorType)
-
+        self.city = 'HKG'
         # test = json.loads('{"day":["0000-2400","0000-2400","0000-2400","0000-2400","0000-2400","0000-2400","0000-2400"]}')
         #
         # origin = "ChIJDfcSIsGSaDUR7DKMmkKpoxU"
@@ -16,8 +16,8 @@ class db():
     def getPlaceData(self): # list of dictionaries -> sementara negara hongkong saja
         try:
             with self.conn.cursor() as cursor:
-                sql = "SELECT * from place_test WHERE category_id = 2"
-                cursor.execute(sql)
+                sql = "SELECT * from place_test WHERE category_id = 2 AND city_code = %s"
+                cursor.execute(sql, (self.city))
                 result = cursor.fetchall()
                 return result
 
@@ -30,8 +30,8 @@ class db():
     def getAirportData(self): # list of dictionaries -> sementara negara hongkong saja
         try:
             with self.conn.cursor() as cursor:
-                sql = "SELECT * from place_test WHERE category_id = 1"
-                cursor.execute(sql)
+                sql = "SELECT * from place_test WHERE category_id = 1 AND city_code = %s"
+                cursor.execute(sql, (self.city))
                 result = cursor.fetchall()
                 return result
 
@@ -44,8 +44,8 @@ class db():
     def getFoodData(self): # list of dictionaries -> sementara negara hongkong saja
         try:
             with self.conn.cursor() as cursor:
-                sql = "SELECT * from place_test WHERE category_id = 3"
-                cursor.execute(sql)
+                sql = "SELECT * from place_test WHERE category_id = 3 AND city_code = %s"
+                cursor.execute(sql, (self.city))
                 result = cursor.fetchall()
                 return result
 
@@ -58,8 +58,8 @@ class db():
     def getHotelData(self): # list of dictionaries -> sementara negara hongkong saja
         try:
             with self.conn.cursor() as cursor:
-                sql = "SELECT * from place_test WHERE category_id = 4"
-                cursor.execute(sql)
+                sql = "SELECT * from place_test WHERE category_id = 4 AND city_code = %s"
+                cursor.execute(sql, (self.city))
                 result = cursor.fetchall()
                 return result
 
@@ -73,7 +73,7 @@ class db():
         try:
             with self.conn.cursor() as cursor:
                 sql =   "SELECT d.* FROM distance d, place_test p where d.origin = p.place_id and p.city_code = %s"
-                cursor.execute(sql, ('HKG'))
+                cursor.execute(sql, (self.city))
                 # result = cursor.fetchall()
                 # return result
 
