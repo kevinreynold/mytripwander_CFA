@@ -41,6 +41,20 @@ class db():
             # self.conn.close()
             print("Load Airport Data Success!!")
 
+    def getFoodData(self): # list of dictionaries -> sementara negara hongkong saja
+        try:
+            with self.conn.cursor() as cursor:
+                sql = "SELECT * from place_test WHERE category_id = 3 LIMIT 10"
+                cursor.execute(sql)
+                result = cursor.fetchall()
+                return result
+
+                # for idx, data in enumerate(result):
+                #     print(idx, ":", data["place_id"].encode("utf-8"))
+        finally:
+            # self.conn.close()
+            print("Load Food Data Success!!")
+
     def getHotelData(self): # list of dictionaries -> sementara negara hongkong saja
         try:
             with self.conn.cursor() as cursor:
