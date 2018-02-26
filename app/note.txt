@@ -4,7 +4,7 @@ pip install numpy
 pip install pymysql
 
 urutan algoritma:
-1. input interest
+1. input interest (interest culinary DIBUANG)
 2. input jumlah orang
 3. input budget
 4. input start / end activities hours
@@ -21,16 +21,22 @@ urutan algoritma:
 13. diberi kelonggaran 30 menit sampai jam berakhir
 14. kalau kurang maka diberi penalty setiap detiknya * 20
 
+########################################################################
+FIX :
 
 Untuk algoritmanya :
-1. jadwal dibuat sampai penerbangan selanjutnya.
-2. setelah dari airport pasti langsung menuju hotel dan sebaliknya
-3. untuk hotelnya nanti diambil sesuai dengan rute yang diambil (paling dekat dengan rute yang diambil)
-4. catat dulu mau pergi ke tiap negara berapa hari terus beli tiketnya dulu
-   untuk hotelnya tinggal cek bintang 3 atau 5
-5. setiap algoritma dimulai penerbangan (kalo pindah negara buat baru lagi terus digabung)
-6. diakhiri ke airport selanjutnya
-7. cek kalo pindah kota harus cari hotel baru
+#. jadwal dibuat sampai penerbangan selanjutnya.
+#. setelah dari airport pasti langsung menuju hotel dan sebaliknya
+#. setelah sampai hotel kalau waktunya jam makan langsung pergi ke tempat makan
+#. untuk hotelnya nanti diambil sesuai dengan rute yang diambil (paling dekat dengan rute yang diambil)
+#. pergi makan malam sesuai dengan jam malam (bisa langsung pulang tanpa makan dan juga setelah makan juga bisa langsung pulang)
+#. bisa makan ditempat wisata yang terdapat tempat makan apabila sesuai dengan jam makan
+#. tiap harinya selalu diakhiri hotel
+#. simpan seluruh data tiket sesuai dengan tanggal pergi lalu disesuaikan dengan jadwal
+#. untuk hotelnya tinggal cek bintang 3 atau 5
+#. setiap algoritma dimulai penerbangan (kalo pindah negara buat baru lagi terus digabung)
+#. diakhiri ke airport selanjutnya
+#. cek kalo pindah kota harus cari hotel baru
 
 
 cek jam buka tutup

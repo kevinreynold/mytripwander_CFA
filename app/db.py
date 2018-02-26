@@ -16,7 +16,7 @@ class db():
     def getPlaceData(self): # list of dictionaries -> sementara negara hongkong saja
         try:
             with self.conn.cursor() as cursor:
-                sql = "SELECT * from place_test WHERE category_id = 2 LIMIT 10"
+                sql = "SELECT * from place_test WHERE category_id = 2"
                 cursor.execute(sql)
                 result = cursor.fetchall()
                 return result
@@ -44,7 +44,7 @@ class db():
     def getFoodData(self): # list of dictionaries -> sementara negara hongkong saja
         try:
             with self.conn.cursor() as cursor:
-                sql = "SELECT * from place_test WHERE category_id = 3 LIMIT 10"
+                sql = "SELECT * from place_test WHERE category_id = 3"
                 cursor.execute(sql)
                 result = cursor.fetchall()
                 return result
@@ -58,7 +58,7 @@ class db():
     def getHotelData(self): # list of dictionaries -> sementara negara hongkong saja
         try:
             with self.conn.cursor() as cursor:
-                sql = "SELECT * from place_test WHERE category_id = 4 LIMIT 10"
+                sql = "SELECT * from place_test WHERE category_id = 4"
                 cursor.execute(sql)
                 result = cursor.fetchall()
                 return result

@@ -20,6 +20,15 @@ import numpy as np
 # print(close_hours)
 # print(isOpen)
 
+#test case
+ # 1. datang malam sampai dihotel malaml lanjut besok
+ # 2. datang malam sampai di hotel subuh2
+ # 3. datang subuh lanjut paginya
+ # 4. datang pagi
+ # 5. datang pagi dr hotel langsung makan siang
+ # 6. datang siang
+ # 7. datang sore dr hotel langsung makan malam
+
 start = datetime.today()
 np.random.seed(0)
 trip = trip(flight=flight("SUB", "HKG", (datetime.today()-timedelta(days=1)), (datetime.today()+timedelta(days=1)), "0950", "2130"), limit_night_next_day=time(18))
