@@ -22,7 +22,7 @@ import numpy as np
 
 start = datetime.today()
 np.random.seed(0)
-trip = trip(flight=flight("SUB", "HKG", (datetime.today()-timedelta(days=1)), (datetime.today()+timedelta(days=1)), "0950", "2030"), limit_night_next_day=time(18))
+trip = trip(flight=flight("SUB", "HKG", (datetime.today()-timedelta(days=1)), (datetime.today()+timedelta(days=1)), "0950", "2130"), limit_night_next_day=time(18))
 cfa = CFA(iteration=100, pop_size=50, R1=0.55, R2=-0.55, V1=1, V2=-1, problem=trip)
 cfa.run()
 

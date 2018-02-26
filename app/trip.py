@@ -110,6 +110,10 @@ class trip():
     # ubah format showResult dulu (1->airport, 2->tempat, 3->food, 4->hotel)
 
     # tambah food (asumsi makan 2 kali yaitu siang dan malam) -> paginya dianggap sudah breakfast
+    # kondisi makan :
+        # kalau masih berada ditempat wisata dan terdapat makanan(selama average_dur) -> maka sudah dianggap makan
+        # kalau blm makan cek jam (kalau berada dijam makan) -> cari tempat makan
+        # kalau diluar jam tempat makan -> cari tempat makan
 
     def addRoute(self, type, idx, is_stop=False):
         if type == "airport":
@@ -144,7 +148,7 @@ class trip():
         return result
 
     def getDimension(self):
-        return len(self.place) + len(self.hotel)
+        return len(self.place) + len(self.hotel) #+ len(self.food)
 
     def randomPopulation(self):
         return np.random.uniform(self.getLowerBound(), self.getUpperBound(), self.getDimension())
@@ -153,9 +157,14 @@ class trip():
         # ubah dulu ke index place
         place_count = len(self.place)
         hotel_count = len(self.hotel)
+        # food_count = len(self.food)
 
         idx_place = individual[0:place_count:1].argsort(kind='quicksort').argsort(kind='quicksort')
         idx_hotel = individual[place_count:].argsort(kind='quicksort').argsort(kind='quicksort')
+        # idx_hotel = individual[place_count:(place_count+hotel_count):1].argsort(kind='quicksort').argsort(kind='quicksort')
+        # idx_food = individual[(place_count+hotel_count):].argsort(kind='quicksort').argsort(kind='quicksort')
+
+        food_offset = 0
 
         #start / end date and hours
         start_time = self.start_date
@@ -211,11 +220,17 @@ class trip():
             if (current_time.time() > self.limit_night_next_day): #lebih dari limit jam
                 current_time = current_time + timedelta(days=1)
                 current_time = current_time.replace(hour=hours, minute=minutes, second=0, microsecond=0)
+                start_time += timedelta(days=1)
+                lower_treshold += timedelta(days=1)
+                upper_treshold += timedelta(days=1)
             elif (current_time.time() < time(hours,minutes)): #kalau sampai dihari yang sama tapi subuh
+                # antara sampai di hotel sudah ganti hari
+                # atau sampai di negara itu subuh2
                 current_time = current_time.replace(hour=hours, minute=minutes, second=0, microsecond=0)
-            start_time += timedelta(days=1)
-            lower_treshold += timedelta(days=1)
-            upper_treshold += timedelta(days=1)
+                if current_time.day - start_time.day > 0: # jika sampai di hotel sudah ganti hari
+                    start_time += timedelta(days=1)
+                    lower_treshold += timedelta(days=1)
+                    upper_treshold += timedelta(days=1)
             travel_time_total = 0
             route.append(self.addRoute("hotel", idx_hotel[0], True))
         else:
@@ -223,6 +238,9 @@ class trip():
 
         # HOTEL -> PLACE PERTAMA
         try:
+            # CEK MAKAN
+
+
             #hitung jarak dari hotel ke tempat wisata pertama
             hotel_id = self.hotel[idx_hotel[0]]['place_id']
             place_id = self.place[idx_place[0]]['place_id']
@@ -240,6 +258,8 @@ class trip():
             travel_time_total += stay_duration
             current_time += timedelta(seconds=stay_duration)
             route.append(self.addRoute("place", idx_place[i], False))
+
+            # CEK MAKAN
 
             # cek jam buka tutup
             # kalau misalnya lagi tutup maka diberi penalty travel_time + 10 jam
