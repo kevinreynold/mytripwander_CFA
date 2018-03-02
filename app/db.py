@@ -16,7 +16,7 @@ class db():
     def getPlaceData(self): # list of dictionaries -> sementara negara hongkong saja
         try:
             with self.conn.cursor() as cursor:
-                sql = "SELECT * from place_test WHERE category_id = 2 AND city_code = %s"
+                sql = "SELECT * from place WHERE category_id = 2 AND city_code = %s"
                 cursor.execute(sql, (self.city))
                 result = cursor.fetchall()
                 return result
@@ -30,7 +30,7 @@ class db():
     def getAirportData(self): # list of dictionaries -> sementara negara hongkong saja
         try:
             with self.conn.cursor() as cursor:
-                sql = "SELECT * from place_test WHERE category_id = 1 AND city_code = %s"
+                sql = "SELECT * from place WHERE category_id = 1 AND city_code = %s"
                 cursor.execute(sql, (self.city))
                 result = cursor.fetchall()
                 return result
@@ -44,7 +44,7 @@ class db():
     def getFoodData(self): # list of dictionaries -> sementara negara hongkong saja
         try:
             with self.conn.cursor() as cursor:
-                sql = "SELECT * from place_test WHERE category_id = 3 AND city_code = %s"
+                sql = "SELECT * from place WHERE category_id = 3 AND city_code = %s"
                 cursor.execute(sql, (self.city))
                 result = cursor.fetchall()
                 return result
@@ -58,7 +58,7 @@ class db():
     def getHotelData(self): # list of dictionaries -> sementara negara hongkong saja
         try:
             with self.conn.cursor() as cursor:
-                sql = "SELECT * from place_test WHERE category_id = 4 AND city_code = %s"
+                sql = "SELECT * from place WHERE category_id = 4 AND city_code = %s"
                 cursor.execute(sql, (self.city))
                 result = cursor.fetchall()
                 return result
@@ -72,7 +72,7 @@ class db():
     def getDistanceData(self): # list of dictionaries
         try:
             with self.conn.cursor() as cursor:
-                sql =   "SELECT d.* FROM distance d, place_test p where d.origin = p.place_id and p.city_code = %s"
+                sql =   "SELECT d.* FROM distance d, place p where d.origin = p.place_id and p.city_code = %s"
                 cursor.execute(sql, (self.city))
                 # result = cursor.fetchall()
                 # return result
