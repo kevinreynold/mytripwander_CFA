@@ -5,7 +5,7 @@ class db():
         charSet = "utf8"
         cusrorType = pymysql.cursors.DictCursor
         self.conn = pymysql.connect(host=db_host, user=db_user, password=db_password, db=db_name, charset=charSet, cursorclass=cusrorType)
-        self.city = 'HKG'
+        self.city = 'TPE'
         # test = json.loads('{"day":["0000-2400","0000-2400","0000-2400","0000-2400","0000-2400","0000-2400","0000-2400"]}')
         #
         # origin = "ChIJDfcSIsGSaDUR7DKMmkKpoxU"

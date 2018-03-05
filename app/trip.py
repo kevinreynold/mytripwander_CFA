@@ -22,7 +22,8 @@ class flight():
 class trip():
     def __init__(self, start_hour="0830", end_hour="2130",
                 flight=flight("SUB", "HKG", (datetime.today()-timedelta(days=1)), datetime.today(), "0950", "0950"),
-                flight2=flight("HKG", "SUB", (datetime.today()+timedelta(days=3)), (datetime.today()+timedelta(days=4)), "1850", "0950"), limit_night_next_day=time(18), hotel_stay_dur=60, airport_stay_dur=60): #hotel dan airport dalam menit
+                flight2=flight("HKG", "SUB", (datetime.today()+timedelta(days=3)), (datetime.today()+timedelta(days=4)), "1850", "0950"), limit_night_next_day=time(18), hotel_stay_dur=60, airport_stay_dur=60,
+                must_see=2, recreation=0, culture=0, nature=-2): #hotel dan airport dalam menit
         self.db_access = db()
         self.airport = self.db_access.getAirportData()
         self.place = self.db_access.getPlaceData()
@@ -42,13 +43,21 @@ class trip():
         self.hotel_stay_dur = hotel_stay_dur
         self.airport_stay_dur = airport_stay_dur
 
-        self.penalty_opening_hours = 60 * 60 * 20 #(10 jam dalam detik)
-        self.penalty_eat_late = 30  #dalam (detik)
-        self.penalty_go_home_late = 15  #dalam (detik)
+        self.penalty_opening_hours = 60 * 60 * 100 #(10 jam dalam detik)
+        self.penalty_eat_late = 25  #dalam (detik)
+        self.penalty_go_home_late = 7  #dalam (detik)
         self.lunch_time_lower = time(12,00)
         self.lunch_time_upper = time(14,00)
         self.dinner_time_lower = time(18,00)
         self.dinner_time_upper = time(20,00)
+
+        # range : -2 ~ 2
+        self.interest_multiplier = 5
+        self.must_see_interest = must_see * self.interest_multiplier
+        self.recreation_interest = recreation * self.interest_multiplier
+        self.culture_interest = culture * self.interest_multiplier
+        self.nature_interest = nature * self.interest_multiplier
+        self.total_interest = 2 * 4 * self.interest_multiplier
 
     def getLowerBound(self):
         return 0
@@ -201,6 +210,20 @@ class trip():
             return True if len(check) > 0 else False
         return False
 
+    def getPlaceInterestValue(self, input):
+        interests = input['interests'].split(';')
+        result = 0
+        for i in interests:
+            if i == "must_see":
+                result += self.must_see_interest
+            if i == "culture":
+                result += self.culture_interest
+            if i == "nature":
+                result += self.nature_interest
+            if i == "recreation":
+                result += self.recreation_interest
+        return result
+
     def getDimension(self):
         return len(self.place) + len(self.hotel) + len(self.food)
 
@@ -241,7 +264,10 @@ class trip():
 
         travel_time_total = 0
         list_time = [] # dalam detik
+        list_time_idx = []
         list_penalty = [] # dalam detik
+        list_penalty_idx = []
+        list_interest = []
 
         result = {}
         result['fitness'] = -1
@@ -250,6 +276,7 @@ class trip():
         result['is_too_late'] = False
         result['route'] = []
         result['misc'] = ""
+        result['misc2'] = []
         route = []
 
         # AIRPORT -> HOTEL
@@ -257,7 +284,8 @@ class trip():
             # urus2 barang di airport sekitar 1 jam
             travel_time_total += self.airport_stay_dur * 60
             current_time += timedelta(seconds=(self.airport_stay_dur * 60))
-
+            list_time.append(self.airport_stay_dur * 60)
+            list_time_idx.append(current_time.time().__str__())
             route.append(self.addRoute("airport", 0, False))
 
             #hitung jarak dari airport ke hotel
@@ -267,6 +295,10 @@ class trip():
             travel_time_total += travel_duration
             travel_time_total += self.hotel_stay_dur * 60 #checkin dkk
             current_time += timedelta(seconds=(travel_duration + (self.hotel_stay_dur * 60)))
+            list_time.append(travel_duration)
+            list_time_idx.append(current_time.time().__str__())
+            list_time.append(self.hotel_stay_dur * 60)
+            list_time_idx.append(current_time.time().__str__())
 
         except KeyError:
             result['fitness'] = -1
@@ -294,9 +326,15 @@ class trip():
                     lower_treshold += timedelta(days=1)
                     upper_treshold += timedelta(days=1)
             travel_time_total = 0
+            list_time.clear()
             route.append(self.addRoute("hotel", idx_hotel[0], True))
         else:
             route.append(self.addRoute("hotel", idx_hotel[0], False))
+
+        #kalau sampai di hotelnya sore dianggap sudah makan siang
+        dinner_lower = current_time.replace(hour=self.dinner_time_lower.hour, minute=self.dinner_time_lower.minute, second=0, microsecond=0)
+        if current_time > dinner_lower:
+            already_lunch = True
 
         #per perharinya
         # MULAI WHILE
@@ -304,46 +342,87 @@ class trip():
             # HOTEL -> PLACE PERTAMA
             try:
                 # CEK MAKAN
-                if (self.lunch_time_lower < current_time.time() < self.lunch_time_upper) or (self.dinner_time_lower < current_time.time() < self.dinner_time_upper): # makan dulu
+                # if (self.lunch_time_lower < current_time.time() < self.lunch_time_upper) or (self.dinner_time_lower < current_time.time() < self.dinner_time_upper): # makan dulu
+                if current_time.time() > self.lunch_time_lower: # makan dulu
                     if current_time.time() > self.dinner_time_lower:
                         already_dinner = True
+
                     #hitung jarak dari hotel ke tempat makan
                     hotel_id = self.hotel[idx_hotel[0]]['place_id']
                     food_id = self.food[idx_food[food_offset]]['place_id']
                     travel_duration = self.distance[hotel_id][food_id]
                     travel_time_total += travel_duration
-                    current_time += timedelta(seconds=(travel_duration + (self.food[idx_food[food_offset]]['avg_dur'] * 60)))
+                    current_time += timedelta(seconds=(travel_duration))
+                    list_time.append(travel_duration)
+                    list_time_idx.append(current_time.time().__str__())
+
+                    # #cek kalau makan siangnya telat
+                    # if current_time.time() > self.lunch_time_upper and already_lunch == False:
+                    #     lunch_upper = current_time.replace(hour=self.lunch_time_upper.hour, minute=self.lunch_time_upper.minute, second=0, microsecond=0)
+                    #     if current_time > lunch_upper: #dinner
+                    #         penalty = int((current_time - lunch_upper).total_seconds()) * (self.penalty_eat_late / 2)
+                    #         travel_time_total += penalty
+                    #         list_penalty.append(penalty)
+                    #         list_penalty_idx.append(self.addRoute("food", idx_food[food_offset], False))
+                    #         result['misc'] = '44'
+                    # #cek kalau makan malamnya telat
+                    # if current_time.time() > self.dinner_time_upper and already_dinner == False:
+                    #     dinner_upper = current_time.replace(hour=self.dinner_time_upper.hour, minute=self.dinner_time_upper.minute, second=0, microsecond=0)
+                    #     if current_time > dinner_upper: #dinner
+                    #         penalty = int((current_time - dinner_upper).total_seconds()) * (self.penalty_eat_late / 2)
+                    #         travel_time_total += penalty
+                    #         list_penalty.append(penalty)
+                    #         list_penalty_idx.append(self.addRoute("food", idx_food[food_offset], False))
+                    #         result['misc'] = '22'
+
+                    travel_time_total += (self.food[idx_food[food_offset]]['avg_dur'] * 60)
+                    current_time += timedelta(seconds=((self.food[idx_food[food_offset]]['avg_dur'] * 60)))
+                    list_time.append((self.food[idx_food[food_offset]]['avg_dur'] * 60))
+                    list_time_idx.append(current_time.time().__str__())
 
                     # cek jam buka tempat makan
                     if self.isPlaceOpenRightNow(current_time, self.food[idx_food[food_offset]], start_time) == False:
                         travel_time_total += self.penalty_opening_hours
-
-                    #hitung jarak dari tempat makan ke tempat wisata pertama
-                    food_id = self.food[idx_food[food_offset]]['place_id']
-                    place_id = self.place[idx_place[0]]['place_id']
-                    travel_duration = self.distance[food_id][place_id]
-                    travel_time_total += travel_duration
-                    current_time += timedelta(seconds=(travel_duration))
+                        list_penalty.append(self.penalty_opening_hours)
+                        list_penalty_idx.append(self.addRoute("food", idx_food[food_offset], False))
+                        result['misc'] = '11'
 
                     route.append(self.addRoute("food", idx_food[food_offset], False))
+                    eat_idx = food_offset
                     food_offset += 1
                     already_lunch = True
 
                     # kasih penalty kalau makannya lewat batas
-                    if current_time.time() > self.dinner_time_upper and already_dinner == False:
-                        travel_time_total += 1000 * self.penalty_eat_late
+                    # if current_time.time() > self.dinner_time_upper and already_dinner == False:
+                    #     travel_time_total += 600 * self.penalty_eat_late
+                    #     list_penalty.append(600 * self.penalty_eat_late)
+                    #     list_penalty_idx.append(self.addRoute("food", idx_food[eat_idx], False))
+                    #     result['misc'] = '22'
                     # elif current_time.time() > self.dinner_time_upper and already_dinner == True:
                     #     dinner_upper = current_time.replace(hour=self.dinner_time_upper.hour, minute=self.dinner_time_upper.minute, second=0, microsecond=0) + timedelta(minutes=30)
                     #     if current_time > dinner_upper: #dinner
                     #         penalty = int((current_time - dinner_upper).total_seconds()) * self.penalty_eat_late
                     #         travel_time_total += penalty
-                    elif current_time.time() > self.lunch_time_upper and already_lunch == True and already_dinner == False:
-                        lunch_upper = current_time.replace(hour=self.lunch_time_upper.hour, minute=self.lunch_time_upper.minute, second=0, microsecond=0) + timedelta(minutes=30)
-                        if current_time > lunch_upper: #dinner
-                            penalty = int((current_time - lunch_upper).total_seconds()) * self.penalty_eat_late
-                            travel_time_total += penalty
+                    #         list_penalty.append(penalty)
+                    #         list_penalty_idx.append(self.addRoute("food", idx_food[eat_idx], False))
+                    #         result['misc'] = '33'
+                    # elif current_time.time() > self.lunch_time_upper and already_lunch == True and already_dinner == False:
+                    #     lunch_upper = current_time.replace(hour=self.lunch_time_upper.hour, minute=self.lunch_time_upper.minute, second=0, microsecond=0) + timedelta(minutes=30)
+                    #     if current_time > lunch_upper: #dinner
+                    #         penalty = int((current_time - lunch_upper).total_seconds()) * self.penalty_eat_late
+                    #         travel_time_total += penalty
+                    #         list_penalty.append(penalty)
+                    #         list_penalty_idx.append(self.addRoute("food", idx_food[eat_idx], False))
+                    #         result['misc'] = '44'
 
-
+                    #hitung jarak dari tempat makan ke tempat wisata pertama
+                    food_id = self.food[idx_food[eat_idx]]['place_id']
+                    place_id = self.place[idx_place[0]]['place_id']
+                    travel_duration = self.distance[food_id][place_id]
+                    travel_time_total += travel_duration
+                    current_time += timedelta(seconds=(travel_duration))
+                    list_time.append(travel_duration)
+                    list_time_idx.append(current_time.time().__str__())
                 else:
                     #hitung jarak dari hotel ke tempat wisata pertama
                     hotel_id = self.hotel[idx_hotel[0]]['place_id']
@@ -351,6 +430,8 @@ class trip():
                     travel_duration = self.distance[hotel_id][place_id]
                     travel_time_total += travel_duration
                     current_time += timedelta(seconds=(travel_duration))
+                    list_time.append(travel_duration)
+                    list_time_idx.append(current_time.time().__str__())
             except KeyError:
                 result['fitness'] = -1
                 return result
@@ -360,24 +441,27 @@ class trip():
             for i in range(place_offset, place_count):
                 #cek makan ditempat wisata
                 if self.isPlaceHasFood(self.place[idx_place[i]]) == True: # cek apakah ditempat saat ini ada makanan atau tidak
-                    result['misc'] = "a"
                     if (self.lunch_time_lower < current_time.time() < self.lunch_time_upper) or (self.dinner_time_lower < current_time.time() < self.dinner_time_upper):
                         if already_lunch == False or already_dinner == False: #makan dulu
                             already_dinner = True if already_lunch == True else False
                             already_lunch = True
-                            result['misc'] = "b"
-
 
                 #tambah average_duration
                 stay_duration = self.place[idx_place[i]]['avg_dur'] * 60
                 travel_time_total += stay_duration
                 current_time += timedelta(seconds=stay_duration)
+                list_time.append(stay_duration)
+                list_time_idx.append(current_time.time().__str__())
+                list_interest.append(self.getPlaceInterestValue(self.place[idx_place[i]]))
                 route.append(self.addRoute("place", idx_place[i], False))
 
                 # cek jam buka tutup
                 # kalau misalnya lagi tutup maka diberi penalty travel_time + 10 jam
                 if self.isPlaceOpenRightNow(current_time, self.place[idx_place[i]], start_time) == False:
                     travel_time_total += self.penalty_opening_hours
+                    list_penalty.append(self.penalty_opening_hours)
+                    list_penalty_idx.append(self.addRoute("place", idx_place[i], False))
+                    result['misc'] = '55'
 
                 # CEK MAKAN
                 # cek habis makan bisa langsung pulang atau tidak
@@ -398,17 +482,50 @@ class trip():
                                     if current_time < lower_treshold:
                                         penalty = int((lower_treshold - current_time).total_seconds()) * self.penalty_go_home_late
                                         travel_time_total += penalty
+                                        list_penalty.append(penalty)
+                                        list_penalty_idx.append(self.addRoute("place", idx_place[i], False))
+                                        result['misc'] = '66'
                                     break
                             except KeyError:
                                 result['fitness'] = -1
                                 return result
 
-                            travel_time_total += travel_duration + next_dest_stay_duration
-                            current_time += timedelta(seconds=(travel_duration + next_dest_stay_duration))
+                            travel_time_total += travel_duration
+                            current_time += timedelta(seconds=(travel_duration))
+                            list_time.append(travel_duration)
+                            list_time_idx.append(current_time.time().__str__())
+
+                            #cek kalau makan siangnya telat
+                            if current_time.time() > self.lunch_time_upper and already_lunch == False:
+                                lunch_upper = current_time.replace(hour=self.lunch_time_upper.hour, minute=self.lunch_time_upper.minute, second=0, microsecond=0)
+                                if current_time > lunch_upper: #dinner
+                                    penalty = int((current_time - lunch_upper).total_seconds()) * self.penalty_eat_late
+                                    travel_time_total += penalty
+                                    list_penalty.append(penalty)
+                                    list_penalty_idx.append(self.addRoute("food", idx_food[food_offset], False))
+                                    result['misc'] = '1010'
+                            #cek kalau makan malamnya telat
+                            if current_time.time() > self.dinner_time_upper and already_dinner == False:
+                                dinner_upper = current_time.replace(hour=self.dinner_time_upper.hour, minute=self.dinner_time_upper.minute, second=0, microsecond=0)
+                                if current_time > dinner_upper: #dinner
+                                    penalty = int((current_time - dinner_upper).total_seconds()) * self.penalty_eat_late
+                                    travel_time_total += penalty
+                                    list_penalty.append(penalty)
+                                    list_penalty_idx.append(self.addRoute("food", idx_food[food_offset], False))
+                                    result['misc'] = '88'
+
+
+                            travel_time_total += next_dest_stay_duration
+                            current_time += timedelta(seconds=(next_dest_stay_duration))
+                            list_time.append(next_dest_stay_duration)
+                            list_time_idx.append(current_time.time().__str__())
 
                             # cek jam buka tempat makan
                             if self.isPlaceOpenRightNow(current_time, self.food[idx_food[food_offset]], start_time) == False:
                                 travel_time_total += self.penalty_opening_hours
+                                list_penalty.append(self.penalty_opening_hours)
+                                list_penalty_idx.append(self.addRoute("food", idx_food[food_offset], False))
+                                result['misc'] = '77'
 
                             route.append(self.addRoute("food", idx_food[food_offset], False))
                             just_eat = True
@@ -422,21 +539,27 @@ class trip():
 
                             # kasih penalty kalau makannya lewat batas
 
-                            if current_time.time() > self.dinner_time_upper and already_dinner == False:
-                                travel_time_total += 600 * self.penalty_eat_late
-                                result['misc'] = current_time
+                            # if current_time.time() > self.dinner_time_upper and already_dinner == False:
+                            #     travel_time_total += 600 * self.penalty_eat_late
+                            #     list_penalty.append(600 * self.penalty_eat_late)
+                            #     list_penalty_idx.append(self.addRoute("food", idx_food[eat_idx], False))
+                            #     result['misc'] = '88'
                             # elif current_time.time() > self.dinner_time_upper and already_dinner == True:
                             #     dinner_upper = current_time.replace(hour=self.dinner_time_upper.hour, minute=self.dinner_time_upper.minute, second=0, microsecond=0) + timedelta(minutes=30)
                             #     if current_time > dinner_upper: #dinner
                             #         penalty = int((current_time - dinner_upper).total_seconds()) * self.penalty_eat_late
                             #         travel_time_total += penalty
-                            #         result['misc'] = current_time
-                            elif current_time.time() > self.lunch_time_upper and already_lunch == True and already_dinner == False:
-                                lunch_upper = current_time.replace(hour=self.lunch_time_upper.hour, minute=self.lunch_time_upper.minute, second=0, microsecond=0) + timedelta(minutes=30)
-                                if current_time > lunch_upper: #dinner
-                                    penalty = int((current_time - lunch_upper).total_seconds()) * self.penalty_eat_late
-                                    travel_time_total += penalty
-                                    result['misc'] = current_time
+                            #         list_penalty.append(penalty)
+                            #         list_penalty_idx.append(self.addRoute("food", idx_food[eat_idx], False))
+                            #         result['misc'] = '99'
+                            # elif current_time.time() > self.lunch_time_upper and already_lunch == True and already_dinner == False:
+                            #     lunch_upper = current_time.replace(hour=self.lunch_time_upper.hour, minute=self.lunch_time_upper.minute, second=0, microsecond=0) + timedelta(minutes=30)
+                            #     if current_time > lunch_upper: #dinner
+                            #         penalty = int((current_time - lunch_upper).total_seconds()) * self.penalty_eat_late
+                            #         travel_time_total += penalty
+                            #         list_penalty.append(penalty)
+                            #         list_penalty_idx.append(self.addRoute("food", idx_food[eat_idx], False))
+                            #         result['misc'] = '1010'
 
                 # cek kalau masih dalam batas end activities hour
                 if i < place_count - 1: #hitung antar tempat wisata
@@ -457,6 +580,9 @@ class trip():
                                     if current_time < lower_treshold:
                                         penalty = int((lower_treshold - current_time).total_seconds()) * self.penalty_go_home_late
                                         travel_time_total += penalty
+                                        list_penalty.append(penalty)
+                                        list_penalty_idx.append(self.addRoute("place", idx_place[i], False))
+                                        result['misc'] = '1111'
                                     break
                             except KeyError:
                                 result['fitness'] = -1
@@ -465,6 +591,8 @@ class trip():
                             # kalau masih bisa
                             travel_time_total += travel_duration
                             current_time += timedelta(seconds=(travel_duration))
+                            list_time.append(travel_duration)
+                            list_time_idx.append(current_time.time().__str__())
                         else: # kalau habis makan
                             try:
                                 #cek habis makan langsung pulang atau tidak
@@ -478,6 +606,9 @@ class trip():
                                     if current_time < lower_treshold:
                                         penalty = int((lower_treshold - current_time).total_seconds()) * self.penalty_go_home_late
                                         travel_time_total += penalty
+                                        list_penalty.append(penalty)
+                                        list_penalty_idx.append(self.addRoute("food", idx_food[eat_idx], False))
+                                        result['misc'] = '1212'
                                     break
                             except KeyError:
                                 result['fitness'] = -1
@@ -486,6 +617,8 @@ class trip():
                             # kalau lanjut
                             travel_time_total += travel_duration
                             current_time += timedelta(seconds=(travel_duration))
+                            list_time.append(travel_duration)
+                            list_time_idx.append(current_time.time().__str__())
                             just_eat = False
                     except KeyError:
                         result['fitness'] = -1
@@ -499,6 +632,8 @@ class trip():
                     travel_duration = self.distance[place_id][hotel_id]
                     travel_time_total += travel_duration
                     current_time += timedelta(seconds=(travel_duration))
+                    list_time.append(travel_duration)
+                    list_time_idx.append(current_time.time().__str__())
                     route.append(self.addRoute("hotel", idx_hotel[0], True))
                 else:
                     food_id = self.food[idx_food[eat_idx]]['place_id']
@@ -506,10 +641,11 @@ class trip():
                     travel_duration = self.distance[food_id][hotel_id]
                     travel_time_total += travel_duration
                     current_time += timedelta(seconds=(travel_duration))
+                    list_time.append(travel_duration)
+                    list_time_idx.append(current_time.time().__str__())
                     route.append(self.addRoute("hotel", idx_hotel[0], True))
                     just_eat = False
 
-                # print(current_time)
             except KeyError:
                 result['fitness'] = -1
                 return result
@@ -536,12 +672,14 @@ class trip():
 
             # kalau belum makan 2 kali kasih penalty
             if already_dinner == False:
-                travel_time_total += 1000 * self.penalty_eat_late
+                travel_time_total += 40000 * self.penalty_eat_late
+                list_penalty.append(40000 * self.penalty_eat_late)
+                list_penalty_idx.append(self.addRoute("food", 999, False))
+                result['misc'] = '1313'
 
             already_lunch = False
             already_dinner = False
             just_eat = False
-            stop_sign_mechanism = True
 
         # END WHILE
         # print("END")
@@ -552,10 +690,37 @@ class trip():
         # print(current_time)
 
         # semakin banyak tempat fitness akan dikurang
-        # travel_time_total -= ((stop_sign) * 1800)
+        # travel_time_total -= ((stop_sign) * 3600)
 
-        result['fitness'] = 1 / (travel_time_total + 0.00001)
-        # result['is_too_late'] = is_too_late
+        # normalized_list_time = np.divide((np.subtract(list_time, np.amin(list_time))), (np.subtract(np.amax(list_time), np.amin(list_time))))
+        # normalized_list_penalty = np.divide((np.subtract(list_penalty, np.amin(list_time))), (np.subtract(np.amax(list_time), np.amin(list_time))))
+        # normalized_fitness = np.sum(np.concatenate((normalized_list_time, normalized_list_penalty), axis=0)) - ((stop_sign) * 0.3)
+
+        real_stay_days = self.total_days - 1 if is_too_late == True else self.total_days
+        place_target_per_day = 6
+
+        # total travel duration + stay duration
+        place_time_total = np.sum(list_time)
+
+        # makin banyak tempat makin bagus
+        place_discount = place_time_total * (1 / (place_target_per_day * real_stay_days) / 2) * stop_sign
+
+        #total penalty
+        penalty_total = np.sum(list_penalty)
+
+        # interest
+        interests_total = place_time_total * (0 - (((np.sum(list_interest) - (stop_sign * self.total_interest * -1)) / ((stop_sign * self.total_interest) - (stop_sign * self.total_interest * -1))) - 0.5))
+
+        fitness_total = place_time_total + penalty_total - place_discount + interests_total
+
+        result['misc'] = list_penalty_idx
+        result['is_too_late'] = list_penalty
+        result['misc2'] = list_time_idx
+
+        # result['fitness'] = 1 / (normalized_fitness)
+        # result['fitness'] = 1 / (travel_time_total + 0.00001)
+        result['fitness'] = 1 / (fitness_total + 0.00001)
+
         result['route'] = route
 
         return result
@@ -584,7 +749,7 @@ class trip():
             place_id = data['data']['place_id']
             is_stop = data['is_stop']
             type = '{:7}'.format(data['type'])
-            types = data['data']['types']
+            types = data['data']['interests']
             if i == 0: # airport
                 current_time = current_time
                 next_time = current_time + timedelta(minutes=self.airport_stay_dur)

@@ -30,6 +30,7 @@ class CFA():
             cell_other['is_too_late'] = self.problem.calculateFitness(cells_points)['is_too_late']
             cell_other['route'] = self.problem.calculateFitness(cells_points)['route']
             cell_other['misc'] = self.problem.calculateFitness(cells_points)['misc']
+            cell_other['misc2'] = self.problem.calculateFitness(cells_points)['misc2']
             temp_cell = CCells(cells_points,cell_fitness,cell_other)
             self.cells.append(temp_cell)
 
@@ -83,6 +84,7 @@ class CFA():
                 new_cell_other['is_too_late'] = self.problem.calculateFitness(new_cell_points)['is_too_late']
                 new_cell_other['route'] = self.problem.calculateFitness(new_cell_points)['route']
                 new_cell_other['misc'] = self.problem.calculateFitness(new_cell_points)['misc']
+                new_cell_other['misc2'] = self.problem.calculateFitness(new_cell_points)['misc2']
                 new_cell = CCells(new_cell_points,new_cell_fitness,new_cell_other)
 
                 # new_cell.points[new_cell.points<self.problem.getLowerBound()] = self.problem.getLowerBound()
@@ -109,6 +111,7 @@ class CFA():
                 new_cell_other['is_too_late'] = self.problem.calculateFitness(new_cell_points)['is_too_late']
                 new_cell_other['route'] = self.problem.calculateFitness(new_cell_points)['route']
                 new_cell_other['misc'] = self.problem.calculateFitness(new_cell_points)['misc']
+                new_cell_other['misc2'] = self.problem.calculateFitness(new_cell_points)['misc2']
                 new_cell = CCells(new_cell_points,new_cell_fitness,new_cell_other)
 
                 # new_cell.points[new_cell.points < self.problem.getLowerBound()] = self.problem.getLowerBound()
@@ -135,6 +138,7 @@ class CFA():
                 new_cell_other['is_too_late'] = self.problem.calculateFitness(new_cell_points)['is_too_late']
                 new_cell_other['route'] = self.problem.calculateFitness(new_cell_points)['route']
                 new_cell_other['misc'] = self.problem.calculateFitness(new_cell_points)['misc']
+                new_cell_other['misc2'] = self.problem.calculateFitness(new_cell_points)['misc2']
                 new_cell = CCells(new_cell_points,new_cell_fitness,new_cell_other)
 
                 # new_cell.points[new_cell.points < self.problem.getLowerBound()] = self.problem.getLowerBound()
@@ -161,6 +165,7 @@ class CFA():
                 new_cell_other['is_too_late'] = self.problem.calculateFitness(new_cell_points)['is_too_late']
                 new_cell_other['route'] = self.problem.calculateFitness(new_cell_points)['route']
                 new_cell_other['misc'] = self.problem.calculateFitness(new_cell_points)['misc']
+                new_cell_other['misc2'] = self.problem.calculateFitness(new_cell_points)['misc2']
                 new_cell = CCells(new_cell_points,new_cell_fitness,new_cell_other)
 
                 # new_cell.points[new_cell.points > self.problem.getUpperBound()] = self.problem.getUpperBound()
@@ -174,4 +179,5 @@ class CFA():
                 if new_cell.fitness > self.fourth_group[i].fitness:
                     self.fourth_group[i] = copy.copy(new_cell)
 
-            print("Best Fitness Iterasi " + str(itr + 1) + ": " + self.problem.convertFitnessValue(self.best_cell.fitness) + " | "+str(self.best_cell.other['time']) + " | " + str(self.best_cell.other['stop_sign'] + 1))
+            # print("Best Fitness Iterasi " + str(itr + 1) + ": " + self.problem.convertFitnessValue(self.best_cell.fitness) + " | "+str(self.best_cell.other['time']) + " | " + str(self.best_cell.other['stop_sign'] + 1))
+            print("Best Fitness Iterasi " + str(itr + 1) + ": " + str(1/self.best_cell.fitness) + " | "+str(self.best_cell.other['time']) + " | " + str(self.best_cell.other['stop_sign'] + 1))
