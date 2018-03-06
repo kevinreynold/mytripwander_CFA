@@ -38,7 +38,6 @@ class trip():
         self.start_date = self.flight.arrival['datetime']
         self.end_date = self.flight2.departure['datetime']
         self.total_days = (self.end_date.date() - self.start_date.date()).days + 1
-        # self.total_days = 2
         self.limit_night_next_day = limit_night_next_day #setelah datang dari airport
         self.hotel_stay_dur = hotel_stay_dur
         self.airport_stay_dur = airport_stay_dur
@@ -52,12 +51,21 @@ class trip():
         self.dinner_time_upper = time(20,00)
 
         # range : -2 ~ 2
-        self.interest_multiplier = 5
-        self.must_see_interest = must_see * self.interest_multiplier
-        self.recreation_interest = recreation * self.interest_multiplier
-        self.culture_interest = culture * self.interest_multiplier
-        self.nature_interest = nature * self.interest_multiplier
+        self.interest_multiplier = 3
+        self.like_multiplier = 2
+
+        #kalau interestnya kasih sama semua ratingnya, dijadikan 0 aja
+        if (must_see == recreation == culture == nature) or (must_see < 0 and recreation < 0 and culture < 0 and nature < 0):
+            must_see = recreation = culture = nature = 0
+
+        self.must_see_interest = must_see * self.interest_multiplier * self.like_multiplier if must_see > 0 else must_see * self.interest_multiplier
+        self.recreation_interest = recreation * self.interest_multiplier * self.like_multiplier if recreation > 0 else recreation * self.interest_multiplier
+        self.culture_interest = culture * self.interest_multiplier * self.like_multiplier if culture > 0 else culture * self.interest_multiplier
+        self.nature_interest = nature * self.interest_multiplier * self.like_multiplier if nature > 0 else nature * self.interest_multiplier
         self.total_interest = 2 * 4 * self.interest_multiplier
+
+
+
 
     def getLowerBound(self):
         return 0
@@ -709,13 +717,14 @@ class trip():
         penalty_total = np.sum(list_penalty)
 
         # interest
-        interests_total = place_time_total * (0 - (((np.sum(list_interest) - (stop_sign * self.total_interest * -1)) / ((stop_sign * self.total_interest) - (stop_sign * self.total_interest * -1))) - 0.5))
+        sum_list_interst = min(np.sum(list_interest), (stop_sign * self.total_interest))
+        interests_total = place_time_total * (0 - (((sum_list_interst - (stop_sign * self.total_interest * -1)) / ((stop_sign * self.total_interest) - (stop_sign * self.total_interest * -1))) - 0.5))
 
         fitness_total = place_time_total + penalty_total - place_discount + interests_total
 
         result['misc'] = list_penalty_idx
         result['is_too_late'] = list_penalty
-        result['misc2'] = list_time_idx
+        result['misc2'] = interests_total
 
         # result['fitness'] = 1 / (normalized_fitness)
         # result['fitness'] = 1 / (travel_time_total + 0.00001)

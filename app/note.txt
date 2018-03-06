@@ -2,6 +2,7 @@
 
 pip install numpy
 pip install pymysql
+pip install requests
 
 urutan algoritma:
 1. input interest (interest culinary DIBUANG)

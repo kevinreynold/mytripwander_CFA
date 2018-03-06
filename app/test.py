@@ -34,8 +34,8 @@ np.random.seed(0)
 #10.15, 17.10, 12.40, 13.35
 trip = trip(flight=flight("SUB", "HKG", (datetime.today()-timedelta(days=1)), (datetime.today()+timedelta(days=1)), "0950", "1335"),
             flight2=flight("HKG", "SUB", (datetime.today()+timedelta(days=3)), (datetime.today()+timedelta(days=3)), "1850", "0950"),
-            limit_night_next_day=time(18), must_see=-2, recreation=-2, culture=2, nature=-2)
-cfa = CFA(iteration=100000, pop_size=100, R1=0.55, R2=-0.55, V1=1, V2=-1, problem=trip)
+            limit_night_next_day=time(18), must_see=1, recreation=2, culture=0, nature=-2)
+cfa = CFA(iteration=10000, pop_size=100, R1=0.55, R2=-0.55, V1=1, V2=-1, problem=trip)
 cfa.run()
 
 end = datetime.today()
@@ -54,5 +54,5 @@ print(cfa.best_cell.other['route'])
 trip.showResultNew(cfa.best_cell.other['route'], cfa.problem.start_date)
 # trip.showRoute(cfa.best_cell.points)
 print(cfa.best_cell.other['misc'])
-# print(cfa.best_cell.other['misc2'])
 print(cfa.best_cell.other['is_too_late'])
+print(cfa.best_cell.other['misc2'])
