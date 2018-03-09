@@ -149,10 +149,10 @@ children = 0
 infants = 0
 
 origin = "SUB"
-destination = "HKG"
-start_date = datetime.today().strftime("%Y-%m-%d")
-return_date = (datetime.today() + timedelta(days=7)).strftime("%Y-%m-%d")
-round_trip = True
+destination = "SEL"
+start_date = (datetime.today() + timedelta(days=7)).strftime("%Y-%m-%d")
+return_date = (datetime.today() + timedelta(days=10)).strftime("%Y-%m-%d")
+round_trip = False
 
 segment = []
 segment.append({'origin': origin, 'destination': destination, 'date': start_date})
@@ -193,9 +193,12 @@ print(search_result.status_code)
 
 # LOCAL
 # search_result = requests.get('http://mytripwander.com/test/tokyo-round-trip.json')
-#
 # print(len(search_result.json()))
 
-fix = api.processData(search_result.json())[0:5:1]
+flight_result = api.processData(search_result.json())
 
-print(fix)
+f = open("flight.json","w+")
+f.write(str(flight_result))
+f.close()
+
+print("Done!!!")

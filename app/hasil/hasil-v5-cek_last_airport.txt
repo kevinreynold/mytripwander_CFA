@@ -1,0 +1,296 @@
+Random Seed = 0
+v5
+
+1. 07.00
+Best Fitness Iterasi 1000: 59202.71985126984 | 2018-03-12 04:52:12 | 7
+HKG 3 HARI
+Execution Time : 00:12:43
+Best Fitness : 16:26:42 | Iteration : 1000 | Population : 200 | R1 : 0.55 | R2 : -0.55 | V1 : 1 | V2 : -1
+Must See : 3 | Recreation : 12 Culture : 0 | Nature : -6
+['1-0-0', '4-35-0', '2-6-0', '3-14-0', '2-8-0', '3-29-0', '2-4-0', '4-35-1', '2-22-0', '2-19-0', '3-50-0', '2-59-0', '2-33-0', '3-55-0', '4-35-1', '6-0-1']
+
+Day - 1
+1  . b'Hong Kong International Airport (HKG)'        | 2018-03-10 08:30:00 - 2018-03-10 09:30:00 | 00:00:00 - 23:59:00 | True  | airport | ChIJncZGzPPiAzQRnjaSGIKQ9fk |
+2  . b'The Peninsula Hong Kong'                      | 2018-03-10 10:23:00 - 2018-03-10 11:23:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJdRlVSfIABDQRq5S65hPQo-8 |
+3  . b'Sneaker Street \xe6\xb3\xa2\xe9\x9e\x8b\xe8\x | 2018-03-10 11:38:55 - 2018-03-10 12:38:55 | 11:00:00 - 23:00:00 | True  | place   | ChIJ4YEGOMYABDQRYOvBu1VBIZI | must_see;recreation;
+4  . b'The Boathouse'                                | 2018-03-10 13:37:05 - 2018-03-10 15:07:05 | 11:30:00 - 23:00:00 | True  | food    | ChIJAUEViGuqBjQRjXzRZNhZpFA | food;
+5  . b'Madame Tussauds Hong Kong'                    | 2018-03-10 16:28:14 - 2018-03-10 18:28:14 | 10:00:00 - 22:00:00 | True  | place   | ChIJ7U59iXMABDQR52es-GT2dGY | must_see;recreation;
+6  . b'Tulsi Indian Restaurant'                      | 2018-03-10 19:22:38 - 2018-03-10 20:22:38 | 11:30:00 - 23:00:00 | True  | food    | ChIJfc0DSgwBBDQRsubSqOpSra0 | food;
+7  . b'Former Kowloon-Canton Railway Clock Tower'    | 2018-03-10 20:57:19 - 2018-03-10 21:57:19 | 00:00:00 - 23:59:00 | True  | place   | ChIJ42dQa_MABDQRKKppWIjPPZA | must_see;culture;
+8  . b'The Peninsula Hong Kong'                      | 2018-03-10 22:03:39 - 2018-03-10 22:03:39 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJdRlVSfIABDQRq5S65hPQo-8 |
+
+Day - 2
+9  . b'The Peninsula Hong Kong'                      | 2018-03-11 08:30:00 - 2018-03-11 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJdRlVSfIABDQRq5S65hPQo-8 |
+10 . b'Dr Sun Yat-sen Museum'                        | 2018-03-11 09:01:09 - 2018-03-11 10:31:09 | 10:00:00 - 19:00:00 | True  | place   | ChIJFZe4z3sABDQRep6QiUQzC0k | culture;
+11 . b'Lingnan Garden'                               | 2018-03-11 11:19:27 - 2018-03-11 12:49:27 | 07:00:00 - 23:00:00 | True  | place   | ChIJf41i61T_AzQR98vqG688Pf8 | recreation;
+12 . b'Kwun Tong Pier Cooked Food Market'            | 2018-03-11 13:41:31 - 2018-03-11 14:11:31 | 06:00:00 - 23:59:00 | True  | food    | ChIJKTEBEkQBBDQREBcGgdAhdqw | food;
+13 . b'Hong Kong Avenue of Comic Stars'              | 2018-03-11 14:58:00 - 2018-03-11 16:28:00 | 05:00:00 - 23:59:00 | True  | place   | ChIJv6pmRewABDQR8WqOOY-mIIw | recreation;
+14 . b'Soho, Hong Kong'                              | 2018-03-11 16:59:31 - 2018-03-11 18:29:31 | 00:00:00 - 23:59:00 | True  | place   | ChIJLw9f3HoABDQRaFmq9tKvYdk | must_see;recreation;
+15 . b'King Ludwig Beerhall'                         | 2018-03-11 19:01:26 - 2018-03-11 21:31:26 | 12:00:00 - 02:00:00 | True  | food    | ChIJLVvIjvEABDQRiPxP9FnFLZU | food;
+16 . b'The Peninsula Hong Kong'                      | 2018-03-11 21:35:40 - 2018-03-11 22:35:40 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJdRlVSfIABDQRq5S65hPQo-8 |
+
+Day - 3
+17 . b'The Peninsula Hong Kong'                      | 2018-03-12 04:00:00 - 2018-03-12 04:00:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJdRlVSfIABDQRq5S65hPQo-8 |
+18 . b'Hong Kong International Airport (HKG)'        | 2018-03-12 04:52:12 - 2018-03-12 04:52:12 | 00:00:00 - 23:59:00 | True  | airport | ChIJncZGzPPiAzQRnjaSGIKQ9fk |
+['4-35-1']
+[613.2]
+-21233.785714285717
+=====================================================================================================================================
+2. 10.15
+Best Fitness Iterasi 1000: 59202.71985126984 | 2018-03-12 08:07:12 | 7
+HKG 3 HARI
+Execution Time : 00:12:24
+Best Fitness : 16:26:42 | Iteration : 1000 | Population : 200 | R1 : 0.55 | R2 : -0.55 | V1 : 1 | V2 : -1
+Must See : 3 | Recreation : 12 Culture : 0 | Nature : -6
+['1-0-0', '4-35-0', '2-6-0', '3-14-0', '2-8-0', '3-29-0', '2-4-0', '4-35-1', '2-22-0', '2-19-0', '3-50-0', '2-59-0', '2-33-0', '3-55-0', '4-35-1', '6-0-1']
+
+Day - 1
+1  . b'Hong Kong International Airport (HKG)'        | 2018-03-10 08:30:00 - 2018-03-10 09:30:00 | 00:00:00 - 23:59:00 | True  | airport | ChIJncZGzPPiAzQRnjaSGIKQ9fk |
+2  . b'The Peninsula Hong Kong'                      | 2018-03-10 10:23:00 - 2018-03-10 11:23:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJdRlVSfIABDQRq5S65hPQo-8 |
+3  . b'Sneaker Street \xe6\xb3\xa2\xe9\x9e\x8b\xe8\x | 2018-03-10 11:38:55 - 2018-03-10 12:38:55 | 11:00:00 - 23:00:00 | True  | place   | ChIJ4YEGOMYABDQRYOvBu1VBIZI | must_see;recreation;
+4  . b'The Boathouse'                                | 2018-03-10 13:37:05 - 2018-03-10 15:07:05 | 11:30:00 - 23:00:00 | True  | food    | ChIJAUEViGuqBjQRjXzRZNhZpFA | food;
+5  . b'Madame Tussauds Hong Kong'                    | 2018-03-10 16:28:14 - 2018-03-10 18:28:14 | 10:00:00 - 22:00:00 | True  | place   | ChIJ7U59iXMABDQR52es-GT2dGY | must_see;recreation;
+6  . b'Tulsi Indian Restaurant'                      | 2018-03-10 19:22:38 - 2018-03-10 20:22:38 | 11:30:00 - 23:00:00 | True  | food    | ChIJfc0DSgwBBDQRsubSqOpSra0 | food;
+7  . b'Former Kowloon-Canton Railway Clock Tower'    | 2018-03-10 20:57:19 - 2018-03-10 21:57:19 | 00:00:00 - 23:59:00 | True  | place   | ChIJ42dQa_MABDQRKKppWIjPPZA | must_see;culture;
+8  . b'The Peninsula Hong Kong'                      | 2018-03-10 22:03:39 - 2018-03-10 22:03:39 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJdRlVSfIABDQRq5S65hPQo-8 |
+
+Day - 2
+9  . b'The Peninsula Hong Kong'                      | 2018-03-11 08:30:00 - 2018-03-11 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJdRlVSfIABDQRq5S65hPQo-8 |
+10 . b'Dr Sun Yat-sen Museum'                        | 2018-03-11 09:01:09 - 2018-03-11 10:31:09 | 10:00:00 - 19:00:00 | True  | place   | ChIJFZe4z3sABDQRep6QiUQzC0k | culture;
+11 . b'Lingnan Garden'                               | 2018-03-11 11:19:27 - 2018-03-11 12:49:27 | 07:00:00 - 23:00:00 | True  | place   | ChIJf41i61T_AzQR98vqG688Pf8 | recreation;
+12 . b'Kwun Tong Pier Cooked Food Market'            | 2018-03-11 13:41:31 - 2018-03-11 14:11:31 | 06:00:00 - 23:59:00 | True  | food    | ChIJKTEBEkQBBDQREBcGgdAhdqw | food;
+13 . b'Hong Kong Avenue of Comic Stars'              | 2018-03-11 14:58:00 - 2018-03-11 16:28:00 | 05:00:00 - 23:59:00 | True  | place   | ChIJv6pmRewABDQR8WqOOY-mIIw | recreation;
+14 . b'Soho, Hong Kong'                              | 2018-03-11 16:59:31 - 2018-03-11 18:29:31 | 00:00:00 - 23:59:00 | True  | place   | ChIJLw9f3HoABDQRaFmq9tKvYdk | must_see;recreation;
+15 . b'King Ludwig Beerhall'                         | 2018-03-11 19:01:26 - 2018-03-11 21:31:26 | 12:00:00 - 02:00:00 | True  | food    | ChIJLVvIjvEABDQRiPxP9FnFLZU | food;
+16 . b'The Peninsula Hong Kong'                      | 2018-03-11 21:35:40 - 2018-03-11 22:35:40 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJdRlVSfIABDQRq5S65hPQo-8 |
+
+Day - 3
+17 . b'The Peninsula Hong Kong'                      | 2018-03-12 07:15:00 - 2018-03-12 07:15:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJdRlVSfIABDQRq5S65hPQo-8 |
+18 . b'Hong Kong International Airport (HKG)'        | 2018-03-12 08:07:12 - 2018-03-12 08:07:12 | 00:00:00 - 23:59:00 | True  | airport | ChIJncZGzPPiAzQRnjaSGIKQ9fk |
+['4-35-1']
+[613.2]
+-21233.785714285717
+=====================================================================================================================================
+3. 12.15
+Best Fitness Iterasi 1000: 118748.11389888889 | 2018-03-12 11:44:50 | 9
+HKG 3 HARI
+Execution Time : 00:13:00
+Best Fitness : 32:59:08 | Iteration : 1000 | Population : 200 | R1 : 0.55 | R2 : -0.55 | V1 : 1 | V2 : -1
+Must See : 3 | Recreation : 12 Culture : 0 | Nature : -6
+['1-0-0', '4-14-0', '2-0-0', '3-22-0', '2-12-0', '2-51-0', '2-19-0', '3-4-0', '4-14-1', '2-25-0', '2-36-0', '3-10-0', '2-22-0', '2-59-0', '3-33-0', '4-14-1', '2-4-0', '4-14-0', '6-0-1']
+
+Day - 1
+1  . b'Hong Kong International Airport (HKG)'        | 2018-03-10 08:30:00 - 2018-03-10 09:30:00 | 00:00:00 - 23:59:00 | True  | airport | ChIJncZGzPPiAzQRnjaSGIKQ9fk |
+2  . b'Prudential Hotel Hong Kong'                   | 2018-03-10 10:22:37 - 2018-03-10 11:22:37 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJ6eMJlesABDQRBsThn7cd5oY |
+3  . b'Lei Cheng Uk Han Tomb'                        | 2018-03-10 11:44:05 - 2018-03-10 12:44:05 | 10:00:00 - 18:00:00 | True  | place   | ChIJ-QecI0wHBDQR8EaFlKmXTNA | culture;
+4  . b"Ebeneezer's Kebabs And Pizzeria (Indian & Mid | 2018-03-10 13:08:35 - 2018-03-10 13:53:35 | 10:00:00 - 01:00:00 | True  | food    | ChIJDXY5gPIABDQRIikYyOhQuSo | food;
+5  . b'The Hong Kong Observation Wheel'              | 2018-03-10 14:17:20 - 2018-03-10 15:17:20 | 11:00:00 - 23:00:00 | True  | place   | ChIJc06QK2IABDQRW2LpLccKBW0 | must_see;recreation;
+6  . b'Avenue of Stars'                              | 2018-03-10 15:47:02 - 2018-03-10 16:32:02 | 00:00:00 - 23:59:00 | True  | place   | ChIJsyIrnPEABDQRzjValbVWEJo | must_see;
+7  . b'Lingnan Garden'                               | 2018-03-10 16:55:13 - 2018-03-10 18:25:13 | 07:00:00 - 23:00:00 | True  | place   | ChIJf41i61T_AzQR98vqG688Pf8 | recreation;
+8  . b'The Peak Lookout'                             | 2018-03-10 19:33:22 - 2018-03-10 21:33:22 | 10:30:00 - 01:00:00 | True  | food    | ChIJ1eATenQABDQRXA0nqQaodwY | food;
+9  . b'Prudential Hotel Hong Kong'                   | 2018-03-10 22:17:01 - 2018-03-10 22:17:01 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJ6eMJlesABDQRBsThn7cd5oY |
+
+Day - 2
+10 . b'Prudential Hotel Hong Kong'                   | 2018-03-11 08:30:00 - 2018-03-11 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJ6eMJlesABDQRBsThn7cd5oY |
+11 . b'DB North Plaza Discovery Bay'                 | 2018-03-11 09:41:23 - 2018-03-11 10:41:23 | 00:00:00 - 23:59:00 | True  | place   | ChIJhyynBbP9AzQRVGfkTlWLOes | recreation;
+12 . b'Discovery Bay Plaza'                          | 2018-03-11 10:55:29 - 2018-03-11 12:25:29 | 00:00:00 - 23:59:00 | True  | place   | ChIJN_E3mLv9AzQR_PzEzQbKqVM | recreation;
+13 . b'Katiga Japanese Food Shop'                    | 2018-03-11 13:45:15 - 2018-03-11 15:15:15 | 11:30:00 - 23:30:00 | True  | food    | ChIJ76g91dgABDQRfQWpSjDTD-4 | food;
+14 . b'Dr Sun Yat-sen Museum'                        | 2018-03-11 15:50:09 - 2018-03-11 17:20:09 | 10:00:00 - 19:00:00 | True  | place   | ChIJFZe4z3sABDQRep6QiUQzC0k | culture;
+15 . b'Hong Kong Avenue of Comic Stars'              | 2018-03-11 17:50:15 - 2018-03-11 19:20:15 | 05:00:00 - 23:59:00 | True  | place   | ChIJv6pmRewABDQR8WqOOY-mIIw | recreation;
+16 . b'Tung Po'                                      | 2018-03-11 19:47:38 - 2018-03-11 21:47:38 | 17:30:00 - 00:30:00 | True  | food    | ChIJgx3UxQQBBDQRxdtcv9bMQlo | food;
+17 . b'Prudential Hotel Hong Kong'                   | 2018-03-11 22:11:31 - 2018-03-11 22:11:31 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJ6eMJlesABDQRBsThn7cd5oY |
+
+Day - 3
+18 . b'Prudential Hotel Hong Kong'                   | 2018-03-12 08:30:00 - 2018-03-12 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJ6eMJlesABDQRBsThn7cd5oY |
+19 . b'Former Kowloon-Canton Railway Clock Tower'    | 2018-03-12 08:44:03 - 2018-03-12 09:44:03 | 00:00:00 - 23:59:00 | True  | place   | ChIJ42dQa_MABDQRKKppWIjPPZA | must_see;culture;
+20 . b'Prudential Hotel Hong Kong'                   | 2018-03-12 09:59:07 - 2018-03-12 10:59:07 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJ6eMJlesABDQRBsThn7cd5oY |
+21 . b'Hong Kong International Airport (HKG)'        | 2018-03-12 11:44:50 - 2018-03-12 11:44:50 | 00:00:00 - 23:59:00 | True  | airport | ChIJncZGzPPiAzQRnjaSGIKQ9fk |
+['4-14-1', '4-14-1', '6-0-1']
+[2858.8, 1934.8, 50260]
+-17234.98611111111
+=====================================================================================================================================
+4. 14.15
+Best Fitness Iterasi 1000: 77051.30754968255 | 2018-03-12 12:44:03 | 7
+HKG 3 HARI
+Execution Time : 00:12:40
+Best Fitness : 21:24:11 | Iteration : 1000 | Population : 200 | R1 : 0.55 | R2 : -0.55 | V1 : 1 | V2 : -1
+Must See : 3 | Recreation : 12 Culture : 0 | Nature : -6
+['1-0-0', '4-35-0', '2-2-0', '3-45-0', '2-3-0', '3-49-0', '4-35-1', '2-55-0', '2-22-0', '3-24-0', '2-25-0', '2-33-0', '3-33-0', '4-35-1', '2-19-0', '4-35-0', '6-0-1']
+
+Day - 1
+1  . b'Hong Kong International Airport (HKG)'        | 2018-03-10 08:30:00 - 2018-03-10 09:30:00 | 00:00:00 - 23:59:00 | True  | airport | ChIJncZGzPPiAzQRnjaSGIKQ9fk |
+2  . b'The Peninsula Hong Kong'                      | 2018-03-10 10:23:00 - 2018-03-10 11:23:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJdRlVSfIABDQRq5S65hPQo-8 |
+3  . b'Fireboat Alexander Grantham Exhibition Galler | 2018-03-10 12:04:54 - 2018-03-10 12:49:54 | 10:00:00 - 18:00:00 | True  | place   | ChIJ0fotbnIBBDQRb38SLqjByFs | culture;
+4  . b'Islamic Centre Canteen'                       | 2018-03-10 13:31:58 - 2018-03-10 15:31:58 | 10:00:00 - 21:00:00 | True  | food    | ChIJjyMuZVoABDQRsBMFpJ3CzrY | food;
+5  . b'\xe5\xbb\xb8\xe6\xac\xa3\xe6\xb9\x96\xe6\xa4\ | 2018-03-10 16:59:29 - 2018-03-10 18:29:29 | 09:00:00 - 18:30:00 | True  | place   | ChIJ30-0riT8AzQRGn-K2xxaF2g | nature;recreation;
+6  . b'Al Molo'                                      | 2018-03-10 19:43:30 - 2018-03-10 21:43:30 | 12:00:00 - 22:30:00 | True  | food    | ChIJKetw2owABDQRzVgKiFrKJAo | food;
+7  . b'The Peninsula Hong Kong'                      | 2018-03-10 21:50:26 - 2018-03-10 21:50:26 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJdRlVSfIABDQRq5S65hPQo-8 |
+
+Day - 2
+8  . b'The Peninsula Hong Kong'                      | 2018-03-11 08:30:00 - 2018-03-11 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJdRlVSfIABDQRq5S65hPQo-8 |
+9  . b'Hong Kong Heritage Discovery Centre'          | 2018-03-11 08:37:44 - 2018-03-11 10:37:44 | 10:00:00 - 19:00:00 | True  | place   | ChIJt4IDE-0ABDQR9TGwIwBrlXE | culture;
+10 . b'Dr Sun Yat-sen Museum'                        | 2018-03-11 11:07:02 - 2018-03-11 12:37:02 | 10:00:00 - 19:00:00 | True  | place   | ChIJFZe4z3sABDQRep6QiUQzC0k | culture;
+11 . b"Maxim's Mx - Sai Yeung Choi Street"           | 2018-03-11 13:08:40 - 2018-03-11 13:53:40 | 07:00:00 - 22:30:00 | True  | food    | ChIJefnkt8cABDQRNswLP-z4s0g | food;
+12 . b'DB North Plaza Discovery Bay'                 | 2018-03-11 15:01:57 - 2018-03-11 16:01:57 | 00:00:00 - 23:59:00 | True  | place   | ChIJhyynBbP9AzQRVGfkTlWLOes | recreation;
+13 . b'Soho, Hong Kong'                              | 2018-03-11 17:19:18 - 2018-03-11 18:49:18 | 00:00:00 - 23:59:00 | True  | place   | ChIJLw9f3HoABDQRaFmq9tKvYdk | must_see;recreation;
+14 . b'Tung Po'                                      | 2018-03-11 19:22:13 - 2018-03-11 21:22:13 | 17:30:00 - 00:30:00 | True  | food    | ChIJgx3UxQQBBDQRxdtcv9bMQlo | food;
+15 . b'The Peninsula Hong Kong'                      | 2018-03-11 21:50:00 - 2018-03-11 21:50:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJdRlVSfIABDQRq5S65hPQo-8 |
+
+Day - 3
+16 . b'The Peninsula Hong Kong'                      | 2018-03-12 08:30:00 - 2018-03-12 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJdRlVSfIABDQRq5S65hPQo-8 |
+17 . b'Lingnan Garden'                               | 2018-03-12 08:55:18 - 2018-03-12 10:25:18 | 07:00:00 - 23:00:00 | True  | place   | ChIJf41i61T_AzQR98vqG688Pf8 | recreation;
+18 . b'The Peninsula Hong Kong'                      | 2018-03-12 10:51:51 - 2018-03-12 11:51:51 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJdRlVSfIABDQRq5S65hPQo-8 |
+19 . b'Hong Kong International Airport (HKG)'        | 2018-03-12 12:44:03 - 2018-03-12 12:44:03 | 00:00:00 - 23:59:00 | True  | airport | ChIJncZGzPPiAzQRnjaSGIKQ9fk |
+['3-33-0', '6-0-1']
+[3269, 399]
+-14633.303571428569
+=====================================================================================================================================
+5. 16.15
+Best Fitness Iterasi 1000: 81589.373025873 | 2018-03-12 14:39:35 | 7
+HKG 3 HARI
+Execution Time : 00:12:01
+Best Fitness : 22:39:49 | Iteration : 1000 | Population : 200 | R1 : 0.55 | R2 : -0.55 | V1 : 1 | V2 : -1
+Must See : 3 | Recreation : 12 Culture : 0 | Nature : -6
+['1-0-0', '4-70-0', '2-10-0', '3-105-0', '2-7-0', '2-48-0', '3-30-0', '4-70-1', '2-57-0', '2-0-0', '3-58-0', '2-8-0', '3-26-0', '4-70-1', '2-14-0', '4-70-0', '6-0-1']
+
+Day - 1
+1  . b'Hong Kong International Airport (HKG)'        | 2018-03-10 08:30:00 - 2018-03-10 09:30:00 | 00:00:00 - 23:59:00 | True  | airport | ChIJncZGzPPiAzQRnjaSGIKQ9fk |
+2  . b'Royal Garden Hong Kong'                       | 2018-03-10 10:24:32 - 2018-03-10 11:24:32 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJN4JGee8ABDQRmDOviFyCdAg |
+3  . b'Airport Core Programme Exhibition Centre'     | 2018-03-10 12:18:54 - 2018-03-10 12:48:54 | 10:00:00 - 18:30:00 | True  | place   | ChIJb28RzkD5AzQRe-HzunPBJ-g | recreation;
+4  . b'AGAVE Tequila Y Comida'                       | 2018-03-10 13:57:32 - 2018-03-10 15:27:32 | 12:00:00 - 01:00:00 | True  | food    | ChIJyw6uYFwABDQRhbdtqXohnI8 | food;
+5  . b'Golden Bauhinia Square'                       | 2018-03-10 15:42:54 - 2018-03-10 16:27:54 | 00:00:00 - 23:59:00 | True  | place   | ChIJ7QNny1gABDQRgc47Ya61z2Q | must_see;
+6  . b'Peak Tower'                                   | 2018-03-10 17:29:14 - 2018-03-10 18:59:14 | 07:00:00 - 00:00:00 | True  | place   | ChIJR1J4iXMABDQRqBwOAYY2gAo | must_see;recreation;
+7  . b'Three Virtues Vegetarian Restaurant'          | 2018-03-10 19:42:49 - 2018-03-10 21:42:49 | 10:30:00 - 23:00:00 | True  | food    | ChIJg-q-pOsABDQRwWCOAWWGOdg | food;
+8  . b'Royal Garden Hong Kong'                       | 2018-03-10 21:56:36 - 2018-03-10 21:56:36 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJN4JGee8ABDQRmDOviFyCdAg |
+
+Day - 2
+9  . b'Royal Garden Hong Kong'                       | 2018-03-11 08:30:00 - 2018-03-11 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJN4JGee8ABDQRmDOviFyCdAg |
+10 . b'Sky 100 Hong Kong Observation Deck'           | 2018-03-11 08:55:24 - 2018-03-11 10:55:24 | 10:00:00 - 21:00:00 | True  | place   | ChIJu873FJEABDQRUFCXT1r5Xmo | must_see;
+11 . b'Lei Cheng Uk Han Tomb'                        | 2018-03-11 11:28:38 - 2018-03-11 12:28:38 | 10:00:00 - 18:00:00 | True  | place   | ChIJ-QecI0wHBDQR8EaFlKmXTNA | culture;
+12 . b"Explorer's Club Restaurant"                   | 2018-03-11 13:31:19 - 2018-03-11 15:01:19 | 12:00:00 - 20:00:00 | True  | food    | ChIJmaNPYCz8AzQRGOyfLw4jjGQ | food;
+13 . b'Madame Tussauds Hong Kong'                    | 2018-03-11 16:38:49 - 2018-03-11 18:38:49 | 10:00:00 - 22:00:00 | True  | place   | ChIJ7U59iXMABDQR52es-GT2dGY | must_see;recreation;
+14 . b'Ho Lee Fook'                                  | 2018-03-11 19:18:43 - 2018-03-11 21:18:43 | 18:00:00 - 23:59:00 | True  | food    | ChIJewKinHsABDQRg61GvAkNR2Q | food;
+15 . b'Royal Garden Hong Kong'                       | 2018-03-11 21:48:37 - 2018-03-11 21:48:37 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJN4JGee8ABDQRmDOviFyCdAg |
+
+Day - 3
+16 . b'Royal Garden Hong Kong'                       | 2018-03-12 08:30:00 - 2018-03-12 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJN4JGee8ABDQRmDOviFyCdAg |
+17 . b"Lion's Nature Education Centre"               | 2018-03-12 09:37:36 - 2018-03-12 11:37:36 | 09:30:00 - 17:00:00 | True  | place   | ChIJCw8FQrgFBDQRohSp93FnNG0 | recreation;
+18 . b'Royal Garden Hong Kong'                       | 2018-03-12 12:45:11 - 2018-03-12 13:45:11 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJN4JGee8ABDQRmDOviFyCdAg |
+19 . b'Hong Kong International Airport (HKG)'        | 2018-03-12 14:39:35 - 2018-03-12 14:39:35 | 00:00:00 - 23:59:00 | True  | airport | ChIJncZGzPPiAzQRnjaSGIKQ9fk |
+['3-26-0', '6-0-1']
+[4739, 2275]
+-21239.82142857143
+=====================================================================================================================================
+6. 18.15
+Best Fitness Iterasi 1000: 1078118.156756032 | 2018-03-12 16:38:31 | 7
+HKG 3 HARI
+Execution Time : 00:12:43
+Best Fitness : 299:28:38 | Iteration : 1000 | Population : 200 | R1 : 0.55 | R2 : -0.55 | V1 : 1 | V2 : -1
+Must See : 3 | Recreation : 12 Culture : 0 | Nature : -6
+['1-0-0', '4-17-0', '2-46-0', '2-4-0', '3-43-0', '4-17-1', '2-68-0', '3-87-0', '2-15-0', '2-41-0', '3-61-0', '4-17-1', '2-33-0', '2-2-0', '3-64-0', '4-17-0', '6-0-1']
+
+Day - 1
+1  . b'Hong Kong International Airport (HKG)'        | 2018-03-10 08:30:00 - 2018-03-10 09:30:00 | 00:00:00 - 23:59:00 | True  | airport | ChIJncZGzPPiAzQRnjaSGIKQ9fk |
+2  . b'Imperial Hotel Hong Kong'                     | 2018-03-10 10:21:59 - 2018-03-10 11:21:59 | 00:00:00 - 23:30:00 | True  | hotel   | ChIJ91iZFfIABDQR_7fFaWAx-v0 |
+3  . b'Hong Kong Disneyland'                         | 2018-03-10 12:25:25 - 2018-03-10 17:25:25 | 10:30:00 - 20:15:00 | True  | place   | ChIJPZXTUy_8AzQRBVRH5GyvszU | recreation;food;
+4  . b'Former Kowloon-Canton Railway Clock Tower'    | 2018-03-10 18:34:26 - 2018-03-10 19:34:26 | 00:00:00 - 23:59:00 | True  | place   | ChIJ42dQa_MABDQRKKppWIjPPZA | must_see;culture;
+5  . b'Our Restaurant'                               | 2018-03-10 19:57:28 - 2018-03-10 21:27:28 | 12:00:00 - 23:59:00 | True  | food    | ChIJjS9448YABDQRMTSGK3IJNAk | food;
+6  . b'Imperial Hotel Hong Kong'                     | 2018-03-10 21:42:46 - 2018-03-10 21:42:46 | 00:00:00 - 23:30:00 | True  | hotel   | ChIJ91iZFfIABDQR_7fFaWAx-v0 |
+
+Day - 2
+7  . b'Imperial Hotel Hong Kong'                     | 2018-03-11 08:30:00 - 2018-03-11 08:30:00 | 00:00:00 - 23:30:00 | True  | hotel   | ChIJ91iZFfIABDQR_7fFaWAx-v0 |
+8  . b'Aviation Discovery Centre'                    | 2018-03-11 09:31:11 - 2018-03-11 12:01:11 | 09:30:00 - 22:00:00 | True  | place   | ChIJXY2o5tviAzQRKEAwNi8PMJk | culture;recreation;
+9  . b'The Pawn by Tom Aikens'                       | 2018-03-11 13:11:09 - 2018-03-11 15:11:09 | 12:00:00 - 02:00:00 | True  | food    | ChIJtSdPw1wABDQR3xMeP7q-V0c | food;
+10 . b'Nan Lian Garden'                              | 2018-03-11 15:49:55 - 2018-03-11 17:19:55 | 07:00:00 - 21:00:00 | True  | place   | ChIJCxijGMUGBDQROPO7TlTgaQQ | recreation;
+11 . b'Lung Fu Shan Country Park'                    | 2018-03-11 18:07:07 - 2018-03-11 18:52:07 | 00:00:00 - 23:59:00 | True  | place   | ChIJp8RQ947_AzQRhhTEQjuFKwg | recreation;
+12 . b'Zuma'                                         | 2018-03-11 19:10:23 - 2018-03-11 21:40:23 | 11:00:00 - 01:00:00 | True  | food    | ChIJN9i-kn4ABDQRWC8dkEF2ln0 | food;
+13 . b'Imperial Hotel Hong Kong'                     | 2018-03-11 21:56:30 - 2018-03-11 21:56:30 | 00:00:00 - 23:30:00 | True  | hotel   | ChIJ91iZFfIABDQR_7fFaWAx-v0 |
+
+Day - 3
+14 . b'Imperial Hotel Hong Kong'                     | 2018-03-12 08:30:00 - 2018-03-12 08:30:00 | 00:00:00 - 23:30:00 | True  | hotel   | ChIJ91iZFfIABDQR_7fFaWAx-v0 |
+15 . b'Soho, Hong Kong'                              | 2018-03-12 08:59:05 - 2018-03-12 10:29:05 | 00:00:00 - 23:59:00 | True  | place   | ChIJLw9f3HoABDQRaFmq9tKvYdk | must_see;recreation;
+16 . b'Fireboat Alexander Grantham Exhibition Galler | 2018-03-12 11:16:16 - 2018-03-12 12:01:16 | 10:00:00 - 18:00:00 | True  | place   | ChIJ0fotbnIBBDQRb38SLqjByFs | culture;
+17 . b"Delaney's The Irish Pub"                      | 2018-03-12 12:41:15 - 2018-03-12 14:41:15 | 08:00:00 - 02:00:00 | True  | food    | ChIJp9trbPIABDQRLJ2bniyhIUY | food;
+18 . b'Imperial Hotel Hong Kong'                     | 2018-03-12 14:47:17 - 2018-03-12 15:47:17 | 00:00:00 - 23:30:00 | True  | hotel   | ChIJ91iZFfIABDQR_7fFaWAx-v0 |
+19 . b'Hong Kong International Airport (HKG)'        | 2018-03-12 16:38:31 - 2018-03-12 16:38:31 | 00:00:00 - 23:59:00 | True  | airport | ChIJncZGzPPiAzQRnjaSGIKQ9fk |
+['3-43-0', '6-0-1', '3-999-0']
+[1064, 2723, 1000000]
+-23969.982142857138
+=====================================================================================================================================
+7. 20.15
+Best Fitness Iterasi 1000: 1098628.6583433333 | 2018-03-12 18:28:44 | 9
+HKG 3 HARI
+Execution Time : 00:14:12
+Best Fitness : 305:10:28 | Iteration : 1000 | Population : 200 | R1 : 0.55 | R2 : -0.55 | V1 : 1 | V2 : -1
+Must See : 3 | Recreation : 12 Culture : 0 | Nature : -6
+['1-0-0', '4-22-0', '2-2-0', '3-82-0', '2-68-0', '3-0-0', '2-51-0', '4-22-1', '2-14-0', '2-6-0', '3-49-0', '2-57-0', '3-104-0', '2-47-0', '4-22-1', '2-53-0', '2-61-0', '4-22-0', '6-0-1']
+
+Day - 1
+1  . b'Hong Kong International Airport (HKG)'        | 2018-03-10 08:30:00 - 2018-03-10 09:30:00 | 00:00:00 - 23:59:00 | True  | airport | ChIJncZGzPPiAzQRnjaSGIKQ9fk |
+2  . b'InterContinental Hong Kong'                   | 2018-03-10 10:19:07 - 2018-03-10 11:19:07 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJAAAAAOwABDQRP_PjmMCBYQo |
+3  . b'Fireboat Alexander Grantham Exhibition Galler | 2018-03-10 12:03:29 - 2018-03-10 12:48:29 | 10:00:00 - 18:00:00 | True  | place   | ChIJ0fotbnIBBDQRb38SLqjByFs | culture;
+4  . b'Keung Kee Meat Shop'                          | 2018-03-10 13:29:41 - 2018-03-10 14:14:41 | 07:00:00 - 23:59:00 | True  | food    | ChIJt2Srq1AABDQRs1IgGJC5X6k | food;
+5  . b'Aviation Discovery Centre'                    | 2018-03-10 15:30:35 - 2018-03-10 18:00:35 | 09:30:00 - 22:00:00 | True  | place   | ChIJXY2o5tviAzQRKEAwNi8PMJk | culture;recreation;
+6  . b"Oma's Kitchen"                                | 2018-03-10 19:00:48 - 2018-03-10 20:30:48 | 11:00:00 - 23:00:00 | True  | food    | ChIJ-cyTZ035AzQR3-keNYT09sc | food;
+7  . b'Avenue of Stars'                              | 2018-03-10 21:13:06 - 2018-03-10 21:58:06 | 00:00:00 - 23:59:00 | True  | place   | ChIJsyIrnPEABDQRzjValbVWEJo | must_see;
+8  . b'InterContinental Hong Kong'                   | 2018-03-10 21:59:01 - 2018-03-10 21:59:01 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJAAAAAOwABDQRP_PjmMCBYQo |
+
+Day - 2
+9  . b'InterContinental Hong Kong'                   | 2018-03-11 08:30:00 - 2018-03-11 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJAAAAAOwABDQRP_PjmMCBYQo |
+10 . b"Lion's Nature Education Centre"               | 2018-03-11 09:42:45 - 2018-03-11 11:42:45 | 09:30:00 - 17:00:00 | True  | place   | ChIJCw8FQrgFBDQRohSp93FnNG0 | recreation;
+11 . b'Sneaker Street \xe6\xb3\xa2\xe9\x9e\x8b\xe8\x | 2018-03-11 12:39:05 - 2018-03-11 13:39:05 | 11:00:00 - 23:00:00 | True  | place   | ChIJ4YEGOMYABDQRYOvBu1VBIZI | must_see;recreation;
+12 . b'Al Molo'                                      | 2018-03-11 13:59:43 - 2018-03-11 15:59:43 | 12:00:00 - 22:30:00 | True  | food    | ChIJKetw2owABDQRzVgKiFrKJAo | food;
+13 . b'Sky 100 Hong Kong Observation Deck'           | 2018-03-11 16:25:13 - 2018-03-11 18:25:13 | 10:00:00 - 21:00:00 | True  | place   | ChIJu873FJEABDQRUFCXT1r5Xmo | must_see;
+14 . b"Ma's Restaurant"                              | 2018-03-11 18:57:08 - 2018-03-11 19:42:08 | 11:30:00 - 23:00:00 | True  | food    | ChIJY8M_9bYABDQRe4d_i87QuDw | food;
+15 . b"Lion's Pavilion"                              | 2018-03-11 20:38:00 - 2018-03-11 21:38:00 | 08:00:00 - 23:00:00 | True  | place   | ChIJq9XJkXMABDQRhrIGmNR501U | culture;
+16 . b'InterContinental Hong Kong'                   | 2018-03-11 22:28:44 - 2018-03-11 22:28:44 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJAAAAAOwABDQRP_PjmMCBYQo |
+
+Day - 3
+17 . b'InterContinental Hong Kong'                   | 2018-03-12 08:30:00 - 2018-03-12 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJAAAAAOwABDQRP_PjmMCBYQo |
+18 . b'Castle Peak Bay Waterfront Promenade'         | 2018-03-12 09:33:23 - 2018-03-12 10:33:23 | 00:00:00 - 23:59:00 | True  | place   | ChIJt0y4dGr7AzQR-cBLdmsusi4 | recreation;
+19 . b'Pui O Beach'                                  | 2018-03-12 12:52:20 - 2018-03-12 14:52:20 | 00:00:00 - 18:30:00 | True  | place   | ChIJVfI34JdXATQRi9co2iC7JuI | nature;
+20 . b'InterContinental Hong Kong'                   | 2018-03-12 16:39:33 - 2018-03-12 17:39:33 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJAAAAAOwABDQRP_PjmMCBYQo |
+21 . b'Hong Kong International Airport (HKG)'        | 2018-03-12 18:28:44 - 2018-03-12 18:28:44 | 00:00:00 - 23:59:00 | True  | airport | ChIJncZGzPPiAzQRnjaSGIKQ9fk |
+['4-22-1', '6-0-1', '3-999-0']
+[4827.2, 6832, 1000000]
+-16247.04166666667
+=====================================================================================================================================
+8. 22.15
+Best Fitness Iterasi 1000: 310784.39584333333 | 2018-03-12 20:24:25 | 9
+HKG 3 HARI
+Execution Time : 00:13:18
+Best Fitness : 86:19:44 | Iteration : 1000 | Population : 200 | R1 : 0.55 | R2 : -0.55 | V1 : 1 | V2 : -1
+Must See : 3 | Recreation : 12 Culture : 0 | Nature : -6
+['1-0-0', '4-17-0', '2-28-0', '3-32-0', '2-6-0', '3-49-0', '4-17-1', '2-56-0', '2-10-0', '3-0-0', '2-30-0', '3-38-0', '4-17-1', '2-21-0', '2-27-0', '3-65-0', '2-64-0', '2-4-0', '4-17-0', '6-0-1']
+
+Day - 1
+1  . b'Hong Kong International Airport (HKG)'        | 2018-03-10 08:30:00 - 2018-03-10 09:30:00 | 00:00:00 - 23:59:00 | True  | airport | ChIJncZGzPPiAzQRnjaSGIKQ9fk |
+2  . b'Imperial Hotel Hong Kong'                     | 2018-03-10 10:21:59 - 2018-03-10 11:21:59 | 00:00:00 - 23:30:00 | True  | hotel   | ChIJ91iZFfIABDQR_7fFaWAx-v0 |
+3  . b'Lantau Trail'                                 | 2018-03-10 13:14:15 - 2018-03-10 13:59:15 | 00:00:00 - 18:30:00 | True  | place   | ChIJk9GLC0dYATQRxWuF5pstxiU | nature;recreation;
+4  . b'Bijas Vegetarian Restaurant \xe4\xb8\x80\xe5\ | 2018-03-10 15:56:39 - 2018-03-10 16:41:39 | 11:30:00 - 21:00:00 | True  | food    | ChIJG1R6HYX_AzQRnW5bZq5iK8U | food;
+5  . b'Sneaker Street \xe6\xb3\xa2\xe9\x9e\x8b\xe8\x | 2018-03-10 17:07:57 - 2018-03-10 18:07:57 | 11:00:00 - 23:00:00 | True  | place   | ChIJ4YEGOMYABDQRYOvBu1VBIZI | must_see;recreation;
+6  . b'Al Molo'                                      | 2018-03-10 18:28:35 - 2018-03-10 20:28:35 | 12:00:00 - 22:30:00 | True  | food    | ChIJKetw2owABDQRzVgKiFrKJAo | food;
+7  . b'Imperial Hotel Hong Kong'                     | 2018-03-10 20:39:48 - 2018-03-10 20:39:48 | 00:00:00 - 23:30:00 | True  | hotel   | ChIJ91iZFfIABDQR_7fFaWAx-v0 |
+
+Day - 2
+8  . b'Imperial Hotel Hong Kong'                     | 2018-03-11 08:30:00 - 2018-03-11 08:30:00 | 00:00:00 - 23:30:00 | True  | hotel   | ChIJ91iZFfIABDQR_7fFaWAx-v0 |
+9  . b'Hong Kong Railway Museum'                     | 2018-03-11 09:25:38 - 2018-03-11 10:25:38 | 10:00:00 - 18:00:00 | True  | place   | ChIJTSz24z4IBDQR4jq-AwZZe2Y | culture;
+10 . b'Airport Core Programme Exhibition Centre'     | 2018-03-11 11:52:57 - 2018-03-11 12:22:57 | 10:00:00 - 18:30:00 | True  | place   | ChIJb28RzkD5AzQRe-HzunPBJ-g | recreation;
+11 . b"Oma's Kitchen"                                | 2018-03-11 13:33:41 - 2018-03-11 15:03:41 | 11:00:00 - 23:00:00 | True  | food    | ChIJ-cyTZ035AzQR3-keNYT09sc | food;
+12 . b'Stanley Main Beach'                           | 2018-03-11 16:42:58 - 2018-03-11 18:12:58 | 07:00:00 - 18:30:00 | True  | place   | ChIJKwlKwWyqBjQRX5SWj9FTNZM | must_see;nature;
+13 . b'Himalaya Restaurant'                          | 2018-03-11 19:03:00 - 2018-03-11 20:33:00 | 17:30:00 - 23:30:00 | True  | food    | ChIJITTM2lwABDQR1j7qux47Gx8 | food;
+14 . b'Imperial Hotel Hong Kong'                     | 2018-03-11 20:51:42 - 2018-03-11 20:51:42 | 00:00:00 - 23:30:00 | True  | hotel   | ChIJ91iZFfIABDQR_7fFaWAx-v0 |
+
+Day - 3
+15 . b'Imperial Hotel Hong Kong'                     | 2018-03-12 08:30:00 - 2018-03-12 08:30:00 | 00:00:00 - 23:30:00 | True  | hotel   | ChIJ91iZFfIABDQR_7fFaWAx-v0 |
+16 . b'Stanley Plaza'                                | 2018-03-12 09:23:45 - 2018-03-12 10:23:45 | 08:00:00 - 23:00:00 | True  | place   | ChIJFeOFHWyqBjQRkqeTNWDCsog | must_see;recreation;food;
+17 . b'Central-Mid-Levels Escalators'                | 2018-03-12 11:29:20 - 2018-03-12 12:29:20 | 00:00:00 - 23:59:00 | True  | place   | ChIJk1YpX3sABDQRcEUrangY1CY | must_see;
+18 . b'Sheung Wan Market and Cooked Food Centre'     | 2018-03-12 12:40:18 - 2018-03-12 13:40:18 | 06:00:00 - 20:00:00 | True  | food    | ChIJpbMknH4ABDQR2weM7JgG2vw | food;
+19 . b'Fringe Club'                                  | 2018-03-12 13:58:23 - 2018-03-12 16:58:23 | 12:00:00 - 22:00:00 | True  | place   | ChIJwzeIKmUABDQR8VxjuNzFq3Q | recreation;food;
+20 . b'Former Kowloon-Canton Railway Clock Tower'    | 2018-03-12 17:23:07 - 2018-03-12 18:23:07 | 00:00:00 - 23:59:00 | True  | place   | ChIJ42dQa_MABDQRKKppWIjPPZA | must_see;culture;
+21 . b'Imperial Hotel Hong Kong'                     | 2018-03-12 18:33:11 - 2018-03-12 19:33:11 | 00:00:00 - 23:30:00 | True  | hotel   | ChIJ91iZFfIABDQR_7fFaWAx-v0 |
+22 . b'Hong Kong International Airport (HKG)'        | 2018-03-12 20:24:25 - 2018-03-12 20:24:25 | 00:00:00 - 23:59:00 | True  | airport | ChIJncZGzPPiAzQRnjaSGIKQ9fk |
+['3-32-0', '3-49-0', '3-38-0', '6-0-1']
+[174975, 25795, 23940, 8645]
+-18689.85416666667
+=====================================================================================================================================

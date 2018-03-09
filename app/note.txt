@@ -59,3 +59,15 @@ currency
 ubah timezone
 flight api
 hotel api
+
+============================= LAST AIRPORT ===============================
+
+# KALAU LAST AIRPORT -> 90 menit sebelum brangkat harus sudah sampe
+# jam pagi  maks 1000
+# jam malam min  2000
+
+# harus sampai airport 90 menit sebelum jam terbang
+# kalau tiket pulangnya kurang dari start hour + 2 jam :
+  hari itu cuman pulang aja (contoh pulangnya subuh2)
+# dianggap sudah makan kalau jam berangkat itu 2 jam sebelum jam makan normal
+# beli tiketnya lebih dan jam 4 pagi (karena dari hotel 3 jam sebelum terbang)

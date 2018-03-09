@@ -813,3 +813,222 @@ Day - 3
 ['3-45-0', '3-36-0']
 [350, 40300]
 -18329.765625
+
+==========================================
+
+Best Fitness Iterasi 25000: 1516599.3446215289 | 2018-03-14 21:50:44 | 19
+HONGKONG 7 HARI
+Execution Time : 24455.905952 seconds
+Best Fitness : 421:16:39 | Iteration : 25000 | Population : 200 | R1 : 0.55 | R2 : -0.55 | V1 : 1 | V2 : -1
+Must See : 3 | Recreation : 12 Culture : 0 | Nature : -6
+['1-0-0', '4-67-0', '3-86-0', '2-51-0', '3-8-0', '4-67-1', '2-0-0', '2-61-0', '3-57-0', '2-47-0', '3-36-0', '4-67-1', '2-34-0', '3-55-0', '2-6-0', '3-28-0', '4-67-1', '2-23-0', '2-62-0', '3-52-0', '2-27-0', '3-68-0', '2-41-0', '4-67-1', '2-29-0', '2-26-0', '3-4-0', '2-73-0', '3-1-0', '4-67-1', '2-35-0', '2-48-0', '3-73-0', '2-19-0', '3-43-0', '4-67-1', '2-53-0', '2-64-0', '2-74-0', '3-103-0', '4-67-1']
+
+Day - 1
+1  . b'Hong Kong International Airport'              | 2018-03-08 13:35:00 - 2018-03-08 14:35:00 | 00:00:00 - 23:59:00 | True  | airport | ChIJncZGzPPiAzQRnjaSGIKQ9fk |
+2  . b'Stanford Hillview Hotel'                      | 2018-03-08 15:30:22 - 2018-03-08 16:30:22 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJMQQro-4ABDQRnq2yNAI2vfQ |
+3  . b"Amaroni's"                                    | 2018-03-08 17:00:17 - 2018-03-08 19:00:17 | 11:00:00 - 23:00:00 | True  | food    | ChIJTQElRjEHBDQRushHsMWUSMA | food;
+4  . b'Avenue of Stars'                              | 2018-03-08 19:23:05 - 2018-03-08 20:08:05 | 00:00:00 - 23:59:00 | True  | place   | ChIJsyIrnPEABDQRzjValbVWEJo | must_see;
+5  . b'Sun Wah Cafe'                                 | 2018-03-08 20:39:03 - 2018-03-08 21:24:03 | 06:00:00 - 22:30:00 | True  | food    | ChIJ6729_k0HBDQRlaGuh7wttIQ | food;
+6  . b'Stanford Hillview Hotel'                      | 2018-03-08 21:54:05 - 2018-03-08 21:54:05 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJMQQro-4ABDQRnq2yNAI2vfQ |
+
+Day - 2
+7  . b'Stanford Hillview Hotel'                      | 2018-03-09 08:30:00 - 2018-03-09 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJMQQro-4ABDQRnq2yNAI2vfQ |
+8  . b'Lei Cheng Uk Han Tomb'                        | 2018-03-09 09:00:32 - 2018-03-09 10:00:32 | 10:00:00 - 18:00:00 | True  | place   | ChIJ-QecI0wHBDQR8EaFlKmXTNA | culture;
+9  . b'Pui O Beach'                                  | 2018-03-09 12:17:13 - 2018-03-09 14:17:13 | 00:00:00 - 18:30:00 | True  | place   | ChIJVfI34JdXATQRi9co2iC7JuI | nature;
+10 . b'China Bear'                                   | 2018-03-09 14:40:31 - 2018-03-09 16:10:31 | 09:00:00 - 03:00:00 | True  | food    | ChIJMag7SCtWATQRlqg-v-jpb48 | food;
+11 . b"Lion's Pavilion"                              | 2018-03-09 17:59:33 - 2018-03-09 18:59:33 | 10:00:00 - 23:00:00 | True  | place   | ChIJq9XJkXMABDQRhrIGmNR501U | culture;
+12 . b'ABC Kitchen'                                  | 2018-03-09 19:48:19 - 2018-03-09 20:33:19 | 12:00:00 - 22:30:00 | True  | food    | ChIJIRJT_34ABDQR2dLzWdEdO9E | food;
+13 . b'Stanford Hillview Hotel'                      | 2018-03-09 21:04:10 - 2018-03-09 21:04:10 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJMQQro-4ABDQRnq2yNAI2vfQ |
+
+Day - 3
+14 . b'Stanford Hillview Hotel'                      | 2018-03-10 08:30:00 - 2018-03-10 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJMQQro-4ABDQRnq2yNAI2vfQ |
+15 . b'Lock of Love'                                 | 2018-03-10 11:49:02 - 2018-03-10 13:19:02 | 00:00:00 - 23:59:00 | True  | place   | ChIJm18U8o1WATQR16EHADYFClU | recreation;
+16 . b'King Ludwig Beerhall'                         | 2018-03-10 15:09:47 - 2018-03-10 17:39:47 | 12:00:00 - 02:00:00 | True  | food    | ChIJLVvIjvEABDQRiPxP9FnFLZU | food;
+17 . b'Sneaker Street \xe6\xb3\xa2\xe9\x9e\x8b\xe8\x | 2018-03-10 17:58:01 - 2018-03-10 18:58:01 | 11:00:00 - 23:00:00 | True  | place   | ChIJ4YEGOMYABDQRYOvBu1VBIZI | must_see;recreation;
+18 . b'Wai Kee'                                      | 2018-03-10 19:26:02 - 2018-03-10 20:26:02 | 11:00:00 - 16:00:00 | False | food    | ChIJf6k_vVAABDQREjIEVCbHUsg | food;
+19 . b'Stanford Hillview Hotel'                      | 2018-03-10 20:49:42 - 2018-03-10 20:49:42 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJMQQro-4ABDQRnq2yNAI2vfQ |
+
+Day - 4
+20 . b'Stanford Hillview Hotel'                      | 2018-03-11 08:30:00 - 2018-03-11 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJMQQro-4ABDQRnq2yNAI2vfQ |
+21 . b'Tai Po Kau Park'                              | 2018-03-11 09:38:41 - 2018-03-11 11:18:41 | 00:00:00 - 23:59:00 | True  | place   | ChIJHcfMN2IIBDQR2OSzBpOOSqQ | recreation;
+22 . b"Saint Stephen's Beach"                        | 2018-03-11 13:19:34 - 2018-03-11 14:49:34 | 00:00:00 - 18:30:00 | True  | place   | ChIJWdZ1q2qqBjQRRHud2oI-1mE | nature;
+23 . b'PizzaExpress Ocean Terminal'                  | 2018-03-11 16:13:15 - 2018-03-11 17:43:15 | 11:00:00 - 22:30:00 | True  | food    | ChIJl0pm04wABDQRyXNAJIYI4oE | food;
+24 . b'Central-Mid-Levels Escalators'                | 2018-03-11 18:09:40 - 2018-03-11 19:09:40 | 00:00:00 - 23:59:00 | True  | place   | ChIJk1YpX3sABDQRcEUrangY1CY | must_see;
+25 . b'Ah Lung Pakistan Halal Food'                  | 2018-03-11 19:29:28 - 2018-03-11 20:14:28 | 11:00:00 - 23:00:00 | True  | food    | ChIJPYkg_OoABDQRAdMxctWzgjs | food;
+26 . b'Lung Fu Shan Country Park'                    | 2018-03-11 20:43:27 - 2018-03-11 21:28:27 | 00:00:00 - 23:59:00 | True  | place   | ChIJp8RQ947_AzQRhhTEQjuFKwg | recreation;
+27 . b'Stanford Hillview Hotel'                      | 2018-03-11 21:59:42 - 2018-03-11 21:59:42 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJMQQro-4ABDQRnq2yNAI2vfQ |
+
+Day - 5
+28 . b'Stanford Hillview Hotel'                      | 2018-03-12 08:30:00 - 2018-03-12 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJMQQro-4ABDQRnq2yNAI2vfQ |
+29 . b'Man Mo Temple'                                | 2018-03-12 08:58:46 - 2018-03-12 09:58:46 | 08:00:00 - 18:00:00 | True  | place   | ChIJkR_N-HsABDQR49-CU5m1ShU | must_see;culture;
+30 . b'Hong Kong Park'                               | 2018-03-12 10:24:11 - 2018-03-12 12:24:11 | 06:00:00 - 18:30:00 | True  | place   | ChIJiUQ842UABDQRLMc_re3N3-U | must_see;nature;recreation;
+31 . b'The Peak Lookout'                             | 2018-03-12 12:57:52 - 2018-03-12 14:57:52 | 08:30:00 - 23:59:00 | True  | food    | ChIJ1eATenQABDQRXA0nqQaodwY | food;
+32 . b'Nature Garden'                                | 2018-03-12 16:50:49 - 2018-03-12 18:20:49 | 08:00:00 - 18:30:00 | True  | place   | ChIJYyKqrFL5AzQRCxn93haWZ7o | nature;recreation;
+33 . b'What the Food Cafe'                           | 2018-03-12 20:13:34 - 2018-03-12 21:43:34 | 11:00:00 - 22:00:00 | True  | food    | ChIJ-Yl8ReAJBDQRNUeiWyJDpcU | food;
+34 . b'Stanford Hillview Hotel'                      | 2018-03-12 22:55:34 - 2018-03-12 22:55:34 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJMQQro-4ABDQRnq2yNAI2vfQ |
+
+Day - 6
+35 . b'Stanford Hillview Hotel'                      | 2018-03-13 08:30:00 - 2018-03-13 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJMQQro-4ABDQRnq2yNAI2vfQ |
+36 . b'Dolphin Square'                               | 2018-03-13 09:57:19 - 2018-03-13 10:27:19 | 00:00:00 - 23:59:00 | True  | place   | ChIJnzN8y2T7AzQROsfNMshQJnM |
+37 . b'Peak Tower'                                   | 2018-03-13 12:26:04 - 2018-03-13 13:56:04 | 07:00:00 - 00:00:00 | True  | place   | ChIJR1J4iXMABDQRqBwOAYY2gAo | must_see;recreation;
+38 . b'ALADIN MESS'                                  | 2018-03-13 14:43:09 - 2018-03-13 16:13:09 | 18:00:00 - 22:45:00 | False | food    | ChIJQU6xzVYABDQRollkACYZmqo | food;
+39 . b'Lingnan Garden'                               | 2018-03-13 16:52:16 - 2018-03-13 18:22:16 | 07:00:00 - 23:00:00 | True  | place   | ChIJf41i61T_AzQR98vqG688Pf8 | recreation;
+40 . b'Our Restaurant'                               | 2018-03-13 18:51:10 - 2018-03-13 20:21:10 | 12:00:00 - 23:59:00 | True  | food    | ChIJjS9448YABDQRMTSGK3IJNAk | food;
+41 . b'Stanford Hillview Hotel'                      | 2018-03-13 20:41:20 - 2018-03-13 20:41:20 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJMQQro-4ABDQRnq2yNAI2vfQ |
+
+Day - 7
+42 . b'Stanford Hillview Hotel'                      | 2018-03-14 08:30:00 - 2018-03-14 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJMQQro-4ABDQRnq2yNAI2vfQ |
+43 . b'Castle Peak Bay Waterfront Promenade'         | 2018-03-14 09:43:03 - 2018-03-14 10:43:03 | 00:00:00 - 23:59:00 | True  | place   | ChIJt0y4dGr7AzQR-cBLdmsusi4 | recreation;
+44 . b'Fringe Club'                                  | 2018-03-14 12:10:23 - 2018-03-14 15:10:23 | 12:00:00 - 22:00:00 | True  | place   | ChIJwzeIKmUABDQR8VxjuNzFq3Q | recreation;food;
+45 . b'Silvermine Bay Beach'                         | 2018-03-14 17:22:00 - 2018-03-14 18:22:00 | 00:00:00 - 18:30:00 | True  | place   | ChIJZ1Q0o3_9AzQRau7aV8BPXKA | nature;
+46 . b'Brickhouse'                                   | 2018-03-14 19:59:03 - 2018-03-14 21:29:03 | 18:00:00 - 02:00:00 | True  | food    | ChIJx_NuLXsABDQR3rbzYxSNAO0 | food;
+47 . b'Stanford Hillview Hotel'                      | 2018-03-14 21:50:44 - 2018-03-14 21:50:44 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJMQQro-4ABDQRnq2yNAI2vfQ |
+['3-8-0', '3-8-0', '3-57-0', '3-36-0', '3-55-0', '3-28-0', '3-28-0', '3-52-0', '2-41-0', '3-1-0', '3-73-0', '3-73-0', '3-43-0', '3-103-0']
+[58575, 2499, 60775, 23807, 104675, 360000, 26866, 199875, 651, 20350, 64725, 360000, 28910, 399]
+-36949.38157894738
+
+===================================================================================
+
+Best Fitness Iterasi 100000: 1171981.4583433333 | 2018-03-14 21:07:35 | 20
+HONGKONG 7 HARI
+Execution Time : 119577.501977 seconds
+Best Fitness : 325:33:01 | Iteration : 100000 | Population : 200 | R1 : 0.55 | R2 : -0.55 | V1 : 1 | V2 : -1
+Must See : 3 | Recreation : 12 Culture : 0 | Nature : -6
+['1-0-0', '4-79-0', '3-68-0', '2-57-0', '3-15-0', '4-79-1', '2-0-0', '2-53-0', '3-58-0', '2-48-0', '3-24-0', '4-79-1', '2-18-0', '2-4-0', '3-55-0', '2-33-0', '3-19-0', '4-79-1', '2-55-0', '2-22-0', '3-47-0', '2-35-0', '2-27-0', '3-82-0', '4-79-1', '2-32-0', '3-3-0', '2-73-0', '3-16-0', '4-79-1', '2-25-0', '2-52-0', '3-65-0', '2-26-0', '2-50-0', '3-49-0', '4-79-1', '2-68-0', '3-81-0', '2-74-0', '2-72-0', '3-101-0', '4-79-1']
+
+Day - 1
+1  . b'Hong Kong International Airport'              | 2018-03-08 13:35:00 - 2018-03-08 14:35:00 | 00:00:00 - 23:59:00 | True  | airport | ChIJncZGzPPiAzQRnjaSGIKQ9fk |
+2  . b'Island Shangri-La, Hong Kong'                 | 2018-03-08 15:41:58 - 2018-03-08 16:41:58 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJSUycMWYABDQRgyxi89tuRwA |
+3  . b'Ah Lung Pakistan Halal Food'                  | 2018-03-08 17:05:35 - 2018-03-08 17:50:35 | 11:00:00 - 23:00:00 | True  | food    | ChIJPYkg_OoABDQRAdMxctWzgjs | food;
+4  . b'Sky 100 Hong Kong Observation Deck'           | 2018-03-08 18:09:18 - 2018-03-08 20:09:18 | 10:00:00 - 21:00:00 | True  | place   | ChIJu873FJEABDQRUFCXT1r5Xmo | must_see;
+5  . b'Chi Lin Vegetarian'                           | 2018-03-08 20:55:43 - 2018-03-08 21:55:43 | 18:00:00 - 21:00:00 | False | food    | ChIJAxyIBcUGBDQRQ7WGOfpSwmY | food;
+6  . b'Island Shangri-La, Hong Kong'                 | 2018-03-08 22:42:53 - 2018-03-08 22:42:53 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJSUycMWYABDQRgyxi89tuRwA |
+
+Day - 2
+7  . b'Island Shangri-La, Hong Kong'                 | 2018-03-09 08:30:00 - 2018-03-09 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJSUycMWYABDQRgyxi89tuRwA |
+8  . b'Lei Cheng Uk Han Tomb'                        | 2018-03-09 09:07:35 - 2018-03-09 10:07:35 | 10:00:00 - 18:00:00 | True  | place   | ChIJ-QecI0wHBDQR8EaFlKmXTNA | culture;
+9  . b'Castle Peak Bay Waterfront Promenade'         | 2018-03-09 11:09:50 - 2018-03-09 12:09:50 | 00:00:00 - 23:59:00 | True  | place   | ChIJt0y4dGr7AzQR-cBLdmsusi4 | recreation;
+10 . b"Explorer's Club Restaurant"                   | 2018-03-09 13:49:48 - 2018-03-09 15:19:48 | 12:00:00 - 20:00:00 | True  | food    | ChIJmaNPYCz8AzQRGOyfLw4jjGQ | food;
+11 . b'Peak Tower'                                   | 2018-03-09 16:56:51 - 2018-03-09 18:26:51 | 07:00:00 - 00:00:00 | True  | place   | ChIJR1J4iXMABDQRqBwOAYY2gAo | must_see;recreation;
+12 . b"Maxim's Mx - Sai Yeung Choi Street"           | 2018-03-09 19:14:27 - 2018-03-09 19:59:27 | 06:30:00 - 23:00:00 | True  | food    | ChIJefnkt8cABDQRNswLP-z4s0g | food;
+13 . b'Island Shangri-La, Hong Kong'                 | 2018-03-09 20:27:03 - 2018-03-09 20:27:03 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJSUycMWYABDQRgyxi89tuRwA |
+
+Day - 3
+14 . b'Island Shangri-La, Hong Kong'                 | 2018-03-10 08:30:00 - 2018-03-10 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJSUycMWYABDQRgyxi89tuRwA |
+15 . b'Hung Shing Ye Beach'                          | 2018-03-10 10:23:52 - 2018-03-10 11:08:52 | 08:00:00 - 18:30:00 | True  | place   | ChIJEUZF1RdVATQR9vd7zzD2Ws8 | must_see;nature;
+16 . b'Former Kowloon-Canton Railway Clock Tower'    | 2018-03-10 12:39:32 - 2018-03-10 13:39:32 | 00:00:00 - 23:59:00 | True  | place   | ChIJ42dQa_MABDQRKKppWIjPPZA | must_see;culture;
+17 . b'King Ludwig Beerhall'                         | 2018-03-10 13:48:47 - 2018-03-10 16:18:47 | 12:00:00 - 02:00:00 | True  | food    | ChIJLVvIjvEABDQRiPxP9FnFLZU | food;
+18 . b'Soho, Hong Kong'                              | 2018-03-10 16:52:52 - 2018-03-10 18:22:52 | 00:00:00 - 23:59:00 | True  | place   | ChIJLw9f3HoABDQRaFmq9tKvYdk | must_see;recreation;
+19 . b'Tiffany Restaurant'                           | 2018-03-10 18:56:38 - 2018-03-10 20:26:38 | 08:00:00 - 23:30:00 | True  | food    | ChIJcwmml8kABDQRBGIfIoAAf6s | food;
+20 . b'Island Shangri-La, Hong Kong'                 | 2018-03-10 20:57:48 - 2018-03-10 20:57:48 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJSUycMWYABDQRgyxi89tuRwA |
+
+Day - 4
+21 . b'Island Shangri-La, Hong Kong'                 | 2018-03-11 08:30:00 - 2018-03-11 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJSUycMWYABDQRgyxi89tuRwA |
+22 . b'Hong Kong Heritage Discovery Centre'          | 2018-03-11 08:52:28 - 2018-03-11 10:52:28 | 10:00:00 - 19:00:00 | True  | place   | ChIJt4IDE-0ABDQR9TGwIwBrlXE | culture;
+23 . b'Dr Sun Yat-sen Museum'                        | 2018-03-11 11:21:46 - 2018-03-11 12:51:46 | 10:00:00 - 19:00:00 | True  | place   | ChIJFZe4z3sABDQRep6QiUQzC0k | culture;
+24 . b'Cinta-J Restaurant & Lounge'                  | 2018-03-11 13:16:11 - 2018-03-11 15:16:11 | 11:00:00 - 04:00:00 | True  | food    | ChIJk3aHTVwABDQRE_K67YvT1R4 | food;
+25 . b'Dolphin Square'                               | 2018-03-11 17:03:19 - 2018-03-11 17:33:19 | 00:00:00 - 23:59:00 | True  | place   | ChIJnzN8y2T7AzQROsfNMshQJnM |
+26 . b'Central-Mid-Levels Escalators'                | 2018-03-11 19:06:40 - 2018-03-11 20:06:40 | 00:00:00 - 23:59:00 | True  | place   | ChIJk1YpX3sABDQRcEUrangY1CY | must_see;
+27 . b'Keung Kee Meat Shop'                          | 2018-03-11 20:28:53 - 2018-03-11 21:13:53 | 07:00:00 - 23:59:00 | True  | food    | ChIJt2Srq1AABDQRs1IgGJC5X6k | food;
+28 . b'Island Shangri-La, Hong Kong'                 | 2018-03-11 21:38:57 - 2018-03-11 21:38:57 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJSUycMWYABDQRgyxi89tuRwA |
+
+Day - 5
+29 . b'Island Shangri-La, Hong Kong'                 | 2018-03-12 08:30:00 - 2018-03-12 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJSUycMWYABDQRgyxi89tuRwA |
+30 . b'Cheung Chau Rock Carvings'                    | 2018-03-12 12:10:00 - 2018-03-12 13:40:00 | 00:00:00 - 23:59:00 | True  | place   | ChIJLb_nII5WATQRg3lU01s9hf0 | culture;
+31 . b'Gam Wing Taai Fish Balls'                     | 2018-03-12 13:45:40 - 2018-03-12 14:45:40 | 07:00:00 - 17:00:00 | True  | food    | ChIJ0UVnjI1WATQRFXTSxHaoe4M | food;
+32 . b'Nature Garden'                                | 2018-03-12 16:39:54 - 2018-03-12 18:09:54 | 08:00:00 - 18:30:00 | True  | place   | ChIJYyKqrFL5AzQRCxn93haWZ7o | nature;recreation;
+33 . b'Melody Thai'                                  | 2018-03-12 19:31:43 - 2018-03-12 20:16:43 | 10:30:00 - 23:00:00 | True  | food    | ChIJBWDYBApYATQRPQsRiImlJEs | food;
+34 . b'Island Shangri-La, Hong Kong'                 | 2018-03-12 21:37:52 - 2018-03-12 21:37:52 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJSUycMWYABDQRgyxi89tuRwA |
+
+Day - 6
+35 . b'Island Shangri-La, Hong Kong'                 | 2018-03-13 08:30:00 - 2018-03-13 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJSUycMWYABDQRgyxi89tuRwA |
+36 . b'DB North Plaza Discovery Bay'                 | 2018-03-13 09:57:30 - 2018-03-13 10:57:30 | 00:00:00 - 23:59:00 | True  | place   | ChIJhyynBbP9AzQRVGfkTlWLOes | recreation;
+37 . b'4D Magical World'                             | 2018-03-13 12:10:43 - 2018-03-13 13:10:43 | 10:30:00 - 21:30:00 | True  | place   | ChIJs_OVB-8ABDQR4wpQPkHaqIA | recreation;
+38 . b'Sheung Wan Market and Cooked Food Centre'     | 2018-03-13 13:37:54 - 2018-03-13 14:37:54 | 06:00:00 - 20:00:00 | True  | food    | ChIJpbMknH4ABDQR2weM7JgG2vw | food;
+39 . b'Hong Kong Park'                               | 2018-03-13 15:02:14 - 2018-03-13 17:02:14 | 06:00:00 - 18:30:00 | True  | place   | ChIJiUQ842UABDQRLMc_re3N3-U | must_see;nature;recreation;
+40 . b'Lan Kwai Fong'                                | 2018-03-13 17:20:10 - 2018-03-13 19:00:10 | 14:00:00 - 06:00:00 | True  | place   | ChIJsQIjhnwABDQRCTVTm-GVzn8 | must_see;recreation;
+41 . b'Al Molo'                                      | 2018-03-13 19:24:38 - 2018-03-13 21:24:38 | 12:00:00 - 22:30:00 | True  | food    | ChIJKetw2owABDQRzVgKiFrKJAo | food;
+42 . b'Island Shangri-La, Hong Kong'                 | 2018-03-13 21:56:02 - 2018-03-13 21:56:02 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJSUycMWYABDQRgyxi89tuRwA |
+
+Day - 7
+43 . b'Island Shangri-La, Hong Kong'                 | 2018-03-14 08:30:00 - 2018-03-14 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJSUycMWYABDQRgyxi89tuRwA |
+44 . b'Aviation Discovery Centre'                    | 2018-03-14 09:46:58 - 2018-03-14 12:16:58 | 11:00:00 - 22:00:00 | True  | place   | ChIJXY2o5tviAzQRKEAwNi8PMJk | culture;recreation;
+45 . b'Rome Restaurant'                              | 2018-03-14 13:49:55 - 2018-03-14 14:49:55 | 11:00:00 - 22:30:00 | True  | food    | ChIJsUEHydRXATQRJyWNBY1XiS0 | food;
+46 . b'Silvermine Bay Beach'                         | 2018-03-14 14:59:45 - 2018-03-14 15:59:45 | 00:00:00 - 18:30:00 | True  | place   | ChIJZ1Q0o3_9AzQRau7aV8BPXKA | nature;
+47 . b'Sam Tung Uk Museum'                           | 2018-03-14 17:53:17 - 2018-03-14 19:23:17 | 10:00:00 - 18:00:00 | False | place   | ChIJySAMrZL4AzQRSeamG7X-iQg | culture;
+48 . b'Hungry Korean'                                | 2018-03-14 19:57:45 - 2018-03-14 20:42:45 | 12:00:00 - 23:59:00 | True  | food    | ChIJXQ-lgfIABDQRbhvqvNoHofA | food;
+49 . b'Island Shangri-La, Hong Kong'                 | 2018-03-14 21:07:35 - 2018-03-14 21:07:35 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJSUycMWYABDQRgyxi89tuRwA |
+['3-15-0', '3-15-0', '3-24-0', '3-19-0', '3-82-0', '3-82-0', '3-16-0', '3-49-0', '2-72-0', '3-101-0']
+[83575, 360000, 38031, 26614, 43325, 6769, 30779, 2254, 360000, 19845]
+-34783.875000000015
+
+=====================================================================
+
+Best Fitness Iterasi 10000: 967409.2771677381 | 2018-03-16 21:46:47 | 16
+HONGKONG 7 HARI
+Execution Time : 16678.410719 seconds
+Best Fitness : 268:43:29 | Iteration : 10000 | Population : 350 | R1 : 0.55 | R2 : -0.55 | V1 : 1 | V2 : -1
+Must See : 3 | Recreation : 12 Culture : 0 | Nature : -6
+['1-0-0', '4-47-0', '3-5-0', '2-51-0', '3-76-0', '4-47-1', '2-39-0', '2-48-0', '3-101-0', '2-30-0', '2-52-0', '3-40-0', '4-47-1', '2-54-0', '3-16-0', '2-59-0', '3-30-0', '4-47-1', '2-61-0', '3-80-0', '2-12-0', '3-93-0', '4-47-1', '2-60-0', '3-98-0', '2-4-0', '3-66-0', '4-47-1', '2-65-0', '3-57-0', '2-29-0', '2-6-0', '3-79-0', '4-47-1', '2-17-0', '3-19-0', '2-36-0', '3-43-0', '4-47-1']
+
+Day - 1
+1  . b'Hong Kong International Airport (HKG)'        | 2018-03-10 13:35:00 - 2018-03-10 14:35:00 | 00:00:00 - 23:59:00 | True  | airport | ChIJncZGzPPiAzQRnjaSGIKQ9fk |
+2  . b'Silka Far East Hotel'                         | 2018-03-10 15:24:13 - 2018-03-10 16:24:13 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJfesmOu34AzQRtPhwpL4xpIE |
+3  . b'Little Bao'                                   | 2018-03-10 17:15:29 - 2018-03-10 18:15:29 | 18:00:00 - 23:00:00 | True  | food    | ChIJ2Si6k3sABDQRY8EFgRJ_22Y | food;
+4  . b'Avenue of Stars'                              | 2018-03-10 18:46:54 - 2018-03-10 19:31:54 | 00:00:00 - 23:59:00 | True  | place   | ChIJsyIrnPEABDQRzjValbVWEJo | must_see;
+5  . b'Piccolo Pizzeria & Bar'                       | 2018-03-10 20:03:30 - 2018-03-10 21:03:30 | 12:00:00 - 22:00:00 | True  | food    | ChIJrS-zGZr_AzQR3HoIyD8INmw | food;
+6  . b'Silka Far East Hotel'                         | 2018-03-10 21:56:39 - 2018-03-10 21:56:39 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJfesmOu34AzQRtPhwpL4xpIE |
+
+Day - 2
+7  . b'Silka Far East Hotel'                         | 2018-03-11 08:30:00 - 2018-03-11 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJfesmOu34AzQRtPhwpL4xpIE |
+8  . b'Hong Kong Maritime Museum'                    | 2018-03-11 09:08:24 - 2018-03-11 11:08:24 | 10:00:00 - 19:00:00 | True  | place   | ChIJOXcQ5GuqBjQR9gEKgijYOOE | culture;
+9  . b'Peak Tower'                                   | 2018-03-11 11:55:05 - 2018-03-11 13:25:05 | 07:00:00 - 00:00:00 | True  | place   | ChIJR1J4iXMABDQRqBwOAYY2gAo | must_see;recreation;
+10 . b'Hungry Korean'                                | 2018-03-11 14:10:00 - 2018-03-11 14:55:00 | 12:00:00 - 23:59:00 | True  | food    | ChIJXQ-lgfIABDQRbhvqvNoHofA | food;
+11 . b'Stanley Main Beach'                           | 2018-03-11 15:52:00 - 2018-03-11 17:22:00 | 07:00:00 - 18:30:00 | True  | place   | ChIJKwlKwWyqBjQRX5SWj9FTNZM | must_see;nature;
+12 . b'4D Magical World'                             | 2018-03-11 18:18:25 - 2018-03-11 19:18:25 | 09:00:00 - 22:00:00 | True  | place   | ChIJs_OVB-8ABDQR4wpQPkHaqIA | recreation;
+13 . b'Ba Yi Restaurant'                             | 2018-03-11 19:50:56 - 2018-03-11 21:20:56 | 18:00:00 - 22:00:00 | True  | food    | ChIJiyfMtob_AzQRMk5pW_inFMM | food;
+14 . b'Silka Far East Hotel'                         | 2018-03-11 22:12:54 - 2018-03-11 22:12:54 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJfesmOu34AzQRtPhwpL4xpIE |
+
+Day - 3
+15 . b'Silka Far East Hotel'                         | 2018-03-12 08:30:00 - 2018-03-12 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJfesmOu34AzQRtPhwpL4xpIE |
+16 . b'Reclining Rock'                               | 2018-03-12 12:13:15 - 2018-03-12 13:43:15 | 00:00:00 - 18:30:00 | True  | place   | ChIJt1ZeCMJWATQRako4Qm5HEwQ | nature;
+17 . b'Melody Thai'                                  | 2018-03-12 15:49:36 - 2018-03-12 16:34:36 | 10:30:00 - 23:00:00 | True  | food    | ChIJBWDYBApYATQRPQsRiImlJEs | food;
+18 . b'Hong Kong Avenue of Comic Stars'              | 2018-03-12 17:52:44 - 2018-03-12 19:22:44 | 05:00:00 - 23:59:00 | True  | place   | ChIJv6pmRewABDQR8WqOOY-mIIw | recreation;
+19 . b'Three Virtues Vegetarian Restaurant'          | 2018-03-12 19:29:37 - 2018-03-12 21:29:37 | 10:30:00 - 23:00:00 | True  | food    | ChIJg-q-pOsABDQRwWCOAWWGOdg | food;
+20 . b'Silka Far East Hotel'                         | 2018-03-12 22:02:46 - 2018-03-12 22:02:46 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJfesmOu34AzQRtPhwpL4xpIE |
+
+Day - 4
+21 . b'Silka Far East Hotel'                         | 2018-03-13 08:30:00 - 2018-03-13 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJfesmOu34AzQRtPhwpL4xpIE |
+22 . b'Pui O Beach'                                  | 2018-03-13 10:21:04 - 2018-03-13 12:21:04 | 00:00:00 - 18:30:00 | True  | place   | ChIJVfI34JdXATQRi9co2iC7JuI | nature;
+23 . b'Ole Spanish Restaurant'                       | 2018-03-13 14:18:25 - 2018-03-13 16:48:25 | 12:00:00 - 15:00:00 | False | food    | ChIJsR09KGUABDQR6kwHfMhefKA | food;
+24 . b'The Hong Kong Observation Wheel'              | 2018-03-13 17:02:54 - 2018-03-13 18:02:54 | 11:00:00 - 23:00:00 | True  | place   | ChIJc06QK2IABDQRW2LpLccKBW0 | must_see;recreation;
+25 . b'Popeyes\xc2\xae Louisana Kitchen'             | 2018-03-13 19:09:13 - 2018-03-13 20:09:13 | 06:30:00 - 23:30:00 | True  | food    | ChIJVVVV8dziAzQRkfrmB6VGdPk | food;
+26 . b'Silka Far East Hotel'                         | 2018-03-13 21:15:31 - 2018-03-13 21:15:31 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJfesmOu34AzQRtPhwpL4xpIE |
+
+Day - 5
+27 . b'Silka Far East Hotel'                         | 2018-03-14 08:30:00 - 2018-03-14 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJfesmOu34AzQRtPhwpL4xpIE |
+28 . b'Mini Great Wall'                              | 2018-03-14 11:59:56 - 2018-03-14 12:44:56 | 00:00:00 - 18:30:00 | True  | place   | ChIJv75PVoVWATQRo0ZVsCoyZ4E | culture;nature;
+29 . b"L'Atelier de Jo\xc3\xabl Robuchon Hong Kong"  | 2018-03-14 14:39:34 - 2018-03-14 16:39:34 | 00:00:00 - 23:59:00 | True  | food    | ChIJwVykxpIABDQR1MZ-gH1ykQk | food;
+30 . b'Former Kowloon-Canton Railway Clock Tower'    | 2018-03-14 17:01:12 - 2018-03-14 18:01:12 | 00:00:00 - 23:59:00 | True  | place   | ChIJ42dQa_MABDQRKKppWIjPPZA | must_see;culture;
+31 . b"Zak's"                                        | 2018-03-14 19:21:22 - 2018-03-14 20:51:22 | 08:00:00 - 23:00:00 | True  | food    | ChIJpT_rrbv9AzQRco2KTudWPL4 | food;
+32 . b'Silka Far East Hotel'                         | 2018-03-14 22:15:57 - 2018-03-14 22:15:57 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJfesmOu34AzQRtPhwpL4xpIE |
+
+Day - 6
+33 . b'Silka Far East Hotel'                         | 2018-03-15 08:30:00 - 2018-03-15 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJfesmOu34AzQRtPhwpL4xpIE |
+34 . b'Pak She Cheung Lee Playground'                | 2018-03-15 11:54:47 - 2018-03-15 12:39:47 | 00:00:00 - 23:59:00 | True  | place   | ChIJx6_FoYxWATQRRz42QQPHbVU | recreation;
+35 . b'China Bear'                                   | 2018-03-15 13:29:08 - 2018-03-15 14:59:08 | 09:00:00 - 03:00:00 | True  | food    | ChIJMag7SCtWATQRlqg-v-jpb48 | food;
+36 . b'Man Mo Temple'                                | 2018-03-15 16:22:09 - 2018-03-15 17:22:09 | 08:00:00 - 18:00:00 | True  | place   | ChIJkR_N-HsABDQR49-CU5m1ShU | must_see;culture;
+37 . b'Sneaker Street \xe6\xb3\xa2\xe9\x9e\x8b\xe8\x | 2018-03-15 17:49:32 - 2018-03-15 18:49:32 | 11:00:00 - 23:00:00 | True  | place   | ChIJ4YEGOMYABDQRYOvBu1VBIZI | must_see;recreation;
+38 . b'Modern China Restaurant - Causeway Bay'       | 2018-03-15 19:20:37 - 2018-03-15 20:50:37 | 17:45:00 - 23:30:00 | True  | food    | ChIJS1Te2lAABDQRZ3dEXF2WyEw | food;
+39 . b'Silka Far East Hotel'                         | 2018-03-15 21:42:24 - 2018-03-15 21:42:24 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJfesmOu34AzQRtPhwpL4xpIE |
+
+Day - 7
+40 . b'Silka Far East Hotel'                         | 2018-03-16 08:30:00 - 2018-03-16 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJfesmOu34AzQRtPhwpL4xpIE |
+41 . b'Peng Chau Finger Hill'                        | 2018-03-16 11:18:32 - 2018-03-16 12:03:32 | 00:00:00 - 18:30:00 | True  | place   | ChIJe1CnNef9AzQR3Gic894dUGc | nature;
+42 . b'Tiffany Restaurant'                           | 2018-03-16 14:13:03 - 2018-03-16 15:43:03 | 08:00:00 - 23:30:00 | True  | food    | ChIJcwmml8kABDQRBGIfIoAAf6s | food;
+43 . b'Discovery Bay Plaza'                          | 2018-03-16 16:52:44 - 2018-03-16 18:22:44 | 00:00:00 - 23:59:00 | True  | place   | ChIJN_E3mLv9AzQR_PzEzQbKqVM | recreation;
+44 . b'Our Restaurant'                               | 2018-03-16 19:42:41 - 2018-03-16 21:12:41 | 12:00:00 - 23:59:00 | True  | food    | ChIJjS9448YABDQRMTSGK3IJNAk | food;
+45 . b'Silka Far East Hotel'                         | 2018-03-16 21:46:47 - 2018-03-16 21:46:47 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJfesmOu34AzQRtPhwpL4xpIE |
+['3-76-0', '3-76-0', '3-101-0', '3-40-0', '3-16-0', '3-30-0', '3-80-0', '3-80-0', '3-93-0', '3-98-0', '3-66-0', '3-79-0', '3-19-0', '3-43-0']
+[5250, 11130, 15000, 3808, 164400, 161, 27625, 360000, 33929, 59350, 16226, 16541, 19575, 7273]
+-31159.9609375
