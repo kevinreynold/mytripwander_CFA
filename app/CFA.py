@@ -23,14 +23,16 @@ class CFA():
     def init_population(self):
         for i in range(self.population_size):
             cells_points = self.problem.randomPopulation()
-            cell_fitness = self.problem.calculateFitness(cells_points)['fitness']
+            cell_fitness_result = self.problem.calculateFitness(cells_points)
+            cell_fitness = cell_fitness_result['fitness']
             cell_other = {}
-            cell_other['time'] = self.problem.calculateFitness(cells_points)['time']
-            cell_other['stop_sign'] = self.problem.calculateFitness(cells_points)['stop_sign']
-            cell_other['is_too_late'] = self.problem.calculateFitness(cells_points)['is_too_late']
-            cell_other['route'] = self.problem.calculateFitness(cells_points)['route']
-            cell_other['misc'] = self.problem.calculateFitness(cells_points)['misc']
-            cell_other['misc2'] = self.problem.calculateFitness(cells_points)['misc2']
+            cell_other['time'] = cell_fitness_result['time']
+            cell_other['stop_sign'] = cell_fitness_result['stop_sign']
+            cell_other['is_too_late'] = cell_fitness_result['is_too_late']
+            cell_other['route'] = cell_fitness_result['route']
+            cell_other['misc'] = cell_fitness_result['misc']
+            cell_other['misc2'] = cell_fitness_result['misc2']
+            cell_other['last_place_id'] = cell_fitness_result['last_place_id']
             temp_cell = CCells(cells_points,cell_fitness,cell_other)
             self.cells.append(temp_cell)
 
@@ -77,14 +79,16 @@ class CFA():
                 visibility = np.subtract(self.best_cell.points, self.first_group[i].points)
 
                 new_cell_points = np.add(reflection, visibility)
-                new_cell_fitness = self.problem.calculateFitness(new_cell_points)['fitness']
+                new_cell_fitness_result = self.problem.calculateFitness(new_cell_points)
+                new_cell_fitness = new_cell_fitness_result['fitness']
                 new_cell_other = {}
-                new_cell_other['time'] = self.problem.calculateFitness(new_cell_points)['time']
-                new_cell_other['stop_sign'] = self.problem.calculateFitness(new_cell_points)['stop_sign']
-                new_cell_other['is_too_late'] = self.problem.calculateFitness(new_cell_points)['is_too_late']
-                new_cell_other['route'] = self.problem.calculateFitness(new_cell_points)['route']
-                new_cell_other['misc'] = self.problem.calculateFitness(new_cell_points)['misc']
-                new_cell_other['misc2'] = self.problem.calculateFitness(new_cell_points)['misc2']
+                new_cell_other['time'] = new_cell_fitness_result['time']
+                new_cell_other['stop_sign'] = new_cell_fitness_result['stop_sign']
+                new_cell_other['is_too_late'] = new_cell_fitness_result['is_too_late']
+                new_cell_other['route'] = new_cell_fitness_result['route']
+                new_cell_other['misc'] = new_cell_fitness_result['misc']
+                new_cell_other['misc2'] = new_cell_fitness_result['misc2']
+                new_cell_other['last_place_id'] = new_cell_fitness_result['last_place_id']
                 new_cell = CCells(new_cell_points,new_cell_fitness,new_cell_other)
 
                 # new_cell.points[new_cell.points<self.problem.getLowerBound()] = self.problem.getLowerBound()
@@ -104,14 +108,16 @@ class CFA():
                 visibility = np.multiply(np.random.uniform(self.V1, self.V2, self.problem.getDimension()), np.subtract(self.best_cell.points, self.second_group[i].points))
 
                 new_cell_points = np.add(reflection, visibility)
-                new_cell_fitness = self.problem.calculateFitness(new_cell_points)['fitness']
+                new_cell_fitness_result = self.problem.calculateFitness(new_cell_points)
+                new_cell_fitness = new_cell_fitness_result['fitness']
                 new_cell_other = {}
-                new_cell_other['time'] = self.problem.calculateFitness(new_cell_points)['time']
-                new_cell_other['stop_sign'] = self.problem.calculateFitness(new_cell_points)['stop_sign']
-                new_cell_other['is_too_late'] = self.problem.calculateFitness(new_cell_points)['is_too_late']
-                new_cell_other['route'] = self.problem.calculateFitness(new_cell_points)['route']
-                new_cell_other['misc'] = self.problem.calculateFitness(new_cell_points)['misc']
-                new_cell_other['misc2'] = self.problem.calculateFitness(new_cell_points)['misc2']
+                new_cell_other['time'] = new_cell_fitness_result['time']
+                new_cell_other['stop_sign'] = new_cell_fitness_result['stop_sign']
+                new_cell_other['is_too_late'] = new_cell_fitness_result['is_too_late']
+                new_cell_other['route'] = new_cell_fitness_result['route']
+                new_cell_other['misc'] = new_cell_fitness_result['misc']
+                new_cell_other['misc2'] = new_cell_fitness_result['misc2']
+                new_cell_other['last_place_id'] = new_cell_fitness_result['last_place_id']
                 new_cell = CCells(new_cell_points,new_cell_fitness,new_cell_other)
 
                 # new_cell.points[new_cell.points < self.problem.getLowerBound()] = self.problem.getLowerBound()
@@ -131,14 +137,16 @@ class CFA():
                 visibility = np.multiply(np.random.uniform(self.V1, self.V2, self.problem.getDimension()), np.subtract(self.best_cell.points, self.average_best))
 
                 new_cell_points = np.add(reflection, visibility)
-                new_cell_fitness = self.problem.calculateFitness(new_cell_points)['fitness']
+                new_cell_fitness_result = self.problem.calculateFitness(new_cell_points)
+                new_cell_fitness = new_cell_fitness_result['fitness']
                 new_cell_other = {}
-                new_cell_other['time'] = self.problem.calculateFitness(new_cell_points)['time']
-                new_cell_other['stop_sign'] = self.problem.calculateFitness(new_cell_points)['stop_sign']
-                new_cell_other['is_too_late'] = self.problem.calculateFitness(new_cell_points)['is_too_late']
-                new_cell_other['route'] = self.problem.calculateFitness(new_cell_points)['route']
-                new_cell_other['misc'] = self.problem.calculateFitness(new_cell_points)['misc']
-                new_cell_other['misc2'] = self.problem.calculateFitness(new_cell_points)['misc2']
+                new_cell_other['time'] = new_cell_fitness_result['time']
+                new_cell_other['stop_sign'] = new_cell_fitness_result['stop_sign']
+                new_cell_other['is_too_late'] = new_cell_fitness_result['is_too_late']
+                new_cell_other['route'] = new_cell_fitness_result['route']
+                new_cell_other['misc'] = new_cell_fitness_result['misc']
+                new_cell_other['misc2'] = new_cell_fitness_result['misc2']
+                new_cell_other['last_place_id'] = new_cell_fitness_result['last_place_id']
                 new_cell = CCells(new_cell_points,new_cell_fitness,new_cell_other)
 
                 # new_cell.points[new_cell.points < self.problem.getLowerBound()] = self.problem.getLowerBound()
@@ -158,14 +166,16 @@ class CFA():
                 visibility = 0
 
                 new_cell_points = np.add(reflection, visibility)
-                new_cell_fitness = self.problem.calculateFitness(new_cell_points)['fitness']
+                new_cell_fitness_result = self.problem.calculateFitness(new_cell_points)
+                new_cell_fitness = new_cell_fitness_result['fitness']
                 new_cell_other = {}
-                new_cell_other['time'] = self.problem.calculateFitness(new_cell_points)['time']
-                new_cell_other['stop_sign'] = self.problem.calculateFitness(new_cell_points)['stop_sign']
-                new_cell_other['is_too_late'] = self.problem.calculateFitness(new_cell_points)['is_too_late']
-                new_cell_other['route'] = self.problem.calculateFitness(new_cell_points)['route']
-                new_cell_other['misc'] = self.problem.calculateFitness(new_cell_points)['misc']
-                new_cell_other['misc2'] = self.problem.calculateFitness(new_cell_points)['misc2']
+                new_cell_other['time'] = new_cell_fitness_result['time']
+                new_cell_other['stop_sign'] = new_cell_fitness_result['stop_sign']
+                new_cell_other['is_too_late'] = new_cell_fitness_result['is_too_late']
+                new_cell_other['route'] = new_cell_fitness_result['route']
+                new_cell_other['misc'] = new_cell_fitness_result['misc']
+                new_cell_other['misc2'] = new_cell_fitness_result['misc2']
+                new_cell_other['last_place_id'] = new_cell_fitness_result['last_place_id']
                 new_cell = CCells(new_cell_points,new_cell_fitness,new_cell_other)
 
                 # new_cell.points[new_cell.points > self.problem.getUpperBound()] = self.problem.getUpperBound()
@@ -180,4 +190,4 @@ class CFA():
                     self.fourth_group[i] = copy.copy(new_cell)
 
             # print("Best Fitness Iterasi " + str(itr + 1) + ": " + self.problem.convertFitnessValue(self.best_cell.fitness) + " | "+str(self.best_cell.other['time']) + " | " + str(self.best_cell.other['stop_sign'] + 1))
-            print("Best Fitness Iterasi " + str(itr + 1) + ": " + str(1/self.best_cell.fitness) + " | "+str(self.best_cell.other['time']) + " | " + str(self.best_cell.other['stop_sign'] + 1))
+            # print("Best Fitness Iterasi " + str(itr + 1) + ": " + str(1/self.best_cell.fitness) + " | "+str(self.best_cell.other['time']) + " | " + str(self.best_cell.other['stop_sign'] + 1))

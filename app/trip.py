@@ -4,21 +4,6 @@ import json
 from db import db
 from datetime import datetime, date, time, timedelta
 
-class flight():
-    def __init__(self, departure_city, arrival_city, departure_date, arrival_date, departure_hour, arrival_hour):
-        self.departure = {}
-        self.departure['city'] = departure_city
-
-        hours = int(departure_hour[0:2])
-        minutes = int(departure_hour[2:])
-        self.departure['datetime'] = departure_date.replace(hour=hours, minute=minutes, second=0, microsecond=0)
-        self.arrival = {}
-        self.arrival['city'] = arrival_city
-
-        hours = int(arrival_hour[0:2])
-        minutes = int(arrival_hour[2:])
-        self.arrival['datetime'] = arrival_date.replace(hour=hours, minute=minutes, second=0, microsecond=0)
-
 class break_stop():
     def __init__(self, city, first_place, last_place, arrival_date, arrival_hour, go_back_date, go_back_hour):
         self.city = city
@@ -62,6 +47,12 @@ class trip():
 
         self.first_place = self.db_access.getDataById(self.break_stop.first_place)
         self.last_place = self.db_access.getDataById(self.break_stop.last_place)
+
+        if self.last_place == None:
+            airport_code = self.db_access.getNearestAirportById(self.hotel[0]['place_id'])
+            self.last_place = self.db_access.getDataById(airport_code)
+            print("Last Place : " + airport_code)
+
 
         self.penalty_opening_hours = 60 * 60 * 100 #(10 jam dalam detik)
         self.penalty_eat_late = 25  #dalam (detik)
@@ -197,6 +188,8 @@ class trip():
     # jam malam min  2000
     # kalau cari tiket juga harus diatas jam 8
 
+    # kalau temapt pertama itu hotel dan jarak hotel 1 dengan hotel 2 itu travel timenya lebih dari 10000 maka kena penalty
+
     def addRoute(self, type, idx, is_stop=False):
         if type == "airport":
             type_idx = "1"
@@ -318,6 +311,7 @@ class trip():
         result['route'] = []
         result['misc'] = ""
         result['misc2'] = []
+        result['last_place_id'] = ""
         route = []
 
         # AIRPORT -> HOTEL
@@ -334,6 +328,11 @@ class trip():
             first_place_id = self.first_place['place_id']
             hotel_id = self.hotel[idx_hotel[0]]['place_id']
             travel_duration = self.distance[first_place_id][hotel_id]
+
+            if travel_duration > 10000:
+                list_penalty.append((travel_duration - 10000) * 7)
+                list_penalty_idx.append(self.addRoute("first_place", 999, False))
+
             travel_time_total += travel_duration
             travel_time_total += self.hotel_stay_dur * 60 #checkin dkk
             current_time += timedelta(seconds=(travel_duration + (self.hotel_stay_dur * 60)))
@@ -670,6 +669,7 @@ class trip():
                         route.append(self.addRoute("hotel", idx_hotel[0], False))
                     else:
                         route.append(self.addRoute("hotel", idx_hotel[0], True))
+                    result['last_place_id'] = hotel_id
                 else:
                     food_id = self.food[idx_food[eat_idx]]['place_id']
                     hotel_id = self.hotel[idx_hotel[0]]['place_id']
@@ -683,6 +683,7 @@ class trip():
                     else:
                         route.append(self.addRoute("hotel", idx_hotel[0], True))
                     just_eat = False
+                    result['last_place_id'] = hotel_id
 
                 if day == self.total_days and self.last_airport == True:
                     travel_time_total += self.hotel_stay_dur * 60
@@ -694,6 +695,11 @@ class trip():
                     last_place_id = self.last_place['place_id']
                     travel_duration = self.distance[hotel_id][last_place_id]
                     travel_time_total += travel_duration
+
+                    if travel_duration > 10000:
+                        list_penalty.append((travel_duration - 10000) * 7)
+                        list_penalty_idx.append(self.addRoute("last_place", 999, False))
+
                     current_time += timedelta(seconds=(travel_duration))
                     list_time.append(travel_duration)
                     list_time_idx.append(current_time.time().__str__())
@@ -771,6 +777,11 @@ class trip():
                     hotel_id = self.hotel[idx_hotel[0]]['place_id']
                     last_place_id = self.last_place['place_id']
                     travel_duration = self.distance[hotel_id][last_place_id]
+
+                    if travel_duration > 10000:
+                        list_penalty.append((travel_duration - 10000) * 7)
+                        list_penalty_idx.append(self.addRoute("last_place", 999, False))
+
                     current_time += timedelta(seconds=(travel_duration))
                     list_time.append(travel_duration)
                     list_time_idx.append(current_time.time().__str__())
@@ -807,6 +818,8 @@ class trip():
 
         # result['fitness'] = 1 / (travel_time_total + 0.00001)
         result['fitness'] = 1 / (fitness_total + 0.00001)
+        if self.last_airport == True:
+            result['last_place_id'] = self.last_place['place_id']
 
         result['route'] = route
 
@@ -818,7 +831,7 @@ class trip():
         else:
             print('{:3}. '.format(str(offset)) + name + " | " + current_time.__str__() + " - " + next_time.__str__() + " | " + opening_hours['open'].time().__str__() + " - " + opening_hours['close'].time().__str__() + " | " + '{:5}'.format(str(is_open)) + " | " + type + " | " + place_id + " | " + types)
 
-    def showResultNew(self, result, start_date):
+    def showResultNew(self, result, start_date, offset_day=0):
         # airport - hotel - place - hotel
         print("")
         current_time = start_date
@@ -829,7 +842,7 @@ class trip():
         day = 1
         offset = 1
 
-        print("Day - " + str(day))
+        print("Day - " + str(day + offset_day))
         for i in range(len(result)):
             data = self.getDataByType(result[i])
             name = '{:47}'.format(data['data']['name'].encode("utf-8").__str__()[0:47:1])
@@ -864,7 +877,7 @@ class trip():
                     if ((next_time.date() - start_date.date()).days > 0) or (next_time.time() > self.limit_night_next_day):
                         day += 1
                         print("")
-                        print("Day - " + str(day))
+                        print("Day - " + str(day + offset_day))
 
                     # hitung jarak dari hotel ke tempat wisata pertama
                     if next_time.time() > self.limit_night_next_day: #lebih dari limit jam
@@ -901,7 +914,7 @@ class trip():
                     offset += 1
                     day += 1
                     print("")
-                    print("Day - " + str(day))
+                    print("Day - " + str(day + offset_day))
 
                     # hitung jarak dari hotel ke tempat wisata pertama
                     if next_time.time() > self.limit_night_next_day: #lebih dari limit jam

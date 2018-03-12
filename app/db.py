@@ -7,50 +7,47 @@ class db():
         self.conn = pymysql.connect(host=db_host, user=db_user, password=db_password, db=db_name, charset=charSet, cursorclass=cusrorType)
         self.city = city
 
-    def getPlaceData(self): # list of dictionaries -> sementara negara hongkong saja
+    def getPlaceData(self): # list of dictionaries
         try:
             with self.conn.cursor() as cursor:
                 sql = "SELECT * from place WHERE category_id = 2 AND city_code = %s"
                 cursor.execute(sql, (self.city))
                 result = cursor.fetchall()
                 return result
-
-                # for idx, data in enumerate(result):
-                #     print(idx, ":", data["place_id"].encode("utf-8"))
         finally:
-            # self.conn.close()
             print("Load Place Data Success!!")
 
-    def getAirportData(self): # list of dictionaries -> sementara negara hongkong saja
+    def getFirstPlaceByCity(self, city_code): # dict
+        try:
+            with self.conn.cursor() as cursor:
+                sql = "SELECT * from place WHERE category_id = 4 AND city_code = %s"
+                cursor.execute(sql, (city_code))
+                result = cursor.fetchone()
+                return result
+        finally:
+            print("")
+
+    def getAirportData(self): # list of dictionaries
         try:
             with self.conn.cursor() as cursor:
                 sql = "SELECT * from place WHERE category_id = 1 AND city_code = %s"
                 cursor.execute(sql, (self.city))
                 result = cursor.fetchall()
                 return result
-
-                # for idx, data in enumerate(result):
-                #     print(idx, ":", data["place_id"].encode("utf-8"))
         finally:
-            # self.conn.close()
             print("Load Airport Data Success!!")
 
-    def getFoodData(self): # list of dictionaries -> sementara negara hongkong saja
+    def getFoodData(self): # list of dictionaries
         try:
             with self.conn.cursor() as cursor:
                 sql = "SELECT * from place WHERE category_id = 3 AND city_code = %s"
                 cursor.execute(sql, (self.city))
                 result = cursor.fetchall()
                 return result
-
-                # for idx, data in enumerate(result):
-                #     print(idx, ":", data["place_id"].encode("utf-8"))
         finally:
-            # self.conn.close()
             print("Load Food Data Success!!")
 
-            #SELECT * from place WHERE category_id = 4 AND city_code = 'HKG' AND SUBSTRING(description, 1, 2)
-    def getHotelData(self, budget): # list of dictionaries -> sementara negara hongkong saja
+    def getHotelData(self, budget): # list of dictionaries
         try:
             with self.conn.cursor() as cursor:
                 if budget == "low":
@@ -62,11 +59,7 @@ class db():
                 cursor.execute(sql, (self.city))
                 result = cursor.fetchall()
                 return result
-
-                # for idx, data in enumerate(result):
-                #     print(idx, ":", data["place_id"].encode("utf-8"))
         finally:
-            # self.conn.close()
             print("Load Hotel Data Success!!")
 
     def getDataById(self, input):
@@ -80,11 +73,7 @@ class db():
                     cursor.execute(sql, input)
                     result = cursor.fetchone()
                     return result
-
-                    # for idx, data in enumerate(result):
-                    #     print(idx, ":", data["place_id"].encode("utf-8"))
             finally:
-                # self.conn.close()
                 print("Load Specific Data Success!!")
 
     def getDistanceData(self): # list of dictionaries
@@ -94,8 +83,6 @@ class db():
                 # cursor.execute(sql, (self.city))
                 sql =   "SELECT * from distance"
                 cursor.execute(sql)
-                # result = cursor.fetchall()
-                # return result
 
                 result = {}
                 rows = cursor.fetchall()
@@ -106,10 +93,100 @@ class db():
                     result[origin] = result.get(origin, {})
                     result[origin][destination] = travel_time
                 return result
-
-
-                # for idx, data in enumerate(result):
-                #     print(idx, ":", data["place_id"].encode("utf-8"))
         finally:
-            # self.conn.close()
             print("Load Distance Data Success!!")
+
+    def stillHasTripScheduleRequest(self):
+        try:
+            with self.conn.cursor() as cursor:
+                sql =   "SELECT * FROM hr_tripschedule WHERE is_done = 0 ORDER BY created_at"
+                cursor.execute(sql)
+                result = cursor.fetchall()
+                return True if len(result) > 0 else False
+        finally:
+            print("")
+
+    def getTripScheduleRequestData(self):
+        try:
+            with self.conn.cursor() as cursor:
+                result = {}
+
+                sql =   "SELECT * FROM hr_tripschedule WHERE is_done = 0 ORDER BY created_at"
+                cursor.execute(sql)
+                result['header'] = cursor.fetchone()
+
+                sql =   "SELECT * FROM dr_tripschedule WHERE schedule_id = %s ORDER BY offset"
+                cursor.execute(sql, result['header']['schedule_id'])
+                result['detail'] = cursor.fetchall()
+
+                return result
+        finally:
+            print("Load Trip Schedule Request Data Success!!")
+
+    def getAllCountry(self):
+        try:
+            with self.conn.cursor() as cursor:
+                sql =   "SELECT * FROM country"
+                cursor.execute(sql)
+                result = cursor.fetchall()
+                return result
+        finally:
+            print("")
+
+    def getAllCityByCountry(self, country_code):
+        try:
+            with self.conn.cursor() as cursor:
+                sql =   "SELECT * FROM city WHERE country_code = %s"
+                cursor.execute(sql, country_code)
+                result = cursor.fetchall()
+                return result
+        finally:
+            print("")
+
+    def getNearestCityById(self, place_id, block_list=[]):
+        try:
+            # SELECT pd.city_code
+            # FROM distance d, place po, place pd
+            # WHERE po.place_id = 'ChIJzZl9PXLraDURpgeBSXYqYSQ'
+            # AND pd.city_code NOT IN (po.city_code)
+            # AND d.origin = 'ChIJzZl9PXLraDURpgeBSXYqYSQ'
+            # AND d.destination = pd.place_id
+            # AND d.travel_time = (
+            #     SELECT MIN(d.travel_time)
+            #     FROM distance d, place po, place pd
+            #     WHERE po.place_id = 'ChIJzZl9PXLraDURpgeBSXYqYSQ'
+            #     AND pd.city_code NOT IN (po.city_code)
+            #     AND d.origin = 'ChIJzZl9PXLraDURpgeBSXYqYSQ'
+            #     AND d.destination = pd.place_id)
+            with self.conn.cursor() as cursor:
+                # sql = "SELECT city_code FROM place WHERE place_id = %s"
+                # cursor.execute(sql, place_id)
+                # city_code = cursor.fetchone()['city_code']
+                # block_list.append(city_code)
+                # print(block_list)
+
+                sql = "SELECT MIN(d.travel_time) AS 'travel_time', pd.city_code AS 'city_code' FROM distance d, place po, place pd WHERE po.place_id = d.origin AND d.origin = %s AND pd.city_code NOT IN %s AND d.destination = pd.place_id AND pd.category_id = 4"
+                cursor.execute(sql, (place_id, block_list))
+                travel_time = cursor.fetchone()['travel_time']
+
+                sql =   "SELECT pd.city_code FROM distance d, place po, place pd WHERE po.place_id = d.origin AND d.origin = %s AND pd.city_code NOT IN %s AND d.destination = pd.place_id AND d.travel_time = %s AND pd.category_id = 4"
+                cursor.execute(sql, (place_id, block_list, travel_time))
+                result = cursor.fetchone()
+                return result['city_code']
+        finally:
+            print("")
+
+    def getNearestAirportById(self, place_id):
+        try:
+            # SELECT SUBSTRING(pd.name,-4,3) AS 'airport' FROM distance d, place pd WHERE d.origin = %s AND d.destination = pd.place_id AND pd.category_id = 1 and d.travel_time = (SELECT MIN(d.travel_time) AS 'travel_time' FROM distance d, place pd WHERE d.origin = %s AND d.destination = pd.place_id AND pd.category_id = 1)
+            with self.conn.cursor() as cursor:
+                sql = "SELECT MIN(d.travel_time) AS 'travel_time' FROM distance d, place pd WHERE d.origin = %s AND d.destination = pd.place_id AND pd.category_id = 1"
+                cursor.execute(sql, (place_id))
+                travel_time = cursor.fetchone()['travel_time']
+
+                sql = "SELECT SUBSTRING(pd.name,-4,3) AS 'airport' FROM distance d, place pd WHERE d.origin = %s AND d.destination = pd.place_id AND pd.category_id = 1 and d.travel_time = %s"
+                cursor.execute(sql, (place_id, travel_time))
+                result = cursor.fetchone()
+                return result['airport']
+        finally:
+            print("")

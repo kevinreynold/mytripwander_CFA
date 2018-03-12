@@ -254,6 +254,45 @@ Day - 3
 ['4-22-1', '6-0-1', '3-999-0']
 [4827.2, 6832, 1000000]
 -16247.04166666667
+
+Best Fitness Iterasi 10000: 238590.94237111107 | 2018-03-12 18:31:39 | 10
+HKG 3 HARI
+Execution Time : 02:09:50
+Best Fitness : 66:16:30 | Iteration : 10000 | Population : 200 | R1 : 0.55 | R2 : -0.55 | V1 : 1 | V2 : -1
+Must See : 3 | Recreation : 12 Culture : 0 | Nature : -6
+['1-0-0', '4-78-0', '2-45-0', '3-74-0', '2-19-0', '3-98-0', '4-78-1', '2-29-0', '2-33-0', '2-27-0', '3-101-0', '2-4-0', '2-67-0', '3-106-0', '4-78-1', '2-72-0', '2-12-0', '3-54-0', '2-64-0', '4-78-0', '6-0-1']
+
+Day - 1
+1  . b'Hong Kong International Airport (HKG)'        | 2018-03-10 08:30:00 - 2018-03-10 09:30:00 | 00:00:00 - 23:59:00 | True  | airport | ChIJncZGzPPiAzQRnjaSGIKQ9fk |
+2  . b'Lan Kwai Fong Hotel @ Kau U Fong'             | 2018-03-10 10:24:24 - 2018-03-10 11:24:24 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJsQIjhnwABDQRpgZtDGy1_zw |
+3  . b'Spiral Lookout Tower'                         | 2018-03-10 12:44:16 - 2018-03-10 13:44:16 | 07:00:00 - 19:00:00 | True  | place   | ChIJpzHkTUUIBDQRQ37pYWfYdGA | recreation;
+4  . b'Starliner Diner'                              | 2018-03-10 15:30:08 - 2018-03-10 16:15:08 | 11:30:00 - 21:00:00 | True  | food    | ChIJr507ty78AzQRH-nXZXxtg4E | food;
+5  . b'Lingnan Garden'                               | 2018-03-10 17:06:29 - 2018-03-10 18:36:29 | 07:00:00 - 23:00:00 | True  | place   | ChIJf41i61T_AzQR98vqG688Pf8 | recreation;
+6  . b"L'Atelier de Jo\xc3\xabl Robuchon Hong Kong"  | 2018-03-10 19:12:29 - 2018-03-10 21:12:29 | 00:00:00 - 23:59:00 | True  | food    | ChIJwVykxpIABDQR1MZ-gH1ykQk | food;
+7  . b'Lan Kwai Fong Hotel @ Kau U Fong'             | 2018-03-10 21:27:52 - 2018-03-10 21:27:52 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJsQIjhnwABDQRpgZtDGy1_zw |
+
+Day - 2
+8  . b'Lan Kwai Fong Hotel @ Kau U Fong'             | 2018-03-11 08:30:00 - 2018-03-11 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJsQIjhnwABDQRpgZtDGy1_zw |
+9  . b'Man Mo Temple'                                | 2018-03-11 08:37:09 - 2018-03-11 09:37:09 | 08:00:00 - 18:00:00 | True  | place   | ChIJkR_N-HsABDQR49-CU5m1ShU | must_see;culture;
+10 . b'Soho, Hong Kong'                              | 2018-03-11 09:44:21 - 2018-03-11 11:14:21 | 00:00:00 - 23:59:00 | True  | place   | ChIJLw9f3HoABDQRaFmq9tKvYdk | must_see;recreation;
+11 . b'Central-Mid-Levels Escalators'                | 2018-03-11 11:20:21 - 2018-03-11 12:20:21 | 00:00:00 - 23:59:00 | True  | place   | ChIJk1YpX3sABDQRcEUrangY1CY | must_see;
+12 . b'Hungry Korean'                                | 2018-03-11 12:39:06 - 2018-03-11 13:24:06 | 12:00:00 - 23:59:00 | True  | food    | ChIJXQ-lgfIABDQRbhvqvNoHofA | food;
+13 . b'Former Kowloon-Canton Railway Clock Tower'    | 2018-03-11 13:32:18 - 2018-03-11 14:32:18 | 00:00:00 - 23:59:00 | True  | place   | ChIJ42dQa_MABDQRKKppWIjPPZA | must_see;culture;
+14 . b'\xe5\x8d\x97\xe5\xb1\xb1\xe5\x8f\xa4\xe9\x81\ | 2018-03-11 16:46:26 - 2018-03-11 18:16:26 | 00:00:00 - 18:30:00 | True  | place   | ChIJXWyso9BXATQRPU3i23CnJ_Q | nature;
+15 . b'Beef & Liberty Burgers, Hong Kong'            | 2018-03-11 20:10:24 - 2018-03-11 21:40:24 | 11:00:00 - 23:00:00 | True  | food    | ChIJz0ZvWl0ABDQRaOXwcUapd9U | food;
+16 . b'Lan Kwai Fong Hotel @ Kau U Fong'             | 2018-03-11 22:02:51 - 2018-03-11 22:02:51 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJsQIjhnwABDQRpgZtDGy1_zw |
+
+Day - 3
+17 . b'Lan Kwai Fong Hotel @ Kau U Fong'             | 2018-03-12 08:30:00 - 2018-03-12 08:30:00 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJsQIjhnwABDQRpgZtDGy1_zw |
+18 . b'Sam Tung Uk Museum'                           | 2018-03-12 09:16:33 - 2018-03-12 10:46:33 | 10:00:00 - 18:00:00 | True  | place   | ChIJySAMrZL4AzQRSeamG7X-iQg | culture;
+19 . b'The Hong Kong Observation Wheel'              | 2018-03-12 11:23:34 - 2018-03-12 12:23:34 | 11:00:00 - 23:00:00 | True  | place   | ChIJc06QK2IABDQRW2LpLccKBW0 | must_see;recreation;
+20 . b'MANA! Fast Slow Food'                         | 2018-03-12 12:36:07 - 2018-03-12 13:21:07 | 10:00:00 - 22:00:00 | True  | food    | ChIJlTKLXHsABDQRdQklMoQmadA | food;
+21 . b'Fringe Club'                                  | 2018-03-12 13:27:49 - 2018-03-12 16:27:49 | 12:00:00 - 22:00:00 | True  | place   | ChIJwzeIKmUABDQR8VxjuNzFq3Q | recreation;food;
+22 . b'Lan Kwai Fong Hotel @ Kau U Fong'             | 2018-03-12 16:37:32 - 2018-03-12 17:37:32 | 00:00:00 - 23:59:00 | True  | hotel   | ChIJsQIjhnwABDQRpgZtDGy1_zw |
+23 . b'Hong Kong International Airport (HKG)'        | 2018-03-12 18:31:39 - 2018-03-12 18:31:39 | 00:00:00 - 23:59:00 | True  | airport | ChIJncZGzPPiAzQRnjaSGIKQ9fk |
+['3-74-0', '3-98-0', '3-106-0', '4-78-1', '6-0-1']
+[135200, 7357, 15600, 478.8, 5607]
+-18475.468750000007
 =====================================================================================================================================
 8. 22.15
 Best Fitness Iterasi 1000: 310784.39584333333 | 2018-03-12 20:24:25 | 9

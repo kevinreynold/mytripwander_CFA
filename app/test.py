@@ -1,7 +1,7 @@
 import json
 from datetime import datetime, date, time, timedelta
 from db import db
-from trip import flight, break_stop, trip
+from trip import break_stop, trip
 from CFA import CCells, CFA
 import numpy as np
 
@@ -23,13 +23,13 @@ import numpy as np
 start = datetime.today()
 np.random.seed(0)
 #10.15, 17.10, 12.40, 13.35
-go_back_hour = "1240"
-trip = trip(break_stop=break_stop(city="HKG", first_place="HKG", last_place="HKG",
-            arrival_date=(datetime.today()+timedelta(days=1)), arrival_hour="1015",
+go_back_hour = "2200"
+trip = trip(break_stop=break_stop(city="KPO", first_place="PUS", last_place="PUS",
+            arrival_date=(datetime.today()+timedelta(days=1)), arrival_hour="0500",
             go_back_date=(datetime.today()+timedelta(days=3)), go_back_hour=go_back_hour),
-            limit_night_next_day=time(18), budget="none", last_airport=True, start_hour="0830", end_hour="2130",
-            must_see=1, recreation=2, culture=0, nature=-2) # last_airport = True/False
-cfa = CFA(iteration=1000, pop_size=200, R1=0.55, R2=-0.55, V1=1, V2=-1, problem=trip)
+            limit_night_next_day=time(18), budget="none", last_airport=True, start_hour="0800", end_hour="2130",
+            must_see=1, recreation=0, culture=2, nature=-2) # last_airport = True/False
+cfa = CFA(iteration=5000, pop_size=200, R1=0.55, R2=-0.55, V1=1, V2=-1, problem=trip)
 cfa.run()
 
 end = datetime.today()
@@ -53,3 +53,4 @@ trip.showResultNew(cfa.best_cell.other['route'], cfa.problem.start_date)
 print(cfa.best_cell.other['misc'])
 print(cfa.best_cell.other['is_too_late'])
 print(cfa.best_cell.other['misc2'])
+print(cfa.best_cell.other['last_place_id'])
