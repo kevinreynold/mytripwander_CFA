@@ -145,7 +145,7 @@ class trip_schedule():
         self.go_back_hour = "2200"
 
         #cfa
-        self.iteration = 5000
+        self.iteration = 25000
         self.pop_size = 200
         self.R1 = 0.55
         self.R2 = -0.55

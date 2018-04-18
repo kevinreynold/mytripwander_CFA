@@ -62,6 +62,16 @@ class db():
         finally:
             print("Load Hotel Data Success!!")
 
+    def getAllHotel(self): # list of dictionaries
+        try:
+            with self.conn.cursor() as cursor:
+                sql = "SELECT * from place WHERE category_id = 4"
+                cursor.execute(sql)
+                result = cursor.fetchall()
+                return result
+        finally:
+            print("Load Hotel Data Success!!")
+
     def getDataById(self, input):
         if len(input) > 0:
             try:
@@ -190,3 +200,12 @@ class db():
                 return result['airport']
         finally:
             print("")
+
+    def setHotelId(self, place_id, hotel_id):
+        try:
+            with self.conn.cursor() as cursor:
+                sql =   "UPDATE place set misc = %s WHERE place_id = %s"
+                cursor.execute(sql, (hotel_id, place_id))
+                self.conn.commit()
+        finally:
+            print("Success!!")

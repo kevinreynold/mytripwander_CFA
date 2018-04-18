@@ -2,11 +2,28 @@ import collections
 import json
 import requests
 import hashlib
+import time as tt
+from operator import itemgetter
 from datetime import datetime, date, time, timedelta
 
-class api():
-    def __init__(self):
-        print("hi")
+class flight_api():
+    def __init__(self, trip_class, adults, children, infants, origin, destination, start_date, return_date=None, round_trip=False):
+        self.token = "0852ce5f48b5d4158ed28dd23e7ddd44"
+        self.marker = "143764"
+        self.host = "mytripwander.com"
+        self.user_ip = "127.0.0.1"
+        self.locale = "en"
+
+        self.trip_class = trip_class # Y / C
+        self.adults = adults
+        self.children = children
+        self.infants = infants
+
+        self.origin = origin
+        self.destination = destination
+        self.start_date = start_date
+        self.return_date = return_date
+        self.round_trip = round_trip
 
     def makeSignature(self, data):
         result = list()
@@ -21,12 +38,33 @@ class api():
 
         return ':'.join(result)
 
-    def realSignature(self, token, body):
+    def realSignature(self, body):
         m = hashlib.md5()
-        m.update((token + ':' + self.makeSignature(body)).encode('utf-8'))
+        m.update((self.token + ':' + self.makeSignature(body)).encode('utf-8'))
         return m.hexdigest()
 
-    #ubah durationnya ya
+    def changeFormatDuration(self, duration):
+        result = ""
+        if duration > 60:
+            result += ("00" + str(duration // 60))[-2:] + "h "
+            result += str(duration % 60) + "m"
+        else:
+            result += str(duration) + "m"
+        return result
+
+    def changeStringToDateTime(self, date, time):
+        split_date = date.split('-')
+        split_time = time.split(':')
+
+        year = int(split_date[0])
+        month = int(split_date[1])
+        day = int(split_date[2])
+
+        hour = int(split_time[0])
+        minute = int(split_time[1])
+
+        return datetime(year, month, day, hour, minute)
+
     def processData(self, data):
         ticket_list = []
         search_id = data[len(data)-1]['search_id']
@@ -50,6 +88,7 @@ class api():
                         temp_ticket['image_url'] = "http://pics.avs.io/" + str(image_size) + "/" + str(image_size) + "/" + str(temp_ticket['carriers'][0]) + ".png"
                         temp_ticket['is_direct'] = ticket_data['is_direct']
                         temp_ticket['segment_durations'] = ticket_data['segment_durations']
+                        temp_ticket['total_duration_readable'] = self.changeFormatDuration(ticket_data['total_duration'])
                         temp_ticket['total_duration'] = ticket_data['total_duration']
                         temp_ticket['search_id'] = search_id
 
@@ -67,14 +106,19 @@ class api():
 
                         #flight
                         temp_ticket['segment'] = []
+                        temp_ticket['departure_first_date'] = ""
+                        temp_ticket['arrival_first_date'] = ""
+                        temp_ticket['departure_second_date'] = ""
+                        temp_ticket['arrival_second_date'] = ""
                         for s in range(len(ticket_data['segment'])):
                             temp_ticket['segment'].append({})
                             temp_ticket['segment'][s]['flight'] = []
+
                             for f in range(len(ticket_data['segment'][s]['flight'])):
                                 flight = {
                                     'operated_by' : ticket_data['segment'][s]['flight'][f]['operated_by'],
                                     'class' : "Economy" if ticket_data['segment'][s]['flight'][f]['trip_class'] == "Y" else "Business",
-                                    'duration' : ticket_data['segment'][s]['flight'][f]['duration'],
+                                    'duration' : self.changeFormatDuration(ticket_data['segment'][s]['flight'][f]['duration']),
                                     'delay' : ticket_data['segment'][s]['flight'][f]['delay'],
                                     'departure' : {
                                         'date' : ticket_data['segment'][s]['flight'][f]['departure_date'],
@@ -100,6 +144,23 @@ class api():
 
                                 #display
                                 if f == 0:
+                                    if s == 0: # one-way
+                                        temp_date = ticket_data['segment'][s]['flight'][f]['departure_date']
+                                        temp_time = ticket_data['segment'][s]['flight'][f]['departure_time']
+                                        temp_ticket['departure_first_date'] = self.changeStringToDateTime(temp_date, temp_time)
+
+                                        temp_date = ticket_data['segment'][s]['flight'][len(ticket_data['segment'][s]['flight'])-1]['arrival_date']
+                                        temp_time = ticket_data['segment'][s]['flight'][len(ticket_data['segment'][s]['flight'])-1]['arrival_time']
+                                        temp_ticket['arrival_first_date'] = self.changeStringToDateTime(temp_date, temp_time)
+                                    elif s == 1: # round-trip
+                                        temp_date = ticket_data['segment'][s]['flight'][f]['departure_date']
+                                        temp_time = ticket_data['segment'][s]['flight'][f]['departure_time']
+                                        temp_ticket['departure_second_date'] = self.changeStringToDateTime(temp_date, temp_time)
+
+                                        temp_date = ticket_data['segment'][s]['flight'][len(ticket_data['segment'][s]['flight'])-1]['arrival_date']
+                                        temp_time = ticket_data['segment'][s]['flight'][len(ticket_data['segment'][s]['flight'])-1]['arrival_time']
+                                        temp_ticket['arrival_second_date'] = self.changeStringToDateTime(temp_date, temp_time)
+
                                     temp_display = {
                                         'departure_airport': {
                                             'date' : ticket_data['segment'][s]['flight'][f]['departure_date'],
@@ -132,73 +193,91 @@ class api():
                         ticket_list.append(temp_ticket)
         return ticket_list
 
+    def passenger_data(self):
+        segment = []
+        segment.append({'origin': self.origin, 'destination': self.destination, 'date': self.start_date})
+        if round_trip == True:
+            segment.append({'origin': self.destination, 'destination': self.origin, 'date': self.return_date})
 
-api = api()
+        passenger_data = {
+            'host': self.host,
+            'locale': self.locale,
+            'marker': self.marker,
+            'passengers': {'adults': self.adults,'children': self.children,'infants': self.infants},
+            'segments': segment,
+            'trip_class': self.trip_class,
+            'user_ip': self.user_ip,
+            'know_english': "true"
+        }
 
-# r = requests.get('http://mytripwander.com/test/tokyo-round-trip.json')
-# data = r.text
+        signature = self.realSignature(passenger_data)
+        passenger_data['signature'] = signature
 
-token = "0852ce5f48b5d4158ed28dd23e7ddd44"
-marker = "143764"
-host = "mytripwander.com"
-user_ip = "127.0.0.1"
-locale = "en"
+        return passenger_data
+
+    def flight_search(self):
+        passenger_data = self.passenger_data()
+
+        #mulai masukin
+        url = "http://api.travelpayouts.com/v1/flight_search"
+        data = requests.post(url, json=passenger_data)
+        uuid = data.json()['meta']['uuid']
+
+        tt.sleep(5)
+
+        #search-result
+        url = "http://api.travelpayouts.com/v1/flight_search_results"
+        params = {"uuid": uuid}
+        search_result = requests.get(url, params)
+
+        print("Status : " + str(search_result.status_code))
+        flight_result = api.processData(search_result.json())
+        return flight_result
+
+    def flight_search_local(self):
+        search_result = requests.get('http://mytripwander.com/test/flight-api-result.json')
+        flight_result = api.processData(search_result.json())
+        return flight_result
+
+    def save_result(self, flight_result):
+        f = open("flight.json","w+")
+        f.write(str(flight_result))
+        f.close()
+        print("Done!!!")
+
+    @staticmethod
+    def sorted_one_way_flight_result(flight_result):
+        rows = [x for x in flight_result if (time(1) < x['arrival_first_date'].time() < time(12)) or x['arrival_first_date'].time() > time(18)]
+        result = min(rows, key=itemgetter('unified_price'))
+        return result
+
+    @staticmethod
+    def sorted_round_trip_flight_result(flight_result):
+        row = []
+        offset_time = 18
+        while len(rows) == 0:
+            rows = [x for x in flight_result if x['departure_second_date'].time() > time(offset_time)]
+            offset_time -= 3
+        result = min(rows, key=itemgetter('unified_price'))
+        return result
+
 trip_class = "Y"
-adults = 2
+adults = 4
 children = 0
 infants = 0
 
 origin = "SUB"
-destination = "SEL"
+destination = "TPE"
 start_date = (datetime.today() + timedelta(days=7)).strftime("%Y-%m-%d")
 return_date = (datetime.today() + timedelta(days=10)).strftime("%Y-%m-%d")
-round_trip = False
+round_trip = True
 
-segment = []
-segment.append({'origin': origin, 'destination': destination, 'date': start_date})
-if round_trip == True:
-    segment.append({'origin': destination, 'destination': origin, 'date': return_date})
+api = flight_api(trip_class=trip_class, adults=adults, children=children, infants=infants, origin=origin, destination=destination, start_date=start_date, return_date=return_date, round_trip=round_trip)
 
-passenger_data = {
-    'host': host,
-    'locale': locale,
-    'marker': marker,
-    'passengers': {'adults': adults,'children': children,'infants': infants},
-    'segments': segment,
-    'trip_class': trip_class,
-    'user_ip': user_ip,
-    'know_english': "true"
-}
+flight_result = api.flight_search()
 
-signature = api.realSignature(token, passenger_data)
-
-passenger_data['signature'] = signature
-
-body_request = passenger_data.__str__().replace("\'","\"")
-
-print(body_request)
-
-#mulai masukin
-url = "http://api.travelpayouts.com/v1/flight_search"
-data = requests.post(url, json=passenger_data)
-print(data.status_code)
-uuid = data.json()['meta']['uuid']
-print(uuid)
-
-#search-result
-url = "http://api.travelpayouts.com/v1/flight_search_results"
-params = {"uuid": uuid}
-search_result = requests.get(url, params)
-print(search_result.status_code)
-
-# LOCAL
-# search_result = requests.get('http://mytripwander.com/test/tokyo-round-trip.json')
-# print(len(search_result.json()))
-
-flight_result = api.processData(search_result.json())
-
-f = open("flight.json","w+")
-f.write(str(flight_result))
-f.close()
-
-print("Done!!!")
+if api.round_trip == False:
+    ticket_data = flight_api.sorted_one_way_flight_result(flight_result)
+else:
+    ticket_data = flight_api.sorted_round_trip_flight_result(flight_result)
+api.save_result(ticket_data)

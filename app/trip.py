@@ -330,7 +330,7 @@ class trip():
             travel_duration = self.distance[first_place_id][hotel_id]
 
             if travel_duration > 10000:
-                list_penalty.append((travel_duration - 10000) * 7)
+                list_penalty.append((travel_duration - 10000) * self.penalty_go_home_late)
                 list_penalty_idx.append(self.addRoute("first_place", 999, False))
 
             travel_time_total += travel_duration
@@ -697,7 +697,7 @@ class trip():
                     travel_time_total += travel_duration
 
                     if travel_duration > 10000:
-                        list_penalty.append((travel_duration - 10000) * 7)
+                        list_penalty.append((travel_duration - 10000) * self.penalty_go_home_late)
                         list_penalty_idx.append(self.addRoute("last_place", 999, False))
 
                     current_time += timedelta(seconds=(travel_duration))
@@ -756,8 +756,14 @@ class trip():
             #first_airport, another_city, last_airport
             if day == self.total_days:
                 if self.last_airport == True:
-                    lower_treshold = self.break_stop.go_back_datetime - timedelta(minutes=90)
-                    upper_treshold = lower_treshold + timedelta(minutes=30)
+                    #check kalo berangkatnya malem berangkat dari hotel jam 3 (karena sudah checkout)
+                    if self.break_stop.go_back_datetime.time() >= time(18,30):
+                        lower_treshold = self.break_stop.go_back_datetime.replace(hour=16, minute=30, second=0, microsecond=0)
+                        upper_treshold = lower_treshold + timedelta(minutes=30)
+                    else:
+                        lower_treshold = self.break_stop.go_back_datetime - timedelta(minutes=90)
+                        upper_treshold = lower_treshold + timedelta(minutes=30)
+
                     if lower_treshold.time() < time(self.dinner_time_lower.hour - 2, self.dinner_time_lower.minute):
                         already_dinner = True
                     if lower_treshold.time() < time(self.lunch_time_lower.hour - 2, self.lunch_time_lower.minute):
@@ -779,7 +785,7 @@ class trip():
                     travel_duration = self.distance[hotel_id][last_place_id]
 
                     if travel_duration > 10000:
-                        list_penalty.append((travel_duration - 10000) * 7)
+                        list_penalty.append((travel_duration - 10000) * self.penalty_go_home_late)
                         list_penalty_idx.append(self.addRoute("last_place", 999, False))
 
                     current_time += timedelta(seconds=(travel_duration))
