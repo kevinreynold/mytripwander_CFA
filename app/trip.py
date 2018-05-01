@@ -188,7 +188,7 @@ class trip():
     # jam malam min  2000
     # kalau cari tiket juga harus diatas jam 8
 
-    # kalau temapt pertama itu hotel dan jarak hotel 1 dengan hotel 2 itu travel timenya lebih dari 10000 maka kena penalty
+    # kalau temapt pertama itu hotel dan jarak hotel 1 dengan hotel 2 itu travel timenya lebih dari 7200 maka kena penalty
 
     def addRoute(self, type, idx, is_stop=False):
         if type == "airport":
@@ -329,8 +329,8 @@ class trip():
             hotel_id = self.hotel[idx_hotel[0]]['place_id']
             travel_duration = self.distance[first_place_id][hotel_id]
 
-            if travel_duration > 10000:
-                list_penalty.append((travel_duration - 10000) * self.penalty_go_home_late)
+            if travel_duration > 7200:
+                list_penalty.append((travel_duration - 7200) * self.penalty_go_home_late)
                 list_penalty_idx.append(self.addRoute("first_place", 999, False))
 
             travel_time_total += travel_duration
@@ -696,8 +696,8 @@ class trip():
                     travel_duration = self.distance[hotel_id][last_place_id]
                     travel_time_total += travel_duration
 
-                    if travel_duration > 10000:
-                        list_penalty.append((travel_duration - 10000) * self.penalty_go_home_late)
+                    if travel_duration > 7200:
+                        list_penalty.append((travel_duration - 7200) * self.penalty_go_home_late)
                         list_penalty_idx.append(self.addRoute("last_place", 999, False))
 
                     current_time += timedelta(seconds=(travel_duration))
@@ -757,12 +757,12 @@ class trip():
             if day == self.total_days:
                 if self.last_airport == True:
                     #check kalo berangkatnya malem berangkat dari hotel jam 3 (karena sudah checkout)
-                    if self.break_stop.go_back_datetime.time() >= time(18,30):
-                        lower_treshold = self.break_stop.go_back_datetime.replace(hour=16, minute=30, second=0, microsecond=0)
-                        upper_treshold = lower_treshold + timedelta(minutes=30)
-                    else:
-                        lower_treshold = self.break_stop.go_back_datetime - timedelta(minutes=90)
-                        upper_treshold = lower_treshold + timedelta(minutes=30)
+                    # if self.break_stop.go_back_datetime.time() >= time(18,30):
+                    #     lower_treshold = self.break_stop.go_back_datetime.replace(hour=16, minute=30, second=0, microsecond=0)
+                    #     upper_treshold = lower_treshold + timedelta(minutes=30)
+                    # else:
+                    lower_treshold = self.break_stop.go_back_datetime - timedelta(minutes=90)
+                    upper_treshold = lower_treshold + timedelta(minutes=30)
 
                     if lower_treshold.time() < time(self.dinner_time_lower.hour - 2, self.dinner_time_lower.minute):
                         already_dinner = True
@@ -784,8 +784,8 @@ class trip():
                     last_place_id = self.last_place['place_id']
                     travel_duration = self.distance[hotel_id][last_place_id]
 
-                    if travel_duration > 10000:
-                        list_penalty.append((travel_duration - 10000) * self.penalty_go_home_late)
+                    if travel_duration > 7200:
+                        list_penalty.append((travel_duration - 7200) * self.penalty_go_home_late)
                         list_penalty_idx.append(self.addRoute("last_place", 999, False))
 
                     current_time += timedelta(seconds=(travel_duration))
@@ -800,7 +800,7 @@ class trip():
 
 
         real_stay_days = self.total_days - 1 if is_too_late == True else self.total_days
-        place_target_per_day = 6
+        place_target_per_day = 10
 
         # total travel duration + stay duration
         place_time_total = np.sum(list_time)
@@ -819,7 +819,7 @@ class trip():
 
         result['misc'] = list_penalty_idx
         result['is_too_late'] = list_penalty
-        result['misc2'] = interests_total
+        # result['misc2'] = interests_total
         # result['misc2'] = lower_treshold
 
         # result['fitness'] = 1 / (travel_time_total + 0.00001)
@@ -828,6 +828,8 @@ class trip():
             result['last_place_id'] = self.last_place['place_id']
 
         result['route'] = route
+        # hotel ID
+        result['misc2'] = self.hotel[idx_hotel[0]]['misc']
 
         return result
 
@@ -837,7 +839,34 @@ class trip():
         else:
             print('{:3}. '.format(str(offset)) + name + " | " + current_time.__str__() + " - " + next_time.__str__() + " | " + opening_hours['open'].time().__str__() + " - " + opening_hours['close'].time().__str__() + " | " + '{:5}'.format(str(is_open)) + " | " + type + " | " + place_id + " | " + types)
 
+    def makeListDestTrip(self, day):
+        result = {
+            'day': day,
+            'hotel_before_duration': 0,
+            'hotel_now_duration': 0,
+            'start_hour': self.start_hour[0:2] + ':' + self.start_hour[2:],
+            'list_place': [],
+            'to_another_city': False
+        }
+
+        return result
+
+    def makeListPlace(self, id, place_id):
+        place_data = self.db_access.getDataById(place_id)
+        place_data['opening_hours'] = json.loads(place_data['opening_hours'])
+        duration = place_data['avg_dur']
+
+        result = {
+            'id': id,
+            'duration': duration,
+            'place': place_data
+        }
+
+        return result
+
     def showResultNew(self, result, start_date, offset_day=0):
+        # return list_dest_trip
+        list_dest_trip = []
         # airport - hotel - place - hotel
         print("")
         current_time = start_date
@@ -847,6 +876,9 @@ class trip():
         prev_data = {}
         day = 1
         offset = 1
+
+        dest_trip = self.makeListDestTrip(day)
+        offset_place = 0
 
         print("Day - " + str(day + offset_day))
         for i in range(len(result)):
@@ -864,6 +896,7 @@ class trip():
                 is_open = self.isPlaceOpenRightNow(next_time, data['data'], current_time)
 
                 self.printResult(offset, name, current_time, next_time, opening_hours, is_open, type, types, place_id)
+
             elif i == 1: # hotel pertama kali
                 airport_id = prev_data['data']['place_id']
                 hotel_id = data['data']['place_id']
@@ -876,6 +909,7 @@ class trip():
 
                 self.printResult(offset, name, current_time, next_time, opening_hours, is_open, type, types, place_id)
 
+                dest_trip['hotel_now_duration'] = self.hotel_stay_dur
                 # cek is_stop
                 if is_stop == True:
                     offset += 1
@@ -887,8 +921,19 @@ class trip():
 
                     # hitung jarak dari hotel ke tempat wisata pertama
                     if next_time.time() > self.limit_night_next_day: #lebih dari limit jam
+                        dest_trip['hotel_now_duration'] = self.hotel_stay_dur
+                        list_dest_trip.append(dest_trip)
+                        dest_trip = self.makeListDestTrip(day)
+                        offset_place = 0
+
                         current_time = next_time + timedelta(days=1)
                     else:
+                        temp_hours = int(self.start_hour[0:2])
+                        temp_minutes = int(self.start_hour[2:])
+                        temp_current_time = current_time.replace(hour=hours, minute=minutes, second=0, microsecond=0)
+                        addition_duration = (temp_current_time - next_time).seconds // 60
+                        dest_trip['hotel_now_duration'] = self.hotel_stay_dur + addition_duration
+
                         current_time = next_time
 
                     hours = int(self.start_hour[0:2])
@@ -914,6 +959,9 @@ class trip():
                 is_open = self.isPlaceOpenRightNow(next_time, data['data'], current_time)
 
                 self.printResult(offset, name, current_time, next_time, opening_hours, is_open, type, types, place_id)
+                if data['type'] == 'place' or data['type'] == 'food':
+                    dest_trip['list_place'].append(self.makeListPlace(offset_place, place_id))
+                    offset_place += 1
 
                 # cek is_stop
                 if is_stop == True and i != len(result)-1:
@@ -921,6 +969,9 @@ class trip():
                     day += 1
                     print("")
                     print("Day - " + str(day + offset_day))
+                    list_dest_trip.append(dest_trip)
+                    dest_trip = self.makeListDestTrip(day)
+                    offset_place = 0
 
                     # hitung jarak dari hotel ke tempat wisata pertama
                     if next_time.time() > self.limit_night_next_day: #lebih dari limit jam
@@ -935,6 +986,7 @@ class trip():
                     if i == len(result)-2 and self.last_airport == True and (self.break_stop.go_back_datetime - timedelta(minutes=90) < (current_time + timedelta(hours=2))):
                         current_time = self.break_stop.go_back_datetime - timedelta(hours=3)
                         next_time = current_time
+                        dest_trip['start_hour'] = current_time.strftime('%H:%M')
 
                     opening_hours = self.getPlaceOpeningHoursByDay(data['data'], current_time)
                     is_open = self.isPlaceOpenRightNow(next_time, data['data'], current_time)
@@ -943,6 +995,9 @@ class trip():
 
             prev_data = data
             offset += 1
+
+        list_dest_trip.append(dest_trip)
+        return list_dest_trip
 
     def showRoute(self, individual):
         place_count = len(self.place)

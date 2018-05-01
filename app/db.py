@@ -74,17 +74,21 @@ class db():
 
     def getDataById(self, input):
         if len(input) > 0:
-            try:
-                with self.conn.cursor() as cursor:
-                    if len(input) == 3:
-                        sql = "SELECT * FROM place WHERE category_id = 1 AND SUBSTRING(name,-4,3) = %s"
-                    else:
-                        sql = "SELECT * FROM place WHERE place_id = %s"
-                    cursor.execute(sql, input)
-                    result = cursor.fetchone()
-                    return result
-            finally:
-                print("Load Specific Data Success!!")
+            with self.conn.cursor() as cursor:
+                if len(input) == 3:
+                    sql = "SELECT * FROM place WHERE category_id = 1 AND SUBSTRING(name,-4,3) = %s"
+                else:
+                    sql = "SELECT * FROM place WHERE place_id = %s"
+                cursor.execute(sql, input)
+                result = cursor.fetchone()
+                return result
+
+    def getHotelDataByHotelId(self, hotel_id):
+        with self.conn.cursor() as cursor:
+            sql = "SELECT * FROM place WHERE misc = %s"
+            cursor.execute(sql, str(hotel_id))
+            result = cursor.fetchone()
+            return result
 
     def getDistanceData(self): # list of dictionaries
         try:
@@ -106,33 +110,6 @@ class db():
         finally:
             print("Load Distance Data Success!!")
 
-    def stillHasTripScheduleRequest(self):
-        try:
-            with self.conn.cursor() as cursor:
-                sql =   "SELECT * FROM hr_tripschedule WHERE is_done = 0 ORDER BY created_at"
-                cursor.execute(sql)
-                result = cursor.fetchall()
-                return True if len(result) > 0 else False
-        finally:
-            print("")
-
-    def getTripScheduleRequestData(self):
-        try:
-            with self.conn.cursor() as cursor:
-                result = {}
-
-                sql =   "SELECT * FROM hr_tripschedule WHERE is_done = 0 ORDER BY created_at"
-                cursor.execute(sql)
-                result['header'] = cursor.fetchone()
-
-                sql =   "SELECT * FROM dr_tripschedule WHERE schedule_id = %s ORDER BY offset"
-                cursor.execute(sql, result['header']['schedule_id'])
-                result['detail'] = cursor.fetchall()
-
-                return result
-        finally:
-            print("Load Trip Schedule Request Data Success!!")
-
     def getAllCountry(self):
         try:
             with self.conn.cursor() as cursor:
@@ -149,6 +126,16 @@ class db():
                 sql =   "SELECT * FROM city WHERE country_code = %s"
                 cursor.execute(sql, country_code)
                 result = cursor.fetchall()
+                return result
+        finally:
+            print("")
+
+    def getCityDetail(self, city_code):
+        try:
+            with self.conn.cursor() as cursor:
+                sql =   "SELECT * FROM city WHERE city_code = %s"
+                cursor.execute(sql, city_code)
+                result = cursor.fetchone()
                 return result
         finally:
             print("")
@@ -201,11 +188,88 @@ class db():
         finally:
             print("")
 
+    def getAirportByCity(self, city_code):
+        try:
+            with self.conn.cursor() as cursor:
+                sql = "SELECT * FROM city WHERE city_code = %s"
+                cursor.execute(sql, city_code)
+                result = cursor.fetchone()['airport']
+                return result
+        finally:
+            print("")
+
     def setHotelId(self, place_id, hotel_id):
         try:
             with self.conn.cursor() as cursor:
                 sql =   "UPDATE place set misc = %s WHERE place_id = %s"
                 cursor.execute(sql, (hotel_id, place_id))
+                self.conn.commit()
+        finally:
+            print("Success!!")
+
+    ########################################## OLD ###############################################
+    # def stillHasTripScheduleRequest(self):
+    #     try:
+    #         with self.conn.cursor() as cursor:
+    #             sql =   "SELECT * FROM hr_tripschedule WHERE is_done = 0 ORDER BY created_at"
+    #             cursor.execute(sql)
+    #             result = cursor.fetchall()
+    #             return True if len(result) > 0 else False
+    #     finally:
+    #         print("")
+    #
+    # def getTripScheduleRequestData(self):
+    #     try:
+    #         with self.conn.cursor() as cursor:
+    #             result = {}
+    #
+    #             sql =   "SELECT * FROM hr_tripschedule WHERE is_done = 0 ORDER BY created_at"
+    #             cursor.execute(sql)
+    #             result['header'] = cursor.fetchone()
+    #
+    #             sql =   "SELECT * FROM dr_tripschedule WHERE schedule_id = %s ORDER BY offset"
+    #             cursor.execute(sql, result['header']['schedule_id'])
+    #             result['detail'] = cursor.fetchall()
+    #
+    #             return result
+    #     finally:
+    #         print("Load Trip Schedule Request Data Success!!")
+
+    def stillHasTripScheduleRequest(self):
+        try:
+            with self.conn.cursor() as cursor:
+                sql =  "SELECT * FROM tripschedule WHERE is_done = 0 ORDER BY created_at"
+                cursor.execute(sql)
+                result = cursor.fetchall()
+                return True if len(result) > 0 else False
+        finally:
+            print("")
+
+    def getTripScheduleRequestData(self):
+        try:
+            with self.conn.cursor() as cursor:
+                result = {}
+
+                sql = "SELECT * FROM tripschedule WHERE is_done = 0 ORDER BY created_at"
+                cursor.execute(sql)
+                result['header'] = cursor.fetchone()
+
+                return result
+        finally:
+            print("Load Trip Schedule Request Data Success!!")
+
+    def getAllCurrency(self):
+        with self.conn.cursor() as cursor:
+            sql = "SELECT * FROM currency"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            return result
+
+    def setNewCurency(self, id, rate):
+        try:
+            with self.conn.cursor() as cursor:
+                sql = "UPDATE currency set rate = %s WHERE id = %s"
+                cursor.execute(sql, (rate, id))
                 self.conn.commit()
         finally:
             print("Success!!")

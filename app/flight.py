@@ -7,7 +7,7 @@ from operator import itemgetter
 from datetime import datetime, date, time, timedelta
 
 class flight_api():
-    def __init__(self, trip_class, adults, children, infants, origin, destination, start_date, return_date=None, round_trip=False):
+    def __init__(self, trip_class, adults, children, origin, destination, start_date, return_date=None, round_trip=False):
         self.token = "0852ce5f48b5d4158ed28dd23e7ddd44"
         self.marker = "143764"
         self.host = "mytripwander.com"
@@ -17,7 +17,6 @@ class flight_api():
         self.trip_class = trip_class # Y / C
         self.adults = adults
         self.children = children
-        self.infants = infants
 
         self.origin = origin
         self.destination = destination
@@ -88,7 +87,7 @@ class flight_api():
                         temp_ticket['image_url'] = "http://pics.avs.io/" + str(image_size) + "/" + str(image_size) + "/" + str(temp_ticket['carriers'][0]) + ".png"
                         temp_ticket['is_direct'] = ticket_data['is_direct']
                         temp_ticket['segment_durations'] = ticket_data['segment_durations']
-                        temp_ticket['total_duration_readable'] = self.changeFormatDuration(ticket_data['total_duration'])
+                        # temp_ticket['total_duration_readable'] = self.changeFormatDuration(ticket_data['total_duration'])
                         temp_ticket['total_duration'] = ticket_data['total_duration']
                         temp_ticket['search_id'] = search_id
 
@@ -106,10 +105,10 @@ class flight_api():
 
                         #flight
                         temp_ticket['segment'] = []
-                        temp_ticket['departure_first_date'] = ""
-                        temp_ticket['arrival_first_date'] = ""
-                        temp_ticket['departure_second_date'] = ""
-                        temp_ticket['arrival_second_date'] = ""
+                        # temp_ticket['departure_first_date'] = ""
+                        # temp_ticket['arrival_first_date'] = ""
+                        # temp_ticket['departure_second_date'] = ""
+                        # temp_ticket['arrival_second_date'] = ""
                         for s in range(len(ticket_data['segment'])):
                             temp_ticket['segment'].append({})
                             temp_ticket['segment'][s]['flight'] = []
@@ -147,19 +146,19 @@ class flight_api():
                                     if s == 0: # one-way
                                         temp_date = ticket_data['segment'][s]['flight'][f]['departure_date']
                                         temp_time = ticket_data['segment'][s]['flight'][f]['departure_time']
-                                        temp_ticket['departure_first_date'] = self.changeStringToDateTime(temp_date, temp_time)
+                                        # temp_ticket['departure_first_date'] = self.changeStringToDateTime(temp_date, temp_time)
 
                                         temp_date = ticket_data['segment'][s]['flight'][len(ticket_data['segment'][s]['flight'])-1]['arrival_date']
                                         temp_time = ticket_data['segment'][s]['flight'][len(ticket_data['segment'][s]['flight'])-1]['arrival_time']
-                                        temp_ticket['arrival_first_date'] = self.changeStringToDateTime(temp_date, temp_time)
+                                        # temp_ticket['arrival_first_date'] = self.changeStringToDateTime(temp_date, temp_time)
                                     elif s == 1: # round-trip
                                         temp_date = ticket_data['segment'][s]['flight'][f]['departure_date']
                                         temp_time = ticket_data['segment'][s]['flight'][f]['departure_time']
-                                        temp_ticket['departure_second_date'] = self.changeStringToDateTime(temp_date, temp_time)
+                                        # temp_ticket['departure_second_date'] = self.changeStringToDateTime(temp_date, temp_time)
 
                                         temp_date = ticket_data['segment'][s]['flight'][len(ticket_data['segment'][s]['flight'])-1]['arrival_date']
                                         temp_time = ticket_data['segment'][s]['flight'][len(ticket_data['segment'][s]['flight'])-1]['arrival_time']
-                                        temp_ticket['arrival_second_date'] = self.changeStringToDateTime(temp_date, temp_time)
+                                        # temp_ticket['arrival_second_date'] = self.changeStringToDateTime(temp_date, temp_time)
 
                                     temp_display = {
                                         'departure_airport': {
@@ -182,7 +181,7 @@ class flight_api():
                                                 'name' : airports[ticket_data['segment'][s]['flight'][len(ticket_data['segment'][s]['flight'])-1]['arrival']]['name']
                                             }
                                         },
-                                        'duration': str(ticket_data['segment_durations'][s]),
+                                        'duration': self.changeFormatDuration(ticket_data['segment_durations'][s]),
                                         'transit': []
                                     }
                                     temp_ticket['display'].append(temp_display)
@@ -196,18 +195,19 @@ class flight_api():
     def passenger_data(self):
         segment = []
         segment.append({'origin': self.origin, 'destination': self.destination, 'date': self.start_date})
-        if round_trip == True:
+        if self.round_trip == True:
             segment.append({'origin': self.destination, 'destination': self.origin, 'date': self.return_date})
 
         passenger_data = {
             'host': self.host,
             'locale': self.locale,
             'marker': self.marker,
-            'passengers': {'adults': self.adults,'children': self.children,'infants': self.infants},
+            'passengers': {'adults': self.adults,'children': self.children,'infants': 0},
             'segments': segment,
             'trip_class': self.trip_class,
             'user_ip': self.user_ip,
-            'know_english': "true"
+            'know_english': "true",
+            'currency': "usd"
         }
 
         signature = self.realSignature(passenger_data)
@@ -217,7 +217,6 @@ class flight_api():
 
     def flight_search(self):
         passenger_data = self.passenger_data()
-
         #mulai masukin
         url = "http://api.travelpayouts.com/v1/flight_search"
         data = requests.post(url, json=passenger_data)
@@ -231,7 +230,7 @@ class flight_api():
         search_result = requests.get(url, params)
 
         print("Status : " + str(search_result.status_code))
-        flight_result = api.processData(search_result.json())
+        flight_result = self.processData(search_result.json())
         return flight_result
 
     def flight_search_local(self):
@@ -241,14 +240,18 @@ class flight_api():
 
     def save_result(self, flight_result):
         f = open("flight.json","w+")
-        f.write(str(flight_result))
+        f.write(str(json.dumps(flight_result)))
         f.close()
         print("Done!!!")
 
     @staticmethod
     def sorted_one_way_flight_result(flight_result):
-        rows = [x for x in flight_result if (time(1) < x['arrival_first_date'].time() < time(12)) or x['arrival_first_date'].time() > time(18)]
-        result = min(rows, key=itemgetter('unified_price'))
+        # rows = [x for x in flight_result if (time(1) < x['arrival_first_date'].time() < time(12)) or x['arrival_first_date'].time() > time(18)]
+        rows = [x for x in flight_result if (time(5) < time(int(x['display'][0]['arrival_airport']['time'][0:2]),int(x['display'][0]['arrival_airport']['time'][3:])) < time(13))]
+        result = flight_result[0]
+        if(len(rows) > 0):
+            print("ADA FLIGHT")
+            result = min(rows, key=itemgetter('unified_price'))
         return result
 
     @staticmethod
@@ -261,23 +264,22 @@ class flight_api():
         result = min(rows, key=itemgetter('unified_price'))
         return result
 
-trip_class = "Y"
-adults = 4
-children = 0
-infants = 0
-
-origin = "SUB"
-destination = "TPE"
-start_date = (datetime.today() + timedelta(days=7)).strftime("%Y-%m-%d")
-return_date = (datetime.today() + timedelta(days=10)).strftime("%Y-%m-%d")
-round_trip = True
-
-api = flight_api(trip_class=trip_class, adults=adults, children=children, infants=infants, origin=origin, destination=destination, start_date=start_date, return_date=return_date, round_trip=round_trip)
-
-flight_result = api.flight_search()
-
-if api.round_trip == False:
-    ticket_data = flight_api.sorted_one_way_flight_result(flight_result)
-else:
-    ticket_data = flight_api.sorted_round_trip_flight_result(flight_result)
-api.save_result(ticket_data)
+# trip_class = "Y"
+# adults = 2
+# children = 1
+#
+# origin = "SUB"
+# destination = "TPE"
+# start_date = (datetime.today() + timedelta(days=7)).strftime("%Y-%m-%d")
+# return_date = (datetime.today() + timedelta(days=10)).strftime("%Y-%m-%d")
+# round_trip = False
+#
+# api = flight_api(trip_class=trip_class, adults=adults, children=children, origin=origin, destination=destination, start_date=start_date, return_date=return_date, round_trip=round_trip)
+#
+# flight_result = api.flight_search()
+#
+# if api.round_trip == False:
+#     ticket_data = flight_api.sorted_one_way_flight_result(flight_result)
+# else:
+#     ticket_data = flight_api.sorted_round_trip_flight_result(flight_result)
+# api.save_result(ticket_data)

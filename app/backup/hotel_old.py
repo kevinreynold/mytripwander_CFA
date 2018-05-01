@@ -20,8 +20,8 @@ class hotel_api():
         self.checkIn = checkIn
         self.checkOut = checkOut
 
-        self.adults = int(adults)
-        self.children = int(children)
+        self.adults = adults
+        self.children = children
 
     def makeSignature(self, data):
         result = list()
@@ -41,9 +41,11 @@ class hotel_api():
         m.update((self.token + ':' + self.marker + ':' + self.makeSignature(body)).encode('utf-8'))
         return m.hexdigest()
 
-    def passenger_data(self, place_type, input_id):
+    def passenger_data(self):
+        hotelId = self.getHotelID()[0]['id']
 
         passenger_data = {
+            'hotelId': hotelId,
             'customerIP': self.customerIP,
             'checkIn': self.checkIn,
             'checkOut': self.checkOut,
@@ -52,13 +54,6 @@ class hotel_api():
             'currency': self.currency,
             'waitForResult': self.waitForResult
         }
-
-        if place_type == "hotel":
-            passenger_data['hotelId'] =  input_id
-        if place_type == "city":
-            passenger_data['cityId'] =  input_id
-            passenger_data['sortBy'] = 'popularity'
-            passenger_data['sortAsc'] =  0
 
         if self.children > 0:
             passenger_data['childrenCount'] = self.children
@@ -72,39 +67,24 @@ class hotel_api():
                 passenger_data['childAge2'] = 7
                 passenger_data['childAge3'] = 7
 
-        signature = self.realSignature(passenger_data)
+        signature = api.realSignature(passenger_data)
 
         passenger_data['signature'] = signature
         passenger_data['marker'] = self.marker
         return passenger_data
 
-    def hotel_search(self, place_type, input_id):
-        passenger_data = self.passenger_data(place_type, input_id)
+    def hotel_search(self):
+        tt.sleep(5)
 
-        status_code = 500
-        data = None
-        
-        while status_code != 200:
-            url = "http://engine.hotellook.com/api/v2/search/start.json?"
-            data = requests.get(url, params=passenger_data)
+        passenger_data = self.passenger_data()
+        url = "http://engine.hotellook.com/api/v2/search/start.json?"
+        data = requests.get(url, params=passenger_data)
 
-            print(data.url)
-            status_code = data.status_code
-            print("Status : " + str(data.status_code))
-            tt.sleep(5)
-
+        print(data.url)
+        print("Status : " + str(data.status_code))
         # hotel_json = json.JSONEncoder().encode(data.json())
-        hotel_json = data.json()
-
-        result = json.loads(json.dumps(hotel_json))
-
-        if len(result['result']) > 0:
-            result = result['result'][0]
-            result['rooms'] = result['rooms'][0:1]
-        else:
-            result = None
-
-        return result
+        hotel_json = data.json()['results']['hotels']
+        return hotel_json
 
     def getHotelID(self):
         params = {
@@ -147,25 +127,20 @@ class hotel_api():
 
     def save_result(self, hotel_result):
         f = open("hotel.json","w+")
-        f.write(str(json.dumps(hotel_result)))
+        f.write(str(hotel_result))
         f.close()
         print("Done!!!")
 
+checkIn = (datetime.today() + timedelta(days=7)).strftime("%Y-%m-%d")
+checkOut = (datetime.today() + timedelta(days=10)).strftime("%Y-%m-%d")
 
-# checkIn = datetime(2018,5,16).strftime("%Y-%m-%d")
-# checkOut = datetime(2018,5,20).strftime("%Y-%m-%d")
-#
-# adults = 2
-# children = 1
-#
-# hotel_name = "InterContinental Hong Kong"
-# city_id = '520684'
-#
-# hotel_id = '555118'
-#
-# api = hotel_api(adults=adults, children=children, checkIn=checkIn, checkOut=checkOut)
-# list_hotel = api.hotel_search("hotel", hotel_id)
-#
-# # list_hotel = api.getHotelID()
-#
-# api.save_result(list_hotel)
+adults = 2
+children = 1
+
+hotel_name = "Hong Kong"
+city_id = 4525
+
+api = hotel_api(adults, children, checkIn, checkOut, hotel_name)
+list_hotel = api.getHotelID()
+
+api.save_result(list_hotel)

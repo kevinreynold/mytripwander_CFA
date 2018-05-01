@@ -15,20 +15,26 @@ import numpy as np
  # 7. datang sore dr hotel langsung makan malam
 
  #last airport
- # 1. pulang pagi
- # 2. pulang siang
- # 3. pulang SORE
- # 4. pulang malam
+ # 8. pulang pagi
+ # 8. pulang siang
+ # 9. pulang SORE
+ # 10. pulang malam
+
+ # hari biasa
+ # pindah kota
 
 start = datetime.today()
-np.random.seed(0)
+np.random.seed(777)
 #10.15, 17.10, 12.40, 13.35
-go_back_hour = "2015"
-trip = trip(break_stop=break_stop(city="HKG", first_place="HKG", last_place="HKG",
-            arrival_date=(datetime.today()+timedelta(days=1)), arrival_hour="1335",
+
+# hotel tainan -> Tayih Landis Hotel Tainan ChIJgbQuvnt2bjQR3Opc2ZtWzwU
+
+go_back_hour = "2115"
+trip = trip(break_stop=break_stop(city="TPE", first_place="TPE", last_place="TPE",
+            arrival_date=(datetime.today()+timedelta(days=1)), arrival_hour="0915",
             go_back_date=(datetime.today()+timedelta(days=3)), go_back_hour=go_back_hour),
             limit_night_next_day=time(18), budget="none", last_airport=True, start_hour="0800", end_hour="2130",
-            must_see=1, recreation=2, culture=0, nature=-2) # last_airport = True/False
+            must_see=0, recreation=0, culture=0, nature=0) # last_airport = True/False
 cfa = CFA(iteration=1000, pop_size=200, R1=0.55, R2=-0.55, V1=1, V2=-1, problem=trip)
 cfa.run()
 
