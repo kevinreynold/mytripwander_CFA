@@ -27,3 +27,8 @@ for currency in list_currency:
     db_access.setNewCurency(currency_id, rate)
 
     tt.sleep(2)
+
+# for currency in list_currency:
+#     currency_id = str(currency['id'])
+#     currency_name = str(currency['name'])
+#     print('<option>' + currency_id + ' - ' + currency_name +'</option>')
