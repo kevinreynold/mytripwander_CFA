@@ -187,6 +187,7 @@ class trip_schedule():
             list_city = self.db_access.getAllCityByCountry(country)
 
             if len(list_city) == 1 or stay_duration == 3:
+                print("SENDIRI")
                 # last_airport = True if i < len(self.detail)-1 self.return_here else False
 
                 # beli tiket pesawat
@@ -221,7 +222,7 @@ class trip_schedule():
                 # print('Current Date:', str(current_date))
 
                 print(str(go_back_date))
-                tt.sleep(5)
+                tt.sleep(15)
 
                 if i < len(self.detail)-1:
                     print('PINDAH NEGARA')
@@ -234,8 +235,12 @@ class trip_schedule():
                     # print("Airport Go Back Time: ", go_back_hour)
                     last_airport = True
                 else:
-                    print('PULKAM LAGI')
-                    if self.return_here == True:
+                    if self.return_here == True or i != len(self.detail)-1:
+                        if self.return_here == True:
+                            print('PULKAM LAGI')
+                        elif i != len(self.detail)-1:
+                            print('PINDAH NEGARA')
+
                         city_origin = self.city_origin
 
                         go_back_ticket_data = self.doFlightSearch(arrival_airport, city_origin, go_back_date)
@@ -246,6 +251,7 @@ class trip_schedule():
                         # print("Airport Go Back Time: ", go_back_hour)
                         last_airport = True
                     else:
+                        print('TIDAK PULKAM')
                         last_airport = False
 
                 vbreak_stop = break_stop(city=city, first_place=arrival_airport, last_place=departure_airport,
@@ -260,18 +266,19 @@ class trip_schedule():
                 vcfa = CFA(iteration=self.iteration, pop_size=self.pop_size, R1=self.R1, R2=self.R2, V1=self.V1, V2=self.V2, problem=vtrip)
                 vcfa.run()
 
-                #simpan hotel
-                tt.sleep(5)
-                hotel_id = str(vcfa.best_cell.other['misc2'])
-                print('Hotel ID:',hotel_id)
-                hotel_data = self.doHotelSearch(current_date, go_back_date, hotel_id)
-                # print(hotel_data)
+                tt.sleep(15)
 
                 list_dest_trip = vtrip.showResultNew(vcfa.best_cell.other['route'], vcfa.problem.start_date, offset_day)
                 print(vcfa.best_cell.other['misc'])
                 print(vcfa.best_cell.other['is_too_late'])
                 print(vcfa.best_cell.other['misc2'])
                 print(vcfa.best_cell.other['last_place_id'])
+
+                #simpan hotel
+                hotel_id = str(vcfa.best_cell.other['misc2'])
+                print('Hotel ID:',hotel_id)
+                hotel_data = self.doHotelSearch(current_date, go_back_date, hotel_id)
+                # print(hotel_data)
 
                 #buat trip city plan data
                 city_plan_data = {}
@@ -323,6 +330,7 @@ class trip_schedule():
                 current_date = go_back_date + timedelta(days=1)
                 offset_day += 1
             else:
+                print("BANYAK")
                 list_tour = self.getListCityTour(country, city, stay_duration)
 
                 #ubah new plan_data
@@ -341,7 +349,7 @@ class trip_schedule():
                 offset_city_id = 1
 
                 for j in range(len(list_tour['list_city'])):
-                    tt.sleep(5)
+                    tt.sleep(15)
                     city = list_tour['list_city'][j]
                     stay_duration = list_tour['list_stay_duration'][j]
 
@@ -405,7 +413,7 @@ class trip_schedule():
                         new_go_back_hour = self.end_hour
                         new_last_airport = False
                     else: #PINDAH KOTA DAN PULANG
-                        if self.return_here == True:
+                        if self.return_here == True or i != len(self.detail)-1:
                             print("33333333")
                             if i == len(self.detail)-1:
                                 city_origin = self.city_origin
@@ -437,6 +445,7 @@ class trip_schedule():
                             # city_plan_data['go_back_duration'] = self.airport_stay_dur
                             city_plan_data['go_back_duration'] = 0
                         else:
+                            print('TIDAK PULKAM')
                             print("555555555")
                             arrival_date = current_date
                             go_back_date = arrival_date + timedelta(days=stay_duration-1)
@@ -462,18 +471,19 @@ class trip_schedule():
                     vcfa = CFA(iteration=self.iteration, pop_size=self.pop_size, R1=self.R1, R2=self.R2, V1=self.V1, V2=self.V2, problem=vtrip)
                     vcfa.run()
 
-                    #simpan hotel
-                    tt.sleep(5)
-                    hotel_id = str(vcfa.best_cell.other['misc2'])
-                    print('Hotel ID:',hotel_id)
-                    hotel_data = self.doHotelSearch(current_date, go_back_date, hotel_id)
-                    # print(hotel_data)
+                    tt.sleep(15)
 
                     list_dest_trip = vtrip.showResultNew(vcfa.best_cell.other['route'], vcfa.problem.start_date, offset_day)
                     print(vcfa.best_cell.other['misc'])
                     print(vcfa.best_cell.other['is_too_late'])
                     print(vcfa.best_cell.other['misc2'])
                     print(vcfa.best_cell.other['last_place_id'])
+
+                    #simpan hotel
+                    hotel_id = str(vcfa.best_cell.other['misc2'])
+                    print('Hotel ID:',hotel_id)
+                    hotel_data = self.doHotelSearch(current_date, go_back_date, hotel_id)
+                    # print(hotel_data)
 
                     last_place_id = vcfa.best_cell.other['last_place_id']
 
