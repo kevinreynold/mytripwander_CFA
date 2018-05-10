@@ -90,6 +90,7 @@ class flight_api():
                         # temp_ticket['total_duration_readable'] = self.changeFormatDuration(ticket_data['total_duration'])
                         temp_ticket['total_duration'] = ticket_data['total_duration']
                         temp_ticket['search_id'] = search_id
+                        temp_ticket['search_at'] = datetime.today().strftime("%Y-%m-%d")
 
                         #price
                         terms = ticket_data['terms']
@@ -247,7 +248,7 @@ class flight_api():
     @staticmethod
     def sorted_one_way_flight_result(flight_result):
         # rows = [x for x in flight_result if (time(1) < x['arrival_first_date'].time() < time(12)) or x['arrival_first_date'].time() > time(18)]
-        rows = [x for x in flight_result if (time(5) < time(int(x['display'][0]['arrival_airport']['time'][0:2]),int(x['display'][0]['arrival_airport']['time'][3:])) < time(13))]
+        rows = [x for x in flight_result if (time(5) < time(int(x['display'][0]['arrival_airport']['time'][0:2]),int(x['display'][0]['arrival_airport']['time'][3:])) < time(16))]
         result = flight_result[0]
         if(len(rows) > 0):
             print("ADA FLIGHT")
