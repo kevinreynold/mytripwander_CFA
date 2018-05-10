@@ -12,12 +12,13 @@ from flight import flight_api
 from hotel import hotel_api
 
 class trip_schedule():
-    def __init__(self, request_data):
+    def __init__(self, request_data, iteration=25000):
         self.db_access = db()
 
         # HEADER #
         self.header = request_data['header']
         self.user_id = self.header['user_id']
+        self.schedule_id = self.header['schedule_id']
 
         self.plan_data = json.loads(self.header['plan_data'])
 
@@ -57,7 +58,7 @@ class trip_schedule():
         # self.go_back_hour = "2200"
 
         #cfa
-        self.iteration = 25000
+        self.iteration = iteration
         self.pop_size = 200
         self.R1 = 0.55
         self.R2 = -0.55
@@ -174,6 +175,19 @@ class trip_schedule():
         f.close()
         print("Done!!!")
 
+    def save_database(self):
+        schedule_id = self.schedule_id
+        user_id = self.user_id
+
+        nplan_data = str(json.dumps(self.trip_plan_data))
+        ncity_plan_data = str(json.dumps(self.trip_city_plan_data))
+        nflight_plan = str(json.dumps(self.flight_plan))
+
+        description = "route " + str(schedule_id)
+        created_at = datetime.today().strftime("%Y-%m-%d %H:%M:%S")
+
+        self.db_access.setNewTrip(user_id=user_id, plan_data=nplan_data, city_plan_data=ncity_plan_data, flight_plan=nflight_plan, description=description, created_at=created_at)
+
     def run(self):
         current_date = self.start_date
         offset_day = 0
@@ -265,6 +279,14 @@ class trip_schedule():
 
                 vcfa = CFA(iteration=self.iteration, pop_size=self.pop_size, R1=self.R1, R2=self.R2, V1=self.V1, V2=self.V2, problem=vtrip)
                 vcfa.run()
+
+                print(vtrip.break_stop.city + " " + str(vtrip.total_days) + " HARI")
+                print("Best Fitness : " + str(1/vcfa.best_cell.fitness) +
+                      " | Iteration : " + str(vcfa.iteration) + " | Population : " + str(vcfa.population_size) +
+                      " | R1 : " + str(vcfa.R1) + " | R2 : " + str(vcfa.R2) +
+                      " | V1 : " + str(vcfa.V1) + " | V2 : " + str(vcfa.V2))
+                print("Must See : " + str(vtrip.must_see_interest) + " | Recreation : " + str(vtrip.recreation_interest) +
+                      " Culture : " + str(vtrip.culture_interest) + " | Nature : " + str(vtrip.nature_interest))
 
                 tt.sleep(15)
 
@@ -471,6 +493,14 @@ class trip_schedule():
                     vcfa = CFA(iteration=self.iteration, pop_size=self.pop_size, R1=self.R1, R2=self.R2, V1=self.V1, V2=self.V2, problem=vtrip)
                     vcfa.run()
 
+                    print(vtrip.break_stop.city + " " + str(vtrip.total_days) + " HARI")
+                    print("Best Fitness : " + str(1/vcfa.best_cell.fitness) +
+                          " | Iteration : " + str(vcfa.iteration) + " | Population : " + str(vcfa.population_size) +
+                          " | R1 : " + str(vcfa.R1) + " | R2 : " + str(vcfa.R2) +
+                          " | V1 : " + str(vcfa.V1) + " | V2 : " + str(vcfa.V2))
+                    print("Must See : " + str(vtrip.must_see_interest) + " | Recreation : " + str(vtrip.recreation_interest) +
+                          " Culture : " + str(vtrip.culture_interest) + " | Nature : " + str(vtrip.nature_interest))
+
                     tt.sleep(15)
 
                     list_dest_trip = vtrip.showResultNew(vcfa.best_cell.other['route'], vcfa.problem.start_date, offset_day)
@@ -528,28 +558,29 @@ class trip_schedule():
         self.save_result("result-data/city_plan_data.json", self.trip_city_plan_data)
         self.save_result("result-data/flight_plan.json", self.flight_plan)
         self.save_result("result-data/hotel.json", self.hotel_plan)
+        self.save_database()
 
-# vcity_tour = city_tour('TW','TPE',11)
-# vcfa = CFA(iteration=1000, pop_size=15, R1=1, R2=-1, V1=2, V2=-2, problem=vcity_tour)
-# vcfa.run()
-# print(vcfa.best_cell.other['route'])
-# print(vcfa.best_cell.other['misc'])
-
-start = datetime.today()
-np.random.seed(0)
-
-db_access = db()
-trip_schedule = trip_schedule(db_access.getTripScheduleRequestData())
-# print(trip_schedule.start_date)
-# print(trip_schedule.must_see)
-# print(trip_schedule.culture)
-# print(trip_schedule.nature)
-# print(trip_schedule.recreation)
-print(trip_schedule.return_here)
-trip_schedule.run()
-
-end = datetime.today()
-execution_time = int((end-start).total_seconds())
-m, s = divmod(execution_time, 60)
-h, m = divmod(m, 60)
-print("Execution Time :", '{0:02d}:{1:02d}:{2:02d}'.format(h, m, s))
+# # vcity_tour = city_tour('TW','TPE',11)
+# # vcfa = CFA(iteration=1000, pop_size=15, R1=1, R2=-1, V1=2, V2=-2, problem=vcity_tour)
+# # vcfa.run()
+# # print(vcfa.best_cell.other['route'])
+# # print(vcfa.best_cell.other['misc'])
+#
+# start = datetime.today()
+# np.random.seed(0)
+#
+# db_access = db()
+# trip_schedule = trip_schedule(db_access.getTripScheduleRequestData())
+# # print(trip_schedule.start_date)
+# # print(trip_schedule.must_see)
+# # print(trip_schedule.culture)
+# # print(trip_schedule.nature)
+# # print(trip_schedule.recreation)
+# print(trip_schedule.return_here)
+# trip_schedule.run()
+#
+# end = datetime.today()
+# execution_time = int((end-start).total_seconds())
+# m, s = divmod(execution_time, 60)
+# h, m = divmod(m, 60)
+# print("Execution Time :", '{0:02d}:{1:02d}:{2:02d}'.format(h, m, s))

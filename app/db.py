@@ -258,6 +258,15 @@ class db():
         finally:
             print("Load Trip Schedule Request Data Success!!")
 
+    def setNewTrip(self, user_id, plan_data, city_plan_data, flight_plan, description, created_at):
+        try:
+            with self.conn.cursor() as cursor:
+                sql = "INSERT INTO trip VALUES (NULL, %s, %s, %s, %s, 0, %s, %s)"
+                cursor.execute(sql, (user_id, plan_data, city_plan_data, flight_plan, description, created_at))
+                self.conn.commit()
+        finally:
+            print("Success save new trip!!")
+
     def getAllCurrency(self):
         with self.conn.cursor() as cursor:
             sql = "SELECT * FROM currency"

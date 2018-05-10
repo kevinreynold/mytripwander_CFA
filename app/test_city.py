@@ -48,7 +48,7 @@ print("Execution Time :", '{0:02d}:{1:02d}:{2:02d}'.format(h, m, s))
 print("Best Fitness : " + str(1/cfa.best_cell.fitness) +
       " | Iteration : " + str(cfa.iteration) + " | Population : " + str(cfa.population_size) +
       " | R1 : " + str(cfa.R1) + " | R2 : " + str(cfa.R2) +
-      " | V1 : " + str(cfa.V1) + " | V2 : " + str(cfa.V2) )
+      " | V1 : " + str(cfa.V1) + " | V2 : " + str(cfa.V2))
 print("Must See : " + str(trip.must_see_interest) + " | Recreation : " + str(trip.recreation_interest) +
       " Culture : " + str(trip.culture_interest) + " | Nature : " + str(trip.nature_interest))
 
