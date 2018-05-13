@@ -283,6 +283,7 @@ class trip():
         #start / end date and hours
         day = 1
         stop_sign = 0
+        total_place = 0
         start_time = self.start_date
 
         hours = int(self.end_hour[0:2])
@@ -411,6 +412,7 @@ class trip():
                     route.append(self.addRoute("food", idx_food[food_offset], False))
                     eat_idx = food_offset
                     food_offset += 1
+                    total_place += 1
                     already_lunch = True
 
                     #hitung jarak dari tempat makan ke tempat wisata pertama
@@ -548,6 +550,7 @@ class trip():
                             just_eat = True
                             eat_idx = food_offset
                             food_offset += 1
+                            total_place += 1
 
                             if current_time.time() > self.dinner_time_lower and already_lunch == True:
                                 already_dinner = True
@@ -728,7 +731,7 @@ class trip():
 
             # RESET
             result['time'] = str(current_time.__str__())
-            result['stop_sign'] = stop_sign
+            # result['stop_sign'] = stop_sign
 
             day += 1
             stop_sign += 1
@@ -806,7 +809,8 @@ class trip():
         place_time_total = np.sum(list_time)
 
         # makin banyak tempat makin bagus
-        place_discount = place_time_total * (1 / (place_target_per_day * real_stay_days) / 2) * stop_sign
+        total_place += stop_sign
+        place_discount = place_time_total * (1 / (place_target_per_day * real_stay_days) / 2) * total_place
 
         #total penalty
         penalty_total = np.sum(list_penalty)
@@ -828,8 +832,10 @@ class trip():
             result['last_place_id'] = self.last_place['place_id']
 
         result['route'] = route
+        result['stop_sign'] = total_place
         # hotel ID
         result['misc2'] = self.hotel[idx_hotel[0]]['misc']
+        # result['misc2'] = interests_total
 
         return result
 

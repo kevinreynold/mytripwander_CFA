@@ -31,11 +31,11 @@ np.random.seed(777)
 
 go_back_hour = "2115"
 trip = trip(break_stop=break_stop(city="TPE", first_place="TPE", last_place="TPE",
-            arrival_date=(datetime.today()+timedelta(days=1)), arrival_hour="0915",
+            arrival_date=(datetime.today()+timedelta(days=1)), arrival_hour="1015",
             go_back_date=(datetime.today()+timedelta(days=3)), go_back_hour=go_back_hour),
-            limit_night_next_day=time(18), budget="none", last_airport=True, start_hour="0800", end_hour="2130",
+            limit_night_next_day=time(18), budget="low", last_airport=True, start_hour="0800", end_hour="2130",
             must_see=0, recreation=0, culture=0, nature=0) # last_airport = True/False
-cfa = CFA(iteration=1000, pop_size=200, R1=0.55, R2=-0.55, V1=1, V2=-1, problem=trip)
+cfa = CFA(iteration=75000, pop_size=200, R1=0.55, R2=-0.55, V1=1, V2=-1, problem=trip)
 cfa.run()
 
 end = datetime.today()
@@ -43,6 +43,7 @@ execution_time = int((end-start).total_seconds())
 m, s = divmod(execution_time, 60)
 h, m = divmod(m, 60)
 
+print('')
 print(trip.break_stop.city + " " + str(trip.total_days) + " HARI")
 print("Execution Time :", '{0:02d}:{1:02d}:{2:02d}'.format(h, m, s))
 print("Best Fitness : " + str(1/cfa.best_cell.fitness) +
@@ -52,11 +53,22 @@ print("Best Fitness : " + str(1/cfa.best_cell.fitness) +
 print("Must See : " + str(trip.must_see_interest) + " | Recreation : " + str(trip.recreation_interest) +
       " Culture : " + str(trip.culture_interest) + " | Nature : " + str(trip.nature_interest))
 
+
+print('Route:')
 print(cfa.best_cell.other['route'])
 # trip.showResult(cfa.best_cell.points, cfa.best_cell.other['stop_sign'], cfa.problem.start_date, cfa.best_cell.other['is_too_late'])
+
+print('')
 trip.showResultNew(cfa.best_cell.other['route'], cfa.problem.start_date)
 # trip.showRoute(cfa.best_cell.points)
+print('')
+print('List Penalty Index:')
 print(cfa.best_cell.other['misc'])
+print('')
+print('List Penalty:')
 print(cfa.best_cell.other['is_too_late'])
+print('')
+print('Total Place:')
+print(cfa.best_cell.other['stop_sign'])
 print(cfa.best_cell.other['misc2'])
 print(cfa.best_cell.other['last_place_id'])

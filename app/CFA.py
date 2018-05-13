@@ -190,4 +190,4 @@ class CFA():
                     self.fourth_group[i] = copy.copy(new_cell)
 
             # print("Best Fitness Iterasi " + str(itr + 1) + ": " + self.problem.convertFitnessValue(self.best_cell.fitness) + " | "+str(self.best_cell.other['time']) + " | " + str(self.best_cell.other['stop_sign'] + 1))
-            # print("Best Fitness Iterasi " + str(itr + 1) + ": " + str(1/self.best_cell.fitness) + " | "+str(self.best_cell.other['time']) + " | " + str(self.best_cell.other['stop_sign'] + 1))
+            print("Best Fitness Iterasi " + str(itr + 1) + ": " + str(1/self.best_cell.fitness) + " | "+str(self.best_cell.other['time']) + " | " + str(self.best_cell.other['stop_sign']))
