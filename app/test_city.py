@@ -35,7 +35,7 @@ trip = trip(break_stop=break_stop(city="TPE", first_place="TPE", last_place="TPE
             go_back_date=(datetime.today()+timedelta(days=3)), go_back_hour=go_back_hour),
             limit_night_next_day=time(18), budget="low", last_airport=True, start_hour="0800", end_hour="2130",
             must_see=0, recreation=0, culture=0, nature=0) # last_airport = True/False
-cfa = CFA(iteration=75000, pop_size=200, R1=0.55, R2=-0.55, V1=1, V2=-1, problem=trip)
+cfa = CFA(iteration=50000, pop_size=300, R1=0.55, R2=-0.55, V1=1.5, V2=-1.5, problem=trip)
 cfa.run()
 
 end = datetime.today()
@@ -64,11 +64,23 @@ trip.showResultNew(cfa.best_cell.other['route'], cfa.problem.start_date)
 print('')
 print('List Penalty Index:')
 print(cfa.best_cell.other['misc'])
+
 print('')
 print('List Penalty:')
 print(cfa.best_cell.other['is_too_late'])
+
 print('')
 print('Total Place:')
 print(cfa.best_cell.other['stop_sign'])
-print(cfa.best_cell.other['misc2'])
-print(cfa.best_cell.other['last_place_id'])
+
+print('')
+print('Place Discount Percent:')
+print(cfa.best_cell.other['other']['place_discount_percent'])
+
+print('')
+print('Interest Discount Percent:')
+print(cfa.best_cell.other['other']['interest_discount_percent'])
+
+
+# print(cfa.best_cell.other['misc2'])
+# print(cfa.best_cell.other['last_place_id'])

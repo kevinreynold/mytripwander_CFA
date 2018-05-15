@@ -313,6 +313,7 @@ class trip():
         result['misc'] = ""
         result['misc2'] = []
         result['last_place_id'] = ""
+        result['other'] = {}
         route = []
 
         # AIRPORT -> HOTEL
@@ -810,14 +811,19 @@ class trip():
 
         # makin banyak tempat makin bagus
         total_place += stop_sign
-        place_discount = place_time_total * (1 / (place_target_per_day * real_stay_days) / 2) * total_place
+
+        place_discount_percent = ((1 / (place_target_per_day * real_stay_days) / 2) * total_place)
+
+        place_discount = place_time_total * place_discount_percent
 
         #total penalty
         penalty_total = np.sum(list_penalty)
 
         # interest
         sum_list_interst = min(np.sum(list_interest), (stop_sign * self.total_interest))
-        interests_total = place_time_total * (0 - (((sum_list_interst - (stop_sign * self.total_interest * -1)) / ((stop_sign * self.total_interest) - (stop_sign * self.total_interest * -1))) - 0.5))
+
+        interest_discount_percent = (0 - (((sum_list_interst - (stop_sign * self.total_interest * -1)) / ((stop_sign * self.total_interest) - (stop_sign * self.total_interest * -1))) - 0.5))
+        interests_total = place_time_total * interest_discount_percent
 
         fitness_total = place_time_total + penalty_total - place_discount + interests_total
 
@@ -836,6 +842,8 @@ class trip():
         # hotel ID
         result['misc2'] = self.hotel[idx_hotel[0]]['misc']
         # result['misc2'] = interests_total
+        result['other']['place_discount_percent'] = place_discount_percent
+        result['other']['interest_discount_percent'] = interest_discount_percent
 
         return result
 

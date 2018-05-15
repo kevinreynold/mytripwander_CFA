@@ -33,6 +33,7 @@ class CFA():
             cell_other['misc'] = cell_fitness_result['misc']
             cell_other['misc2'] = cell_fitness_result['misc2']
             cell_other['last_place_id'] = cell_fitness_result['last_place_id']
+            cell_other['other'] = cell_fitness_result['other']
             temp_cell = CCells(cells_points,cell_fitness,cell_other)
             self.cells.append(temp_cell)
 
@@ -89,6 +90,7 @@ class CFA():
                 new_cell_other['misc'] = new_cell_fitness_result['misc']
                 new_cell_other['misc2'] = new_cell_fitness_result['misc2']
                 new_cell_other['last_place_id'] = new_cell_fitness_result['last_place_id']
+                new_cell_other['other'] = new_cell_fitness_result['other']
                 new_cell = CCells(new_cell_points,new_cell_fitness,new_cell_other)
 
                 # new_cell.points[new_cell.points<self.problem.getLowerBound()] = self.problem.getLowerBound()
@@ -118,6 +120,7 @@ class CFA():
                 new_cell_other['misc'] = new_cell_fitness_result['misc']
                 new_cell_other['misc2'] = new_cell_fitness_result['misc2']
                 new_cell_other['last_place_id'] = new_cell_fitness_result['last_place_id']
+                new_cell_other['other'] = new_cell_fitness_result['other']
                 new_cell = CCells(new_cell_points,new_cell_fitness,new_cell_other)
 
                 # new_cell.points[new_cell.points < self.problem.getLowerBound()] = self.problem.getLowerBound()
@@ -147,6 +150,7 @@ class CFA():
                 new_cell_other['misc'] = new_cell_fitness_result['misc']
                 new_cell_other['misc2'] = new_cell_fitness_result['misc2']
                 new_cell_other['last_place_id'] = new_cell_fitness_result['last_place_id']
+                new_cell_other['other'] = new_cell_fitness_result['other']
                 new_cell = CCells(new_cell_points,new_cell_fitness,new_cell_other)
 
                 # new_cell.points[new_cell.points < self.problem.getLowerBound()] = self.problem.getLowerBound()
@@ -176,6 +180,7 @@ class CFA():
                 new_cell_other['misc'] = new_cell_fitness_result['misc']
                 new_cell_other['misc2'] = new_cell_fitness_result['misc2']
                 new_cell_other['last_place_id'] = new_cell_fitness_result['last_place_id']
+                new_cell_other['other'] = new_cell_fitness_result['other']
                 new_cell = CCells(new_cell_points,new_cell_fitness,new_cell_other)
 
                 # new_cell.points[new_cell.points > self.problem.getUpperBound()] = self.problem.getUpperBound()

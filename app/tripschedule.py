@@ -2,6 +2,7 @@ import numpy as np
 import collections
 import random
 import json
+import requests
 import time as tt
 import copy
 from db import db
@@ -85,9 +86,13 @@ class trip_schedule():
         list_city_tour = []
         list_stay_duration = []
         list_city_tour.append(starting_city)
-        list_stay_duration.append(3)
+        if stay_duration == 4:
+            list_stay_duration.append(2)
+            day_left = stay_duration - 2
+        else:
+            list_stay_duration.append(3)
+            day_left = stay_duration - 3
 
-        day_left = stay_duration - 3
         current_place = self.db_access.getFirstPlaceByCity(starting_city)['place_id']
 
         while(day_left > 0):
@@ -187,6 +192,35 @@ class trip_schedule():
         created_at = datetime.today().strftime("%Y-%m-%d %H:%M:%S")
 
         self.db_access.setNewTrip(user_id=user_id, plan_data=nplan_data, city_plan_data=ncity_plan_data, flight_plan=nflight_plan, description=description, created_at=created_at)
+
+    def send_notif(self):
+        total_days_trip = 0
+        for i in range(len(self.trip_plan_data['list_destination'])):
+            total_days_trip = total_days_trip + self.trip_plan_data['list_destination'][i]['stay']
+
+        dest_title = ""
+        for i in range(len(self.trip_plan_data['list_destination'])):
+            dest_title = dest_title + self.trip_plan_data['list_destination'][i]['country_name']
+            if(i != len(self.trip_plan_data['list_destination'])-1):
+                dest_title = dest_title + ' - '
+
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'key=AAAAWN_fPMk:APA91bGnOj0MsFIWy5W4XbGAeeAghOLaLG1NICp0LAdvdpWcjERANcSqpv9kMPJp2p-AyxKhZXkIQLn7g19Etve8CxEgl-zIUAAtNkgDNfpTVxhajRqOqpKm0z9bRGY-LZaAzYfY1AHQ'
+        }
+
+        device_token = "eay5Vd5HTtQ:APA91bGeQan6URkfE6EOVrQQY9pGfKCXTzgn5Du_4WEqvsBOyttZpwwQlbnRgfDgOKHTfoaabMoZxfzFWJLNfsBZgP96Beza9Jgx9ZswdQlkhkic4oJFNWD_7NEBNkuNU-yTEQqcktHY"
+        notif_data = {
+         "to" : device_token,
+         "notification" : {
+             "title" : "Your itinerary is ready",
+             "body": str(total_days_trip) + ' Days Trip | ' + dest_title
+         },
+        }
+
+        url = "https://fcm.googleapis.com/fcm/send"
+        data = requests.post(url, json=notif_data, headers=headers)
+        print('Push Notification Success!')
 
     def run(self):
         current_date = self.start_date
@@ -559,6 +593,7 @@ class trip_schedule():
         self.save_result("result-data/flight_plan.json", self.flight_plan)
         self.save_result("result-data/hotel.json", self.hotel_plan)
         self.save_database()
+        self.send_notif()
 
 # # vcity_tour = city_tour('TW','TPE',11)
 # # vcfa = CFA(iteration=1000, pop_size=15, R1=1, R2=-1, V1=2, V2=-2, problem=vcity_tour)

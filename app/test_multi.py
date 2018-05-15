@@ -5,7 +5,7 @@ start = datetime.today()
 
 db_access = db()
 
-trip_schedule = trip_schedule(request_data=db_access.getTripScheduleRequestData(), iteration=50000)
+trip_schedule = trip_schedule(request_data=db_access.getTripScheduleRequestData(), iteration=100)
 print(trip_schedule.user_id)
 trip_schedule.run()
 
