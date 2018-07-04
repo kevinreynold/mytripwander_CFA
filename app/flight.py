@@ -246,12 +246,30 @@ class flight_api():
         print("Done!!!")
 
     @staticmethod
-    def sorted_one_way_flight_result(flight_result):
+    def sorted_one_way_arrival_flight_result(flight_result):
+        # bisa dapat jam 0050
         # rows = [x for x in flight_result if (time(1) < x['arrival_first_date'].time() < time(12)) or x['arrival_first_date'].time() > time(18)]
-        rows = [x for x in flight_result if (time(5) < time(int(x['display'][0]['arrival_airport']['time'][0:2]),int(x['display'][0]['arrival_airport']['time'][3:])) < time(16))]
+        rows = [x for x in flight_result if (time(10) < time(int(x['display'][0]['arrival_airport']['time'][0:2]),int(x['display'][0]['arrival_airport']['time'][3:])) < time(16))]
+
         result = flight_result[0]
+        print("JUMLAH TIKET ASLI : " + str(len(flight_result)))
+
         if(len(rows) > 0):
-            print("ADA FLIGHT")
+            print("JUMLAH TIKET : " + str(len(rows)))
+            print("ADA ARRIVAL FLIGHT ANTARA JAM 10 HINGGA 16")
+            result = min(rows, key=itemgetter('unified_price'))
+        return result
+
+    @staticmethod
+    def sorted_one_way_departure_flight_result(flight_result):
+        rows = [x for x in flight_result if (time(17) < time(int(x['display'][0]['departure_airport']['time'][0:2]),int(x['display'][0]['departure_airport']['time'][3:])) < time(21))]
+
+        result = flight_result[0]
+        print("JUMLAH TIKET ASLI : " + str(len(flight_result)))
+
+        if(len(rows) > 0):
+            print("JUMLAH TIKET : " + str(len(rows)))
+            print("ADA GO BACK FLIGHT ANTARA JAM 17 HINGGA 21")
             result = min(rows, key=itemgetter('unified_price'))
         return result
 
@@ -284,3 +302,22 @@ class flight_api():
 # else:
 #     ticket_data = flight_api.sorted_round_trip_flight_result(flight_result)
 # api.save_result(ticket_data)
+
+# TEST
+# trip_class = "Y"
+# adults = 2
+# children = 1
+#
+# origin = "SUB"
+# destination = "DPS"
+# start_date = (datetime.today() + timedelta(days=7)).strftime("%Y-%m-%d")
+# return_date = (datetime.today() + timedelta(days=10)).strftime("%Y-%m-%d")
+# round_trip = True
+#
+# api = flight_api(trip_class=trip_class, adults=adults, children=children, origin=origin, destination=destination, start_date=start_date, return_date=return_date, round_trip=round_trip)
+#
+# passenger_data = api.passenger_data()
+# print(str(json.dumps(passenger_data)))
+#
+# flight_result = api.flight_search()
+# api.save_result(flight_result)
