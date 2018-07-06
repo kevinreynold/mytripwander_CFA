@@ -250,7 +250,7 @@ class db():
             with self.conn.cursor() as cursor:
                 result = {}
 
-                sql = "SELECT * FROM tripschedule WHERE is_done = 0 ORDER BY created_at"
+                sql = "SELECT * FROM tripschedule WHERE done_at IS NULL ORDER BY created_at"
                 cursor.execute(sql)
                 result['header'] = cursor.fetchone()
 
@@ -266,6 +266,15 @@ class db():
                 self.conn.commit()
         finally:
             print("Success save new trip!!")
+
+    def updateDoneAtTripSchedule(self, schedule_id, done_at):
+        try:
+            with self.conn.cursor() as cursor:
+                sql = "UPDATE tripschedule SET done_at = %s WHERE schedule_id = %s"
+                cursor.execute(sql, (done_at, schedule_id))
+                self.conn.commit()
+        finally:
+            print("Success update tripschedule!!")
 
     def getAllCurrency(self):
         with self.conn.cursor() as cursor:

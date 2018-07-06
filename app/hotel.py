@@ -169,3 +169,17 @@ class hotel_api():
 # # list_hotel = api.getHotelID()
 #
 # api.save_result(list_hotel)
+
+
+# TEST
+# checkIn = datetime(2018,7,4).strftime("%Y-%m-%d")
+# checkOut = datetime(2018,7,7).strftime("%Y-%m-%d")
+# 
+# adults = 2
+# children = 0
+# 
+# 
+# hotel_id = '417347'
+# 
+# api = hotel_api(adults=adults, children=children, checkIn=checkIn, checkOut=checkOut)
+# list_hotel = api.hotel_search("hotel", hotel_id)

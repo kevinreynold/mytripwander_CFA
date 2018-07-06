@@ -112,7 +112,10 @@ class trip_schedule():
 
         return result
 
-    def doFlightSearch(self, origin, dest, flight_date):
+    def doFlightSearch(self, origin, dest, flight_date, type='arrival'):
+        #offset --> urutan NEGARA
+        #type   --> arrival / go_back
+
         trip_class = "Y"
         adults = self.adult
         children = self.children
@@ -124,7 +127,11 @@ class trip_schedule():
         api = flight_api(trip_class=trip_class, adults=adults, children=children, origin=origin, destination=destination, start_date=start_date)
 
         flight_result = api.flight_search()
-        ticket_data = flight_api.sorted_one_way_flight_result(flight_result)
+        if type == 'arrival':
+            ticket_data = flight_api.sorted_one_way_arrival_flight_result(flight_result)
+        elif type == 'go_back':
+            ticket_data = flight_api.sorted_one_way_departure_flight_result(flight_result)
+
         self.flight_plan.append(json.loads(json.dumps(ticket_data)))
 
         return ticket_data
@@ -133,6 +140,8 @@ class trip_schedule():
     def doHotelSearch(self, check_in, check_out, hotel_id):
         checkIn = check_in.strftime("%Y-%m-%d")
         checkOut = check_out.strftime("%Y-%m-%d")
+
+        print('CheckIn: ' + str(checkIn) + ' || ' + 'CheckOut: ' + str(checkOut))
 
         adults = self.adult
         children = self.children
@@ -193,6 +202,8 @@ class trip_schedule():
 
         self.db_access.setNewTrip(user_id=user_id, plan_data=nplan_data, city_plan_data=ncity_plan_data, flight_plan=nflight_plan, description=description, created_at=created_at)
 
+        self.db_access.updateDoneAtTripSchedule(schedule_id=str(schedule_id), done_at=created_at)
+
     def send_notif(self):
         total_days_trip = 0
         for i in range(len(self.trip_plan_data['list_destination'])):
@@ -242,7 +253,7 @@ class trip_schedule():
                 if i == 0:
                     print("BARU")
                     city_origin = self.city_origin
-                    arrival_ticket_data = self.doFlightSearch(city_origin, city, current_date)
+                    arrival_ticket_data = self.doFlightSearch(city_origin, city, current_date, 'arrival')
                 else:
                     # temp_country = self.detail[i-1]['country_code']
                     # temp_city = self.detail[i-1]['starting_city']
@@ -263,7 +274,7 @@ class trip_schedule():
                 # print("Airport Arrival Time: ", arrival_hour)
 
                 arrival_date = datetime.combine(datetime.strptime(arrival_ticket_data['display'][0]['arrival_airport']['date'], "%Y-%m-%d"), datetime.min.time())
-                go_back_date = arrival_date + timedelta(days=stay_duration-1)
+                go_back_date = arrival_date + timedelta(days=stay_duration-1) # tanggal CHECKOUT
 
                 #ubah current_date
                 current_date = arrival_date
@@ -275,7 +286,7 @@ class trip_schedule():
                 if i < len(self.detail)-1:
                     print('PINDAH NEGARA')
                     city_origin = self.detail[i+1]['starting_city']
-                    go_back_ticket_data = self.doFlightSearch(arrival_airport, city_origin, go_back_date)
+                    go_back_ticket_data = self.doFlightSearch(arrival_airport, city_origin, go_back_date, 'arrival')
                     # print(str(go_back_ticket_data))
                     departure_airport = go_back_ticket_data['display'][0]['departure_airport']['airport']['code']
                     go_back_hour = go_back_ticket_data['display'][0]['departure_airport']['time'][0:2] + go_back_ticket_data['display'][0]['departure_airport']['time'][3:]
@@ -286,12 +297,15 @@ class trip_schedule():
                     if self.return_here == True or i != len(self.detail)-1:
                         if self.return_here == True:
                             print('PULKAM LAGI')
+                            flight_type = 'go_back'
                         elif i != len(self.detail)-1:
                             print('PINDAH NEGARA')
+                            flight_type = 'arrival'
 
                         city_origin = self.city_origin
 
-                        go_back_ticket_data = self.doFlightSearch(arrival_airport, city_origin, go_back_date)
+                        print('flight_type :' + flight_type)
+                        go_back_ticket_data = self.doFlightSearch(arrival_airport, city_origin, go_back_date, flight_type)
                         # print(str(go_back_ticket_data))
                         departure_airport = go_back_ticket_data['display'][0]['departure_airport']['airport']['code']
                         go_back_hour = go_back_ticket_data['display'][0]['departure_airport']['time'][0:2] + go_back_ticket_data['display'][0]['departure_airport']['time'][3:]
@@ -305,6 +319,9 @@ class trip_schedule():
                 vbreak_stop = break_stop(city=city, first_place=arrival_airport, last_place=departure_airport,
                                         arrival_date=arrival_date, arrival_hour=arrival_hour,
                                         go_back_date=go_back_date, go_back_hour=go_back_hour)
+
+                print("arrival_date : " + str(arrival_date) + " | arrival_hour : " + str(arrival_hour))
+                print("go_back_date : " + str(go_back_date) + " | go_back_hour : " + str(go_back_hour))
 
                 vtrip = trip(break_stop=vbreak_stop, last_airport=last_airport, budget=self.budget,
                             start_hour=self.start_hour, end_hour=self.end_hour,
@@ -419,7 +436,7 @@ class trip_schedule():
                         if i == 0:
                             print('BARU')
                             city_origin = self.city_origin
-                            arrival_ticket_data = self.doFlightSearch(city_origin, city, current_date)
+                            arrival_ticket_data = self.doFlightSearch(city_origin, city, current_date, 'arrival')
                             # print(str(arrival_ticket_data))
                         else:
                             print('LAMA')
@@ -473,16 +490,19 @@ class trip_schedule():
                             print("33333333")
                             if i == len(self.detail)-1:
                                 city_origin = self.city_origin
+                                flight_type = 'go_back'
                                 print('PULKAM')
                             else:
                                 city_origin = self.detail[i+1]['starting_city']
+                                flight_type = 'arrival'
                                 print('PINDAH NEGARA')
 
                             arrival_date = current_date
                             go_back_date = arrival_date + timedelta(days=stay_duration-1)
 
+                            print('flight_type :' + flight_type)
                             go_back_city_code = self.db_access.getAirportByCity(city)
-                            go_back_ticket_data = self.doFlightSearch(go_back_city_code, city_origin, go_back_date)
+                            go_back_ticket_data = self.doFlightSearch(go_back_city_code, city_origin, go_back_date, flight_type)
                             # print(str(go_back_ticket_data))
                             departure_airport = go_back_ticket_data['display'][0]['departure_airport']['airport']['code']
                             go_back_hour = go_back_ticket_data['display'][0]['departure_airport']['time'][0:2] + go_back_ticket_data['display'][0]['departure_airport']['time'][3:]
@@ -518,6 +538,9 @@ class trip_schedule():
                     vbreak_stop = break_stop(city=city, first_place=first_place, last_place=last_place,
                                             arrival_date=arrival_date, arrival_hour=new_arrival_hour,
                                             go_back_date=go_back_date, go_back_hour=new_go_back_hour)
+
+                    print("arrival_date : " + str(arrival_date) + " | arrival_hour : " + str(arrival_hour))
+                    print("go_back_date : " + str(go_back_date) + " | go_back_hour : " + str(go_back_hour))
 
                     vtrip = trip(break_stop=vbreak_stop, last_airport=new_last_airport, budget=self.budget,
                                 start_hour=self.start_hour, end_hour=self.end_hour,
@@ -593,7 +616,7 @@ class trip_schedule():
         self.save_result("result-data/flight_plan.json", self.flight_plan)
         self.save_result("result-data/hotel.json", self.hotel_plan)
         self.save_database()
-        self.send_notif()
+        # self.send_notif()
 
 # # vcity_tour = city_tour('TW','TPE',11)
 # # vcfa = CFA(iteration=1000, pop_size=15, R1=1, R2=-1, V1=2, V2=-2, problem=vcity_tour)
