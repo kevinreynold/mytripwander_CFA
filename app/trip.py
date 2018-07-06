@@ -74,6 +74,7 @@ class trip():
         self.recreation_interest = recreation * self.interest_multiplier * self.like_multiplier if recreation > 0 else recreation * self.interest_multiplier
         self.culture_interest = culture * self.interest_multiplier * self.like_multiplier if culture > 0 else culture * self.interest_multiplier
         self.nature_interest = nature * self.interest_multiplier * self.like_multiplier if nature > 0 else nature * self.interest_multiplier
+
         self.total_interest = 2 * 4 * self.interest_multiplier
 
     def getLowerBound(self):
@@ -319,7 +320,7 @@ class trip():
         # AIRPORT -> HOTEL
         try:
             # urus2 barang di airport sekitar 1 jam
-            first_place_stay_duration = self.airport_stay_dur * 60 if len(self.break_stop.first_place) == 3 else self.hotel_stay_dur * 60
+            first_place_stay_duration = self.airport_stay_dur * 60 if len(self.break_stop.first_place) == 3 else 0
             travel_time_total += first_place_stay_duration
             current_time += timedelta(seconds=first_place_stay_duration)
             list_time.append(first_place_stay_duration)

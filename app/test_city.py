@@ -29,13 +29,15 @@ np.random.seed(777)
 
 # hotel tainan -> Tayih Landis Hotel Tainan ChIJgbQuvnt2bjQR3Opc2ZtWzwU
 
+# datetime.today()+timedelta(days=1)
+
 go_back_hour = "2115"
 trip = trip(break_stop=break_stop(city="TPE", first_place="TPE", last_place="TPE",
-            arrival_date=(datetime.today()+timedelta(days=1)), arrival_hour="1015",
-            go_back_date=(datetime.today()+timedelta(days=3)), go_back_hour=go_back_hour),
+            arrival_date=(datetime(2018,5,18,0,0)), arrival_hour="1015",
+            go_back_date=(datetime(2018,5,20,0,0)), go_back_hour=go_back_hour),
             limit_night_next_day=time(18), budget="low", last_airport=True, start_hour="0800", end_hour="2130",
             must_see=0, recreation=0, culture=0, nature=0) # last_airport = True/False
-cfa = CFA(iteration=50000, pop_size=300, R1=0.55, R2=-0.55, V1=1.5, V2=-1.5, problem=trip)
+cfa = CFA(iteration=10000, pop_size=300, R1=0.25, R2=-0.55, V1=0.5, V2=-1.1, problem=trip)
 cfa.run()
 
 end = datetime.today()
@@ -52,7 +54,6 @@ print("Best Fitness : " + str(1/cfa.best_cell.fitness) +
       " | V1 : " + str(cfa.V1) + " | V2 : " + str(cfa.V2))
 print("Must See : " + str(trip.must_see_interest) + " | Recreation : " + str(trip.recreation_interest) +
       " Culture : " + str(trip.culture_interest) + " | Nature : " + str(trip.nature_interest))
-
 
 print('Route:')
 print(cfa.best_cell.other['route'])
@@ -76,6 +77,10 @@ print(cfa.best_cell.other['stop_sign'])
 print('')
 print('Place Discount Percent:')
 print(cfa.best_cell.other['other']['place_discount_percent'])
+
+print('')
+print('Total Interest')
+print(trip.total_interest)
 
 print('')
 print('Interest Discount Percent:')
