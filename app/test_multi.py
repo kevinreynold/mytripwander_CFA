@@ -1,7 +1,7 @@
 from tripschedule import *
 
 start = datetime.today()
-np.random.seed(0)
+# np.random.seed(0)
 
 db_access = db()
 
@@ -9,7 +9,7 @@ request_data = db_access.getTripScheduleRequestData()
 # print(request_data)
 
 if request_data['header']:
-    trip_schedule = trip_schedule(request_data=request_data, iteration=500)
+    trip_schedule = trip_schedule(request_data=request_data, iteration=50000)
     print(trip_schedule.user_id)
     trip_schedule.run()
 

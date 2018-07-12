@@ -61,10 +61,10 @@ class trip_schedule():
         #cfa
         self.iteration = iteration
         self.pop_size = 200
-        self.R1 = 0.55
+        self.R1 = 0.25
         self.R2 = -0.55
-        self.V1 = 1
-        self.V2 = -1
+        self.V1 = 5
+        self.V2 = -1.1
 
         #flight
         self.flight_plan = []
