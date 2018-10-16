@@ -6,7 +6,7 @@ from CFA import CCells, CFA
 import numpy as np
 
 #test case
- # 1. datang malam sampai dihotel malaml lanjut besok
+ # 1. datang malam sampai dihotel malam lanjut besok
  # 2. datang malam sampai di hotel subuh2
  # 3. datang subuh lanjut paginya
  # 4. datang pagi
@@ -33,11 +33,11 @@ np.random.seed(777)
 
 go_back_hour = "2115"
 trip = trip(break_stop=break_stop(city="TPE", first_place="TPE", last_place="TPE",
-            arrival_date=(datetime(2018,5,18,0,0)), arrival_hour="1015",
-            go_back_date=(datetime(2018,5,20,0,0)), go_back_hour=go_back_hour),
+            arrival_date=(datetime(2018,11,18,0,0)), arrival_hour="1015",
+            go_back_date=(datetime(2018,11,20,0,0)), go_back_hour=go_back_hour),
             limit_night_next_day=time(18), budget="low", last_airport=True, start_hour="0800", end_hour="2130",
             must_see=0, recreation=0, culture=0, nature=0) # last_airport = True/False
-cfa = CFA(iteration=10000, pop_size=300, R1=0.25, R2=-0.55, V1=0.5, V2=-1.1, problem=trip)
+cfa = CFA(iteration=50000, pop_size=3000, R1=0.5, R2=-0.5, V1=1, V2=-1, problem=trip)
 cfa.run()
 
 end = datetime.today()

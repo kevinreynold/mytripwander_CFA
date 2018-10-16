@@ -60,11 +60,11 @@ class trip_schedule():
 
         #cfa
         self.iteration = iteration
-        self.pop_size = 200
-        self.R1 = 0.25
-        self.R2 = -0.55
-        self.V1 = 5
-        self.V2 = -1.1
+        self.pop_size = 300
+        self.R1 = 0.5
+        self.R2 = -0.5
+        self.V1 = 1
+        self.V2 = -1
 
         #flight
         self.flight_plan = []
@@ -204,6 +204,27 @@ class trip_schedule():
 
         self.db_access.updateDoneAtTripSchedule(schedule_id=str(schedule_id), done_at=created_at)
 
+    def try_send_notif(self):
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'key=AAAAWN_fPMk:APA91bGnOj0MsFIWy5W4XbGAeeAghOLaLG1NICp0LAdvdpWcjERANcSqpv9kMPJp2p-AyxKhZXkIQLn7g19Etve8CxEgl-zIUAAtNkgDNfpTVxhajRqOqpKm0z9bRGY-LZaAzYfY1AHQ'
+        }
+
+        current_user = self.db_access.getUserData(self.user_id)
+        device_token = str(current_user['device_token'])
+
+        notif_data = {
+         "to" : device_token,
+         "notification" : {
+             "title" : "Your itinerary is ready",
+             "body": '5 Days Trip | Test 123'
+         },
+        }
+
+        url = "https://fcm.googleapis.com/fcm/send"
+        data = requests.post(url, json=notif_data, headers=headers)
+        print('Push Notification Success!')
+
     def send_notif(self):
         total_days_trip = 0
         for i in range(len(self.trip_plan_data['list_destination'])):
@@ -220,7 +241,9 @@ class trip_schedule():
             'Authorization': 'key=AAAAWN_fPMk:APA91bGnOj0MsFIWy5W4XbGAeeAghOLaLG1NICp0LAdvdpWcjERANcSqpv9kMPJp2p-AyxKhZXkIQLn7g19Etve8CxEgl-zIUAAtNkgDNfpTVxhajRqOqpKm0z9bRGY-LZaAzYfY1AHQ'
         }
 
-        device_token = "eay5Vd5HTtQ:APA91bGeQan6URkfE6EOVrQQY9pGfKCXTzgn5Du_4WEqvsBOyttZpwwQlbnRgfDgOKHTfoaabMoZxfzFWJLNfsBZgP96Beza9Jgx9ZswdQlkhkic4oJFNWD_7NEBNkuNU-yTEQqcktHY"
+        current_user = self.db_access.getUserData(self.user_id)
+        device_token = str(current_user['device_token'])
+
         notif_data = {
          "to" : device_token,
          "notification" : {
@@ -341,11 +364,40 @@ class trip_schedule():
 
                 tt.sleep(15)
 
+                print('Route:')
+                print(vcfa.best_cell.other['route'])
+
                 list_dest_trip = vtrip.showResultNew(vcfa.best_cell.other['route'], vcfa.problem.start_date, offset_day)
+
+
+                print('')
+                print('List Penalty Index:')
                 print(vcfa.best_cell.other['misc'])
+
+                print('')
+                print('List Penalty:')
                 print(vcfa.best_cell.other['is_too_late'])
-                print(vcfa.best_cell.other['misc2'])
-                print(vcfa.best_cell.other['last_place_id'])
+
+                print('')
+                print('Total Place:')
+                print(vcfa.best_cell.other['stop_sign'])
+
+                print('')
+                print('Place Discount Percent:')
+                print(vcfa.best_cell.other['other']['place_discount_percent'])
+
+                print('')
+                print('Total Interest')
+                print(vtrip.total_interest)
+
+                print('')
+                print('Interest Discount Percent:')
+                print(vcfa.best_cell.other['other']['interest_discount_percent'])
+
+                # print(vcfa.best_cell.other['misc'])
+                # print(vcfa.best_cell.other['is_too_late'])
+                # print(vcfa.best_cell.other['misc2'])
+                # print(vcfa.best_cell.other['last_place_id'])
 
                 #simpan hotel
                 hotel_id = str(vcfa.best_cell.other['misc2'])
@@ -560,11 +612,39 @@ class trip_schedule():
 
                     tt.sleep(15)
 
+                    print('Route:')
+                    print(vcfa.best_cell.other['route'])
+
                     list_dest_trip = vtrip.showResultNew(vcfa.best_cell.other['route'], vcfa.problem.start_date, offset_day)
+
+                    print('')
+                    print('List Penalty Index:')
                     print(vcfa.best_cell.other['misc'])
+
+                    print('')
+                    print('List Penalty:')
                     print(vcfa.best_cell.other['is_too_late'])
-                    print(vcfa.best_cell.other['misc2'])
-                    print(vcfa.best_cell.other['last_place_id'])
+
+                    print('')
+                    print('Total Place:')
+                    print(vcfa.best_cell.other['stop_sign'])
+
+                    print('')
+                    print('Place Discount Percent:')
+                    print(vcfa.best_cell.other['other']['place_discount_percent'])
+
+                    print('')
+                    print('Total Interest')
+                    print(vtrip.total_interest)
+
+                    print('')
+                    print('Interest Discount Percent:')
+                    print(vcfa.best_cell.other['other']['interest_discount_percent'])
+
+                    # print(vcfa.best_cell.other['misc'])
+                    # print(vcfa.best_cell.other['is_too_late'])
+                    # print(vcfa.best_cell.other['misc2'])
+                    # print(vcfa.best_cell.other['last_place_id'])
 
                     #simpan hotel
                     hotel_id = str(vcfa.best_cell.other['misc2'])

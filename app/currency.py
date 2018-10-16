@@ -32,6 +32,10 @@ list_currency = db_access.getAllCurrency()
 
 updateCurrencyDaily(list_currency)
 
+now = datetime.today().strftime("%d/%m/%y %H:%M")
+f = open("updatecurrency_log.txt", "a")
+f.write("Update Success at " + now + "\n")
+
 
 # for currency in list_currency:
 #     currency_id = str(currency['id'])

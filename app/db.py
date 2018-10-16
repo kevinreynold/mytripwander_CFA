@@ -276,6 +276,13 @@ class db():
         finally:
             print("Success update tripschedule!!")
 
+    def getUserData(self, user_id):
+        with self.conn.cursor() as cursor:
+            sql = "SELECT * FROM user where id = %s"
+            cursor.execute(sql, (user_id))
+            result = cursor.fetchone()
+            return result
+
     def getAllCurrency(self):
         with self.conn.cursor() as cursor:
             sql = "SELECT * FROM currency"

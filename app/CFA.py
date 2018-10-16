@@ -76,7 +76,7 @@ class CFA():
 
             #case 1 & 2 (GLOBAL SEARCH)
             for i in range(len(self.first_group)):
-                reflection = np.add(np.random.uniform(self.R1,self.R2,self.problem.getDimension()), self.first_group[i].points)
+                reflection = np.multiply(np.random.uniform(self.R1,self.R2,self.problem.getDimension()), self.first_group[i].points)
                 visibility = np.subtract(self.best_cell.points, self.first_group[i].points)
 
                 new_cell_points = np.add(reflection, visibility)
@@ -195,4 +195,4 @@ class CFA():
                     self.fourth_group[i] = copy.copy(new_cell)
 
             # print("Best Fitness Iterasi " + str(itr + 1) + ": " + self.problem.convertFitnessValue(self.best_cell.fitness) + " | "+str(self.best_cell.other['time']) + " | " + str(self.best_cell.other['stop_sign'] + 1))
-            # print("Best Fitness Iterasi " + str(itr + 1) + ": " + str(1/self.best_cell.fitness) + " | "+str(self.best_cell.other['time']) + " | " + str(self.best_cell.other['stop_sign']))
+            print("Best Fitness Iterasi " + str(itr + 1) + ": " + str(1/self.best_cell.fitness) + " | "+str(self.best_cell.other['time']) + " | " + str(self.best_cell.other['stop_sign']))
