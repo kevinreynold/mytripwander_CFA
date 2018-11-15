@@ -8,8 +8,8 @@ from datetime import datetime, date, time, timedelta
 
 class flight_api():
     def __init__(self, trip_class, adults, children, origin, destination, start_date, return_date=None, round_trip=False):
-        self.token = "0852ce5f48b5d4158ed28dd23e7ddd44"
-        self.marker = "143764"
+        self.token = ""
+        self.marker = ""
         self.host = "mytripwander.com"
         self.user_ip = "127.0.0.1"
         self.locale = "en"

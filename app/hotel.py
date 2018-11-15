@@ -9,8 +9,8 @@ from datetime import datetime, date, time, timedelta
 class hotel_api():
     def __init__(self, adults=1, children=0, checkIn="", checkOut= "", query=""):
         # hotel bisa kasih tau kalo ndak ada kamar yang tersedia
-        self.token = "0852ce5f48b5d4158ed28dd23e7ddd44"
-        self.marker = "143764"
+        self.token = ""
+        self.marker = ""
         self.customerIP = "127.0.0.1"
         self.lang = "en"
         self.currency = "RUB"
